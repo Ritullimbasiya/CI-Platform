@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>story-detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="allpagestyle.css">
+</head>
+
+<body>
+    <div class="body-1">
+        <div class="body-2">
+            <div class="nevbar-1" style="height:43px;">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid" style="padding:0px;justify-content:initial;">
+                        <button class="navbar-toggler pad1" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <button class="pad9" type="submit"><i class="bi bi-search"></i></button>
+                        <span class="navbar-toggler pad1 pad01" style="margin-left:4px;">
+                            <form class="form-horizontal">
+                                <input type="search" class="form-control pad0" placeholder=" &#xF002; Search Mission"
+                                    aria-label="Search" />
+                            </form>
+                        </span>
+                        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addmission"
+                            aria-controls="addmission"
+                            class="form-control rounded-pill btn btn-outline-warning font navbar-toggler pad2">submit
+                            <img src="./assets/right-arrow.png" alt="Error" style="width: 12px;">
+                        </button>
+                        <span class="navbar-toggler pad3">
+                            <img src="./assets/volunteer1.png" width="30" height="30"
+                                class="d-inline-block rounded-circle" alt="">
+                        </span>
+                        <button class="navbar-toggler pad4" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <i class="bi bi-sliders2-vertical"></i>
+                        </button>
+
+                        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
+                            id="navbarSupportedContent" aria-labelledby="offcanvasExampleLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                Explore
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Top Themes <i
+                                                            class="bi bi-chevron-right float-end"></i></a>
+                                                    <ul class="submenu dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">Education</a></li>
+                                                        <li><a class="dropdown-item" href="#">Children</a></li>
+                                                        <li><a class="dropdown-item" href="#">Helth</a></li>
+                                                        <li><a class="dropdown-item" href="#">Animals</a></li>
+                                                        <li><a class="dropdown-item" href="#">Nutritions</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#">Top Country <i
+                                                            class="bi bi-chevron-right float-end"></i></a>
+                                                    <ul class="submenu dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">India</a></li>
+                                                        <li><a class="dropdown-item" href="#">Italy</a></li>
+                                                        <li><a class="dropdown-item" href="#">Switzerland</a></li>
+                                                        <li><a class="dropdown-item" href="#">Canada</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ireland</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#">Top Organisation <i
+                                                            class="bi bi-chevron-right"></i></a>
+                                                    <ul class="submenu dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">WHO</a></li>
+                                                        <li><a class="dropdown-item" href="#">APHA</a></li>
+                                                        <li><a class="dropdown-item" href="#">TCC</a></li>
+                                                        <li><a class="dropdown-item" href="#">NIH</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#">Most Ranked</a></li>
+                                                <li><a class="dropdown-item" href="#">Top Favourite</a></li>
+                                                <li><a class="dropdown-item" href="#">Recommended</a></li>
+                                                <li><a class="dropdown-item" href="#">Random</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" aria-current="page" href="#">Stories </a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                Policy
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Volunteering</a></li>
+                                                <li><a class="dropdown-item" href="#">Sponsored</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+                                    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addmission"
+                                        aria-controls="addmission"
+                                        class="form-control rounded-pill btn btn-outline-warning font"
+                                        style="width:auto;font-size: 12px;margin-right: 16px;">Submit New Mission
+                                        <img src="./assets/right-arrow.png" alt="Error" style="width: 12px;">
+                                    </button>
+                                    <a class="navbar-brand d-flex" href="#">
+                                        <img src="./assets/user-img.png" alt="Avatar" class="pro-img">
+                                    </a>
+                                    <ul class="navbar-nav  mb-2 mb-lg-0">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false" style="padding:0px;">
+                                                Ritul
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                                                <li><a class="dropdown-item" href="#">My Account</a></li>
+                                                <li><a class="dropdown-item" href="#">Help Center</a></li>
+                                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg ">
+            <div class="container-fluid border">
+                <div class="body-2" style="display:flex;">
+                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="navbarScroll"
+                        aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="navbar-collapse" id="navbarScroll">
+                                <form class="form-horizontal me-auto mb-2 mb-lg-0 d-none d-lg-block  ">
+                                    <input type="search" class="form-control"
+                                        style="width:auto; border: 0px; font-family:Arial, FontAwesome;"
+                                        placeholder="&#128269; Search Mission" aria-label="Search" />
+                                </form>
+                                <div class="vr cardcontainer19"></div>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19" style="float: right;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Country
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">India</a></li>
+                                            <li><a class="dropdown-item" href="#">Italy</a></li>
+                                            <li><a class="dropdown-item" href="#">Switzerland</a></li>
+                                            <li><a class="dropdown-item" href="#">Canada</a></li>
+                                            <li><a class="dropdown-item" href="#">Ireland</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="vr cardcontainer19"></div>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19" style="float: right;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            City
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Tirana</label></a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Durres</label></a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Shakodar</label></a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Amreli</label></a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Rajkot</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="vr cardcontainer19"></div>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19" style="float: right;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Theme
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Education</label></a></li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Children</label></a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Health</label></a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Animals</label></a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Nutritions</label></a></li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Environment</label></a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="vr cardcontainer19"></div>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19" style="float: right;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Skills
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Anthropology</label></a></li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Archelogy</label></a></li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Astronomy</label></a></li>
+                                            <li><a class="dropdown-item" href="#"><label><input type="checkbox">Computer
+                                                        Science</label></a></li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">History</label></a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#"><label><input
+                                                            type="checkbox">Reserch</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="vr cardcontainer19"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="body-2">
+            <div class="row  container25" style="margin:0px;">
+                <div class="col-6 container26" style="padding:0px;">
+                    <img src="./assets/image2.png" alt="Error" style="width:100%;">
+
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row" style="margin:0px;">
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (2).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (4).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (5).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy.png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png"
+                                            alt="First slide">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row" style="margin:0px;">
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (2).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (3).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (4).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (5).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy.png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png"
+                                            alt="First slide">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row" style="margin:0px;">
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (2).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (3).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (4).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (5).png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy.png"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col container20">
+                                        <img class="d-block w-100"
+                                            src="./assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png"
+                                            alt="First slide">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"
+                            style="background-color: black; width: 15px;">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
+                            style="background-color: black; width: 15px;">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 container26" style="padding:0px;">
+                    <div class="body-5">
+                        <div class="row pad7">
+                            <div class="col">
+                                <img style="width: 38px;height: 38px;border-radius: 100%;" src="./assets/volunteer2.png"
+                                    alt="Error">
+                                <p style="font-size:10px;">Charles Vigue</p>
+                            </div>
+                            <div class="col pad8">
+                                <button class="container21" style="border: solid 1px #e8e8e8;">
+                                    <img src="./assets/eye.png" alt="Error" style="width: 12px;">
+                                    <span class="container22">12,000 Views</span>
+                                </button>
+                            </div>
+                        </div>
+                        <p style="font-size:10px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla illo
+                            maiores provident quia
+                            maxime voluptas.</p>
+                        <p style="font-size:10px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus
+                            porro, aut, nesciunt iste
+                            numquam inventore nemo sapiente dolorem doloremque fuga magni cupiditate.</p>
+                        <p style="font-size:10px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis
+                            eum tenetur facilis
+                            provident recusandae sapiente placeat consequuntur ipsa veniam ullam ipsam nobis sed harum
+                            molestiae eius, a nam expedita voluptates!</p>
+                        <div class="row pad5">
+                            <div class="col"><button class="container21">
+                                    <img src="./assets/Already-volunteered.png" alt="Error" style="width: 12px;">
+                                    <span class="container22">Recommend to a Co-Worker</span></button>
+                            </div>
+                            <div class="col pad6"><button
+                                    style="border-radius: 15px;width: auto;border: 1px solid darkorange;color: darkorange;background-color: white;">
+                                    <span class="container22">Open Mission</span>
+                                    <img src="./assets/right-arrow.png" alt="Error" style="width: 12px;"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text">
+                <h3 style="font-size:14px;margin-top: 20px;">Grow Tress - On the path to environment sustainbility</h3>
+                <hr>
+                <p style="font-size: 10px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat aut cum
+                    iusto earum fugiatvoluptatibus!</p>
+                <p style="font-size: 10px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos voluptate
+                    minima distinctio. Quia, corrupti obcaecati error dolores nulla eaque esse minus delectus
+                    consectetur nam doloribus consequuntur maiores, similique officia, id ex? Ab dicta esse nemo
+                    quisquam odit ducimus laborum, deleniti molestiae omnis commodi maiores ipsum vel dignissimos
+                    aperiam facilis magni perspiciatis autem quos tempore fuga illo? Sequi ipsa ipsum architecto, quia
+                    non dolorum eligendi, dolore magni provident magnam est velit dolores tenetur alias ea consectetur.
+                </p>
+                <p style="font-size: 10px;">We use these technologies for a number of purposes, such as:</p>
+                <ul style="font-size: 10px;">
+                    <li>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain.
+                    </li>
+                    <li>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                        deleniti atque</li>
+                    <li>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled
+                        and demoralized</li>
+                    <li>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
+                    </li>
+                </ul>
+                <p style="font-size: 10px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto
+                    voluptas sint debitis ullam dolorum reprehenderit iure modi natus omnis aliquid officiis ad
+                    reiciendis harum fugiat, nesciunt dignissimos. Optio ducimus quia nulla eligendi nesciunt, mollitia
+                    laudantium non numquam vero assumenda quod accusamus cumque a necessitatibus eius, odio illum harum
+                    debitis perferendis.</p>
+            </div>
+        </div>
+        <hr style="margin-top:35px;">
+        <div class="body-2">
+            <a class="page-link" style="font-size: 10px;color: blue;" href="#">Privacy Policy</a>
+        </div>
+    </div>
+    </div>
+
+    <!-- ******************************** -->
+    <!-- Add Skills -->
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="addmission"
+        aria-labelledby="addmissionLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="addmission">Add New Mission</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                <div class="row" style="margin:18px 0px;font-size: 10px;">
+                    <div class="col-6" style="padding:0px 15px 0px 0px;">
+                        <label for="Country">City*</label><br>
+                        <select name="Country" id="Country" class="sherescontainer1">
+                            <option value="">Select your City</option>
+                            <option value="India">Amreli</option>
+                            <option value="Italy">Rajkot</option>
+                            <option value="Switzerland">Surat</option>
+                            <option value="Canada">Ahmedabad</option>
+                        </select>
+                    </div>
+                    <div class="col-6" style="padding:0px 15px 0px 0px;">
+                        <label for="Country">Country*</label><br>
+                        <select name="Country" id="Country" class="sherescontainer1">
+                            <option value="">Select your Country</option>
+                            <option value="India">India</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Ireland">Ireland</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="padding:0px 15px 0px 0px;margin:18px 0px;font-size: 10px;">
+                    <label for="Mission Title" style="padding:0px;">Mission Title</label><br>
+                    <input type="text" id="Mission Title" name="Mission Title" placeholder="Enter Mission Title"
+                        class="sherescontainer1">
+                </div>
+                <div class="row" style="margin:18px 0px; font-size: 10px;">
+                    <label for="Mission Description" style="padding:0px;">Mission Description</label><br>
+                    <textarea id="Mission Description" name="Mission Description" placeholder="Enter your message..."
+                        style="width:100%;height:100px;border: 1px solid #d9d9d9;box-shadow: none;resize: none;"></textarea>
+                </div>
+                <div class="row" style="padding:0px 15px 0px 0px;margin:18px 0px;font-size: 10px;">
+                    <label for="mon" style="padding:0px;">Mission Organisation Name</label><br>
+                    <input type="text" id="mon" name="mon" placeholder="Enter mission organisation name"
+                        class="sherescontainer1">
+                </div>
+                <div class="row" style="margin:18px 0px; font-size: 10px;">
+                    <label for="mod" style="padding:0px;">Mission Organisation Detail</label><br>
+                    <textarea id="mod" name="mod" placeholder="Enter your message"
+                        style="width:100%;height:100px;border: 1px solid #d9d9d9;box-shadow: none;resize: none;"></textarea>
+                </div>
+                <div class="row" style="padding:0px 15px 0px 0px;margin:18px 0px;font-size: 10px;">
+                    <label for="Start Date" style="padding:0px;">Start Date</label><br>
+                    <input type="Date" id="Start Date" name="Start Date" class="sherescontainer1">
+                </div>
+                <div class="row" style="padding:0px 15px 0px 0px;margin:18px 0px;font-size: 10px;">
+                    <label for="End Date" style="padding:0px;">End Date</label><br>
+                    <input type="date" id="End Date" name="End Date" class="sherescontainer1">
+                </div>
+                <div class="row" style="padding:0px 15px 0px 0px;margin:18px 0px;font-size: 10px;">
+                    <label for="Total seats" style="padding:0px;">Total seats</label><br>
+                    <input type="text" id="Total seats" name="Total seats" placeholder="Enter total seats"
+                        class="sherescontainer1">
+                </div>
+                <div class="row" style="padding:0px 15px 0px 0px;margin:18px 0px;font-size: 10px;">
+                    <label for="mrd" style="padding:0px;">Mission registration deadline</label><br>
+                    <input type="text" id="mrd" name="mrd" placeholder="Enter mission registration deadline"
+                        class="sherescontainer1">
+                </div>
+                <div class="row" style="padding:0px 15px 0px 0px;margin:18px 0px;font-size: 10px;">
+                    <label for="mSkills" style="padding:0px;">Mission Skills</label><br>
+                    <select name="mSkills" id="mSkills" class="sherescontainer1">
+                        <option value="">Select mission Skills</option>
+                        <option value="Anthropology">Anthropology</option>
+                        <option value="Archeology">Archeology</option>
+                        <option value="se">Science Environmental </option>
+                        <option value="Science">Science</option>
+                        <option value="History">History</option>
+                        <option value="Mathematics">Mathematics</option>
+                    </select>
+                </div>
+                <div class="row" style="padding:0px 15px 0px 0px;margin:18px 0px;font-size: 10px;">
+                    <label for="mTheme" style="padding:0px;">Mission Theme</label><br>
+                    <select name="mTheme" id="mTheme" class="sherescontainer1">
+                        <option value="">Select mission theme</option>
+                        <option value="Newest">Newest</option>
+                        <option value="Oldest">Oldest</option>
+                        <option value="Lowest">Lowest available seats</option>
+                        <option value="Highest">Highest available seats</option>
+                        <option value="fevorite">Short by my fevorite</option>
+                        <option value="deadline">Short by deadline</option>
+                    </select>
+                </div>
+                <div class="row" style="margin:18px 0px; font-size: 10px;">
+                    <label for="mod" style="padding:0px;">Mission Organisation Detail</label><br>
+                    <div style="width:100%;height:100px;border: 1px solid #d9d9d9;box-shadow: none;">
+                        <div style="text-align:center;">
+                            <button type="submit" style="background-color: white;border: none;"><i
+                                    class="bi bi-cloud-arrow-up mb-4" style="font-size:30px;"></i></button>
+                            <p>Upload image here</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin:18px 0px; font-size: 10px;">
+                    <label for="mod" style="padding:0px;">Mission Documents</label><br>
+                    <div style="width:100%;height:100px;border: 1px solid #d9d9d9;box-shadow: none;">
+                        <div style="text-align:center;">
+                            <button type="submit" style="background-color: white;border: none;"><i
+                                    class="bi bi-cloud-arrow-up mb-4" style="font-size:30px;"></i></button>
+                            <p>Drag and drop resume here or click*</p>
+                        </div>
+                    </div><br>
+                    <label for="abc" style="padding:0px;color: #757575;font-size:8px;">Allowed file types: PDF,
+                        Doc</label>
+                </div>
+                <div class="row" style="padding:0px 15px 0px 0px;margin:18px 0px;font-size: 10px;">
+                    <label for="mAvailability" style="padding:0px;">Mission Availability</label><br>
+                    <select name="mAvailability" id="mAvailability" class="sherescontainer1">
+                        <option value="">Select availability</option>
+                        <option value="Newest">Newest</option>
+                        <option value="Oldest">Oldest</option>
+                        <option value="Lowest">Lowest available seats</option>
+                        <option value="Highest">Highest available seats</option>
+                        <option value="fevorite">Short by my fevorite</option>
+                        <option value="deadline">Short by deadline</option>
+                    </select>
+                </div>
+                <div class="row" style="margin:18px 0px;display:block;text-align:start;">
+                    <button type="submit"
+                        class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">cancel</button>
+                    <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                        style="width:auto;font-size: 12px;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ********************************* -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
