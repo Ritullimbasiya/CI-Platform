@@ -21,27 +21,29 @@
             <div class="nevbar-1" style="height:43px;">
                 <nav class="navbar navbar-expand-lg">
                     <div class="container-fluid" style="padding:0px;justify-content:initial;">
-                        <button class="navbar-toggler pad1" type="button" data-bs-toggle="offcanvas"
+                        <button class="navbar-toggler pad1 pe-2" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <button class="pad9" type="submit"><i class="bi bi-search"></i></button>
-                        <span class="navbar-toggler pad1 pad01" style="margin-left:4px;">
-                            <form class="form-horizontal">
-                                <input type="search" class="form-control pad0" placeholder=" &#xF002; Search Mission"
-                                    aria-label="Search" />
-                            </form>
-                        </span>
                         <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addmission"
                             aria-controls="addmission"
-                            class="form-control rounded-pill btn btn-outline-warning font navbar-toggler pad2">submit
-                            <img src="./assets/right-arrow.png" alt="Error" style="width: 12px;">
+                            class="form-control rounded-pill btn btn-outline-warning font navbar-toggler"
+                            style="width:auto;font-size: 12px;margin-right: 16px;">Submit New Mission
+                            <i class="bi bi-arrow-right ps-1"></i>
                         </button>
-                        <span class="navbar-toggler pad3">
-                            <img src="./assets/volunteer1.png" width="30" height="30"
-                                class="d-inline-block rounded-circle" alt="">
-                        </span>
+                        <div class="dropdown navbar-toggler">
+                            <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
+                                <img src="./assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                    class="rounded-circle">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </div>
                         <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
                             id="navbarSupportedContent" aria-labelledby="offcanvasExampleLabel">
                             <div class="offcanvas-header">
@@ -52,47 +54,6 @@
                             <div class="offcanvas-body">
                                 <div class="navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                Explore
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Top Themes <i
-                                                            class="bi bi-chevron-right float-end"></i></a>
-                                                    <ul class="submenu dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#">Education</a></li>
-                                                        <li><a class="dropdown-item" href="#">Children</a></li>
-                                                        <li><a class="dropdown-item" href="#">Helth</a></li>
-                                                        <li><a class="dropdown-item" href="#">Animals</a></li>
-                                                        <li><a class="dropdown-item" href="#">Nutritions</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a class="dropdown-item" href="#">Top Country <i
-                                                            class="bi bi-chevron-right float-end"></i></a>
-                                                    <ul class="submenu dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#">India</a></li>
-                                                        <li><a class="dropdown-item" href="#">Italy</a></li>
-                                                        <li><a class="dropdown-item" href="#">Switzerland</a></li>
-                                                        <li><a class="dropdown-item" href="#">Canada</a></li>
-                                                        <li><a class="dropdown-item" href="#">Ireland</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a class="dropdown-item" href="#">Top Organisation <i
-                                                            class="bi bi-chevron-right"></i></a>
-                                                    <ul class="submenu dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#">WHO</a></li>
-                                                        <li><a class="dropdown-item" href="#">APHA</a></li>
-                                                        <li><a class="dropdown-item" href="#">TCC</a></li>
-                                                        <li><a class="dropdown-item" href="#">NIH</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a class="dropdown-item" href="#">Most Ranked</a></li>
-                                                <li><a class="dropdown-item" href="#">Top Favourite</a></li>
-                                                <li><a class="dropdown-item" href="#">Recommended</a></li>
-                                                <li><a class="dropdown-item" href="#">Random</a></li>
-                                            </ul>
-                                        </li>
                                         <li class="nav-item">
                                             <a class="nav-link active" aria-current="page" href="#">Stories </a>
                                         </li>
@@ -107,30 +68,26 @@
                                             </ul>
                                         </li>
                                     </ul>
-
                                     <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addmission"
                                         aria-controls="addmission"
                                         class="form-control rounded-pill btn btn-outline-warning font"
                                         style="width:auto;font-size: 12px;margin-right: 16px;">Submit New Mission
-                                        <img src="./assets/right-arrow.png" alt="Error" style="width: 12px;">
+                                        <i class="bi bi-arrow-right ps-1"></i>
                                     </button>
-                                    <a class="navbar-brand d-flex" href="#">
-                                        <img src="./assets/user-img.png" alt="Avatar" class="pro-img">
-                                    </a>
-                                    <ul class="navbar-nav  mb-2 mb-lg-0">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false" style="padding:0px;">
-                                                Ritul
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                                                <li><a class="dropdown-item" href="#">My Account</a></li>
-                                                <li><a class="dropdown-item" href="#">Help Center</a></li>
-                                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                    <div class="dropdown">
+                                        <a href="#"
+                                            class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
+                                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="./assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                                class="rounded-circle">
+                                            <span class="d-none d-sm-inline mx-1">Ritul</span>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                            <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -414,9 +371,9 @@
             </div>
         </div>
     </div>
-
     <!-- ******************************** -->
-    <!-- Add Skills -->
+
+    <!-- Add Mission -->
     <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="addmission"
         aria-labelledby="addmissionLabel">
         <div class="offcanvas-header">
