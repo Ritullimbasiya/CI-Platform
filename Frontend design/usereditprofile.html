@@ -58,9 +58,9 @@
                                             <a class="nav-link active" aria-current="page" href="#">Stories </a>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                Policy
+                                            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                Policy <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item" href="#">Volunteering</a></li>
@@ -75,12 +75,12 @@
                                         <i class="bi bi-arrow-right ps-1"></i>
                                     </button>
                                     <div class="dropdown">
-                                        <a href="#"
-                                            class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
+                                        <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                                             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                             <img src="./assets/user-img.png" alt="hugenerd" width="30" height="30"
                                                 class="rounded-circle">
-                                            <span class="d-none d-sm-inline mx-1">Ritul</span>
+                                            <span class="d-none d-sm-inline mx-1">Ritul <i
+                                                    class="bi bi-chevron-down ps-1" style="font-size:12px;"></i></span>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                                             <li><a class="dropdown-item" href="#">My Profile</a></li>
@@ -207,16 +207,13 @@
                     </div>
                     <div class="row" style="margin:18px 0px;display:block;">
                         <button type="submit" data-bs-toggle="offcanvas" data-bs-target="#addskills"
-                            class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">Add
+                            class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10">Add
                             Skills</button>
                         <button type="submit" data-bs-toggle="offcanvas" data-bs-target="#changepassword"
                             aria-controls="changepassword"
-                            class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">Change
+                            class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10">Change
                             Password</button>
-                        <button type="submit" data-bs-toggle="offcanvas" data-bs-target="#contactus"
-                            aria-controls="contactus"
-                            class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">Contact
-                            Us</button>
+
                     </div>
                     <div class="row" style="margin:18px 0px;display:block;">
                         <button type="submit"
@@ -227,7 +224,10 @@
         </div>
         <hr style="margin-top:35px;">
         <div class="body-2">
-            <a class="page-link" style="color:blue;font-size: 10px;" href="#">Privacy Policy</a>
+            <a href="#" class="hover">Privacy Policy</a>
+            <a href="#" class="hover ps-4" data-bs-toggle="offcanvas" data-bs-target="#contactus"
+                aria-controls="contactus">Contact
+                Us</a>
         </div>
     </div>
 

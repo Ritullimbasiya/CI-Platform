@@ -37,6 +37,16 @@
     width: 100%;
 }
 
+.imgheight {
+    height: 100vh;
+}
+
+@media (max-width: 769px) {
+    .imgheight {
+        height: auto;
+    }
+}
+
 .rppolicy {
     text-align: center;
     padding-top: 30%;
@@ -57,6 +67,8 @@
 .hover {
     color: black;
     text-decoration: none;
+    padding-bottom: 25px;
+    font-size: 12px;
 }
 
 .hover:hover {
@@ -131,10 +143,10 @@
     color: #757575;
 }
 
-.card-body {
+/* .card-body {
     margin-left: auto;
     margin-right: auto;
-}
+} */
 
 .cardcontainer2 {
     float: right;
@@ -268,11 +280,11 @@
 
 @media (min-width:769px) and (max-width: 912px) {
     .cardcontainer2 {
-        font-size: 6px;
+        font-size: 8px;
     }
 }
 
-@media (min-width:769px) and (max-width:868px) {
+/* @media (min-width:769px) and (max-width:868px) {
     .cardcontainer9 {
         font-size: 6px;
     }
@@ -282,13 +294,13 @@
     .cardcontainer9 {
         font-size: 7px;
     }
-}
+} */
 
-@media (min-width:978px) and (max-width:1030px) {
+/* @media (min-width:978px) and (max-width:1030px) {
     .cardcontainer9 {
         font-size: 8px;
     }
-}
+} */
 
 .cardcontainer17 {
     color: #757575;
@@ -312,10 +324,6 @@
 @media (max-width:992px) {
     .cardcontainer19 {
         display: contents;
-    }
-
-    .vr {
-        display: none;
     }
 }
 
@@ -691,9 +699,21 @@
     padding-left: 25%;
     padding-right: 25%;
     padding-top: 8%;
-    font-size: 10px;
+    font-size: 13px;
     color: white;
     text-align: center;
+}
+
+@media (max-width:730px) {
+    .listcontainer2 {
+        font-size: 10px;
+    }
+}
+
+@media (max-width:550px) {
+    .Banner {
+        height: 170px;
+    }
 }
 
 .listcontainer3 {
@@ -705,12 +725,6 @@
     font-size: 10px;
     background-color: black;
     border-radius: 18px;
-}
-
-@media (max-width:769px) {
-    .listcontainer3 {
-        display: none;
-    }
 }
 
 .listcontainer4 {
@@ -748,6 +762,20 @@
     color: #757575;
     border: 1px solid #d9d9d9;
     height: 30px;
+    padding-left: 10px;
+}
+
+.Banner {
+    position: relative;
+    margin: 0px;
+}
+
+@media (max-width:730px) {
+    .Banner {
+        position: relative;
+        margin: 0px;
+    }
+
 }
 
 /* .sherescontainer2 {
@@ -782,7 +810,7 @@
     width: 100%;
     border: 1px solid #d9d9d9;
     height: 30px;
-    padding: 0px;
+    padding-left: 10px;
 }
 
 .sherescontainer5 {
