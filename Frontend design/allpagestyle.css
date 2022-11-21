@@ -975,3 +975,13 @@
         height: 181px;
     }
 }
+
+.sidebar {
+    color: white;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: orange;
+    background-color: white;
+}
