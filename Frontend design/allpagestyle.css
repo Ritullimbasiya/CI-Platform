@@ -924,6 +924,47 @@
     height: 181px;
 }
 
+#addCMS {
+    left: 10%;
+    width: 70%;
+}
+
+#editCMS {
+    left: 10%;
+    width: 70%;
+}
+
+#missionadd {
+    left: 10%;
+    width: 70%;
+}
+
+#editmission {
+    left: 10%;
+    width: 70%;
+}
+
+#themeadd {
+    left: 25%;
+    width: 50%;
+    top: 12%;
+    bottom: 35%;
+}
+
+#skilladd {
+    left: 25%;
+    width: 50%;
+    top: 12%;
+    bottom: 35%;
+}
+
+#applicationadd {
+    left: 25%;
+    width: 50%;
+    top: 12%;
+    bottom: 35%;
+}
+
 @media (max-width:769px) {
     .ueditcontainer1 {
         text-align: center;
@@ -973,6 +1014,41 @@
         left: 0%;
         top: 2%;
         height: 181px;
+    }
+
+    #addCMS {
+        left: 0%;
+        width: 70%;
+    }
+
+    #editCMS {
+        left: 0%;
+        width: 70%;
+    }
+
+    #missionadd {
+        left: 0%;
+        width: 70%;
+    }
+
+    #editmission {
+        left: 0%;
+        width: 70%;
+    }
+
+    #themeadd {
+        left: 0%;
+        width: 70%;
+    }
+
+    #skilladd {
+        left: 0%;
+        width: 70%;
+    }
+
+    #applicationadd {
+        left: 0%;
+        width: 70%;
     }
 }
 
