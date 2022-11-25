@@ -1,0 +1,1099 @@
+﻿@using CI_Plateform.DbModels;
+
+<div class="body-1">
+    <div class="body-2">
+        <div class="nevbar-1" style="height:43px;">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid" style="padding:0px;justify-content:space-around;">
+                    <button class="navbar-toggler pad1" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <span class="navbar-toggler pad1 pad01" style="margin-left:4px;">
+                        <form class="form-horizontal">
+                            <input type="search" class="form-control pad0" placeholder=" &#xF002; Search Mission"
+                                   aria-label="Search" />
+                        </form>
+                    </span>
+                    <div class="dropdown navbar-toggler border-0">
+                        <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                           id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                 class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler pad4" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <i class="bi bi-sliders2-vertical"></i>
+                    </button>
+                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
+                         id="navbarSupportedContent" aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#">Stories </a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            Policy <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Volunteering</a></li>
+                                            <li><a class="dropdown-item" href="#">Sponsored</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="dropdown">
+                                    <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                                       id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                             class="rounded-circle">
+                                        <span class="d-none d-sm-inline mx-1">
+                                            Ritul<i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                                        <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile">My Profile</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid border">
+            <div class="body-2" style="display:flex;">
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="navbarScroll"
+                     aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="navbar-collapse" id="navbarScroll">
+                            <form class="form-horizontal me-auto mb-2 mb-lg-0 d-none d-lg-block  ">
+                                <input type="search" class="form-control"
+                                       style="width:auto; border: 0px; font-family:Arial, FontAwesome;"
+                                       placeholder="&#128269; Search Mission" aria-label="Search" />
+                            </form>
+                            <div class="col">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
+                                    style="float: right;border-left:1px solid #b3aeae;border-right:1px solid #b3aeae;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            Skills <i class="bi bi-chevron-down" style="font-size:12px;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Anthropology
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Archelogy
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Astronomy
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Computer
+                                                        Science
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">History
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Reserch
+                                                    </label>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
+                                    style="float: right;border-left:1px solid #b3aeae;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            Theme <i class="bi bi-chevron-down" style="font-size:12px;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Education
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Children
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Health
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Animals
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Nutritions
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Environment
+                                                    </label>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
+                                    style="float: right;border-left:1px solid #b3aeae;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            City <i class="bi bi-chevron-down" style="font-size:12px;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Tirana
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Durres
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Shakodar
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Amreli
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label>
+                                                        <input type="checkbox">Rajkot
+                                                    </label>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
+                                    style="float: right;border-left:1px solid #b3aeae;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            Country <i class="bi bi-chevron-down"
+                                                       style="font-size:12px;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">India</a></li>
+                                            <li><a class="dropdown-item" href="#">Italy</a></li>
+                                            <li><a class="dropdown-item" href="#">Switzerland</a></li>
+                                            <li><a class="dropdown-item" href="#">Canada</a></li>
+                                            <li><a class="dropdown-item" href="#">Ireland</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="body-2">
+        <div class="nevbar-3">
+            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+                    style="width:auto;font-size: 12px;padding: 3px 7px;">
+                Tree
+                Plantation
+                <img src="~/assets/cancel.png" alt="Error">
+            </button>
+            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+                    style="width:auto;font-size: 12px; padding: 3px 7px;">
+                Canada
+                <img src="~/assets/cancel.png" alt="Error">
+            </button>
+            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+                    style="width:auto;font-size: 12px; padding: 3px 7px;">
+                Toronto
+                <img src="~/assets/cancel.png" alt="Error">
+            </button>
+            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+                    style="width:auto;font-size: 12px; padding: 3px 7px;">
+                Montreal
+                <img src="~/assets/cancel.png" alt="Error">
+            </button>
+            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+                    style="width:auto;font-size: 12px; padding: 3px 7px;">
+                Environment
+                <img src="~/assets/cancel.png" alt="Error">
+            </button>
+            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+                    style="width:auto;font-size: 12px; padding: 3px 7px;">
+                Nutrition
+                <img src="~/assets/cancel.png" alt="Error">
+            </button>
+            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+                    style="width:auto;font-size: 12px; padding: 3px 7px;">
+                Anthropology
+                <img src="~/assets/cancel.png" alt="Error">
+            </button>
+            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+                    style="width:auto;font-size: 12px; padding: 3px 7px;">
+                Environmental Science
+                <img src="~/assets/cancel.png" alt="Error">
+            </button>
+            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+                    style="width:auto;font-size: 12px; padding: 3px 7px;">
+                Clear all
+            </button>
+        </div>
+    </div>
+    <div class="body-2">
+        <div class="nevbar-4">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <span class="nev4head1">
+                        <span style="font-size: 14px;
+                                font-weight: 300;">Explore </span>72 missions
+                    </span>
+                    <div class="nev4container">
+                        <div class="btn-group" style="width: 171px;height: 29px;">
+                            <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false" style="background-color:white; color:
+                                     #414141; float: right; border: solid 1px #d9d9d9;">
+                                Sort by <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item active" href="#">Newest</a></li>
+                                <li><a class="dropdown-item" href="#">Oldest</a></li>
+                                <li><a class="dropdown-item" href="#">Lowest available seats</a></li>
+                                <li><a class="dropdown-item" href="#">Highest available seats</a></li>
+                                <li><a class="dropdown-item" href="#">Short by my favourite</a></li>
+                                <li><a class="dropdown-item" href="#">Short by deadline</a></li>
+                            </ul>
+                        </div>
+
+                        <button class="gridbutton" style="border:0px; height: 30px;
+                                width: 30px;  border-radius: 100%; margin-left: 26px;">
+                            <img src="~/assets/grid.png" alt="Error" style="height: 17px;
+                                width: 17px;">
+                        </button>
+
+                        <ul class="navbar-nav  mb-2 mb-lg-0" style="float: right;">
+                            <li class="nav-item dropdown">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false" style="border:0px; height: 30px;
+                                width: 30px;  border-radius: 100%; background-color:#ffffff;">
+                                    <img src="~/assets/list.png" alt="Error" style="height: 17px;
+                                width: 17px;">
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="body-2">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png"
+                             class="card-img-top" alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">
+                            <span>Toronto</span>
+                        </button>
+                        <button class="cardcontainer13">
+                            <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            Environment
+                        </button>
+                    </div>
+                    <div class="card-body" style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">Grow Trees – On the path to environment sustainability</p>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">Tree Canada</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        <button class="cardcontainer16">
+                            From 10/01/2019 until 25/02/2019
+                        </button>
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+                                    <div class="col-6">
+                                        <div class="cardcontainer5">
+                                            <img class="cardcontainer3" src="~/assets/Seats-left.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">10</p>
+                                                <p class="cardcontainer9">Seats-left</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="cardcontainer6">
+                                            <img class="cardcontainer3" src="~/assets/deadline.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">05/10/2022</p>
+                                                <p class="cardcontainer9">Deadline</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- <hr> -->
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                        <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;" >Apply <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
+                             class="card-img-top" alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">
+                            <span>Melbourne</span>
+                        </button>
+                        <button class="cardcontainer13">
+                            <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            Children
+                        </button>
+                    </div>
+                    <div class="card-body" style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">Education Supplies for Every Pair of Shoes Sold</p>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">Australian Paradise</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        <button class="cardcontainer16">
+                            From 10/01/2019 until 25/02/2019
+                        </button>
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+                                    <div class="col-6" style="padding:0 0 0 6px;">
+                                        <div class="cardcontainer5">
+                                            <img class="cardcontainer3" src="~/assets/Already-volunteered.png"
+                                                 alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">250</p>
+                                                <p class="cardcontainer9">Already volunteered</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6" style="padding:0 0 0 6px;">
+                                        <div class=" cardcontainer6">
+                                            <img class="cardcontainer3" src="~/assets/deadline.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">05/10/2022</p>
+                                                <p class="cardcontainer9">Deadline</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                         <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;" >
+                            Apply <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/Nourish-the-Children-in--African-country.png" class="card-img-top"
+                             alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">
+                            <span>Barcelona</span>
+                        </button>
+                        <button class="cardcontainer13">
+                            <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            Nutrition
+                        </button>
+                    </div>
+                    <div class="card-body" style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">Nourish the Children in African country</p>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">The Hunger</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        <button class="cardcontainer16">
+                            Ongoing Opportunity
+                        </button>
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+                                    <div class="col-6">
+                                        <div class="cardcontainer5">
+                                            <img class="cardcontainer3" src="~/assets/Seats-left.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">10</p>
+                                                <p class="cardcontainer9">Seats-left</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="cardcontainer6">
+                                            <img class="cardcontainer3" src="~/assets/deadline.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">05/10/2022</p>
+                                                <p class="cardcontainer9">Deadline</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- <hr> -->
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                         <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;">
+                            Apply <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png"
+                             class="card-img-top" alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">
+                            <span>London</span>
+                        </button>
+                        <button class="cardcontainer13">
+                            <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            Environment
+                        </button>
+                    </div>
+                    <div class="card-body" style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">CSR initiative stands for Coffee and Farmer Equity</p>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">CSE Network</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        <button class="cardcontainer16">
+                            Ongoing Opportunity
+                        </button>
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+                                    <div class="col">
+                                        <div class="cardcontainer5">
+                                            <img class="cardcontainer3" src="~/assets/Already-volunteered.png"
+                                                 alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">250</p>
+                                                <p class="cardcontainer9">Already Exist</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- <hr> -->
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                         <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;" >
+                            Apply <i class="bi bi-arrow-right"></i>
+                            @*onclick="location.href='@Url.Action("Applymission", "Plateform")'"*@
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/Animal-welfare-&-save-birds-campaign.png" class="card-img-top"
+                             alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">
+                            <span>Cape Town</span>
+                        </button>
+                        <button class="cardcontainer13">
+                            <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            Animals
+                        </button>
+                    </div>
+                    <div class="card-body" style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">Animal welfare & save birds campaign</p>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">JR Foundation</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        <button class="cardcontainer16">
+                            Plant 10,000 Trees
+                        </button>
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+                                    <div class="col-6" style="width:43%; padding:0 0 0 6px;">
+                                        <div class="cardcontainer5">
+                                            <img class="cardcontainer3" src="~/assets/Seats-left.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">10</p>
+                                                <p class="cardcontainer9">Seats-left</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6" style="width:57%;padding:0 0 0 6px;">
+                                        <div class="cardcontainer6">
+                                            <img class="cardcontainer3" src="~/assets/achieved.png" alt="Error">
+                                            <div class="cardcontainer7" style="width:60%;">
+                                                <div class="progress cardcontainer8"
+                                                     style="width:auto;height: 8px;">
+                                                    <div class="progress-bar bg-warning" role="progressbar"
+                                                         aria-label="Warning example" style="width: 75%"
+                                                         aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                                <p class="cardcontainer9">8000 achieved</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- <hr> -->
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                         <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;" >
+                            Apply <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/Plantation-and-Afforestation-programme.png" class="card-img-top"
+                             alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">
+                            <span>Paris</span>
+                        </button>
+                        <button class="cardcontainer13">
+                            <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            Health
+                        </button>
+                    </div>
+                    <div class="card-body " style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">Plantation and Afforestation programme</p>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">Amaze Doctors</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        <button class="cardcontainer16">
+                            Plant 10,000 Trees
+                        </button>
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+
+                                    <div class="col">
+                                        <div class="cardcontainer6">
+                                            <img class="cardcontainer3" src="~/assets/achieved.png" alt="Error">
+                                            <div class="cardcontainer7" style="width:60%;">
+                                                <div class="progress cardcontainer8"
+                                                     style="width:auto;height: 8px;">
+                                                    <div class="progress-bar bg-warning" role="progressbar"
+                                                         aria-label="Warning example" style="width: 75%"
+                                                         aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                                <p class="cardcontainer9">8000 achieved</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- <hr> -->
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                         <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;" >
+                            Apply <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png"
+                             class="card-img-top" alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">
+                            <span>Toronto</span>
+                        </button>
+                        <button class="cardcontainer13">
+                            <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            Environment
+                        </button>
+                    </div>
+                    <div class="card-body" style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">Grow Trees – On the path to environment sustainability</p>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">Tree Canada</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        <button class="cardcontainer16">
+                            From 10/01/2019 until 25/02/2019
+                        </button>
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+                                    <div class="col-6">
+                                        <div class="cardcontainer5">
+                                            <img class="cardcontainer3" src="~/assets/Seats-left.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">10</p>
+                                                <p class="cardcontainer9">Seats-left</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="cardcontainer6">
+                                            <img class="cardcontainer3" src="~/assets/deadline.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">05/10/2022</p>
+                                                <p class="cardcontainer9">Deadline</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- <hr> -->
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                         <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;" >
+                            Apply <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
+                             class="card-img-top" alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">
+                            <span>Melbourne</span>
+                        </button>
+                        <button class="cardcontainer13">
+                            <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            Children
+                        </button>
+                    </div>
+                    <div class="card-body" style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">Education Supplies for Every Pair of Shoes Sold</p>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">Australian Paradise</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        <button class="cardcontainer16">
+                            From 10/01/2019 until 25/02/2019
+                        </button>
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+                                    <div class="col-6" style="padding:0 0 0 6px;">
+                                        <div class="cardcontainer5">
+                                            <img class="cardcontainer3" src="~/assets/Already-volunteered.png"
+                                                 alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">250</p>
+                                                <p class="cardcontainer9">Already volunteered</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6" style="padding:0 0 0 6px;">
+                                        <div class=" cardcontainer6">
+                                            <img class="cardcontainer3" src="~/assets/deadline.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">05/10/2022</p>
+                                                <p class="cardcontainer9">Deadline</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                        <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;" >
+                            Apply <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/Nourish-the-Children-in--African-country.png" class="card-img-top"
+                             alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">
+                            <span>Barcelona</span>
+                        </button>
+                        <button class="cardcontainer13">
+                            <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            Nutrition
+                        </button>
+                    </div>
+                    <div class="card-body" style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">Nourish the Children in African country</p>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">The Hunger</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        <button class="cardcontainer16">
+                            Ongoing Opportunity
+                        </button>
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+                                    <div class="col-6">
+                                        <div class="cardcontainer5">
+                                            <img class="cardcontainer3" src="~/assets/Seats-left.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">10</p>
+                                                <p class="cardcontainer9">Seats-left</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="cardcontainer6">
+                                            <img class="cardcontainer3" src="~/assets/deadline.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">05/10/2022</p>
+                                                <p class="cardcontainer9">Deadline</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- <hr> -->
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                         <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;" >
+                            Apply <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body-2" style="margin-top:35px;">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item ">
+                    <a class="page-link cardcontainer17" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item "><a class="page-link cardcontainer17" href="#">1</a></li>
+                <li class="page-item "><a class="page-link cardcontainer17" href="#">2</a></li>
+                <li class="page-item "><a class="page-link cardcontainer17" href="#">3</a></li>
+                <li class="page-item "><a class="page-link cardcontainer17" href="#">4</a></li>
+                <li class="page-item "><a class="page-link cardcontainer17" href="#">5</a></li>
+                <li class="page-item ">
+                    <a class="page-link cardcontainer17" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <hr style="margin-top:35px;">
+    <div class="body-2">
+        <a asp-controller="Login" asp-action="PolicyPage" class="hover">Privacy Policy</a>
+        </div>
+</div>

@@ -1,0 +1,215 @@
+﻿@using CI_Plateform.Models
+@model DatabaseUserViewModel
+
+<div class="container-fluid" style="padding-left:0px;">
+    <div class="row flex-nowrap container-fluid">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color:#f88634;position: sticky;
+            top: 0;height: 100vh;">
+            <div class=" d-flex flex-column align-items-center align-items-sm-start pt-2 text-white
+                min-vh-100">
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start pt-4"
+                    id="menu" style="font-size:13px;width: 100%;">
+                    <h6 class="navigation">NAVIGATION</h6>
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aUser" class="nav-link sidebar" role="tab" aria-selected="false"
+                           style="width:100%;text-align: left;">
+                            <i class="bi bi-person-fill mr-3"></i>
+                            <span class="ms-1 d-none d-sm-inline">User</span>
+                        </a>
+                    </li>
+                    <hr style="margin:2px;width:100%;color: white; ">
+
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aCMS" class="nav-link sidebar" role="tab" aria-selected="false"
+                           style="width:100%;text-align: left;">
+                            <i class="bi bi-file-earmark-text-fill mr-3"></i><span class="ms-1 d-none d-sm-inline">CMS Pages</span>
+                        </a>
+                    </li>
+                    <hr style="margin:2px;width:100%;color: white; ">
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aMission" class="nav-link sidebar" role="tab" aria-selected="false"
+                           style="width:100%;text-align: left;">
+                            <i class="bi bi-bullseye mr-3"></i><span class="ms-1 d-none d-sm-inline">Mission</span>
+                        </a>
+                    </li>
+
+                    <hr style="margin:2px;width:100%;color: white; ">
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aTheme" class="nav-link sidebar" role="tab" aria-selected="false"
+                           style="width:100%;text-align: left;">
+                            <i class="bi bi-columns-gap mr-3"></i> <span class="ms-1 d-none d-sm-inline">
+                                Mission Theme
+                            </span>
+                        </a>
+                    </li>
+
+                    <hr style="margin:2px;width:100%;color: white; ">
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aSkill" class="nav-link sidebar" role="tab" aria-selected="false"
+                           style="width:100%;text-align: left;">
+                            <i class="bi bi-tools mr-3"></i>
+                            <span class="ms-1 d-none d-sm-inline">
+                                Mission
+                                Skills
+                            </span>
+                        </a>
+                    </li>
+
+                    <hr style="margin:2px;width:100%;color: white; ">
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aApplication" class="nav-link active sidebar" role="tab"
+                           aria-selected="true" style="width:100%;text-align: left;">
+                            <i class="bi bi-files mr-3"></i>
+                            <span class="ms-1 d-none d-sm-inline">
+                                Mission Application
+                            </span>
+                        </a>
+                    </li>
+                    <hr style="margin:2px;width:100%;color: white; ">
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aStory" class="nav-link sidebar" role="tab" aria-selected="false"
+                           style="width:100%;text-align: left;">
+                            <i class="bi bi-bookmark-star"></i>
+                            <span class="ms-1 d-none d-sm-inline">
+                                Story
+                            </span>
+                        </a>
+                    </li>
+                    <hr style="margin:2px;width:100%;color: white; ">
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aManagement" class="nav-link sidebar" role="tab" aria-selected="false"
+                           style="width:100%;text-align: left;">
+                            <i class="bi bi-card-heading"></i>
+                            <span class="ms-1 d-none d-sm-inline">
+                                Banner Management
+                            </span>
+                        </a>
+                    </li>
+                    <hr style="margin:2px;width:100%;color: white; ">
+                </ul>
+            </div>
+        </div>
+
+        <div class="tab-content col py-4 px-5" id="v-pills-tabContent" style="font-size:13px;">
+            <div class="dropdown pb-4">
+                <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
+                   id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
+                    <img src="/assets/user-img.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                    <span class="d-none d-sm-inline mx-1">Ritul</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                    <li><a class="dropdown-item" href="#">My Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="font-size:16px;">Mission Application</h4>
+                <hr>
+                <div class="row">
+                    <div class="col mb-3">
+                        <button class="form-control rounded-pill btn btn-outline-warning font sherescontainer11">
+                            <a class="adminaddbutton" asp-controller="Admin" asp-action="aApplicationadd">
+                                <i class="bi bi-plus adminaddbutton" style="width: 12px;"></i>Add
+                            </a>
+                        </button>
+                    </div>
+                </div>
+                <div class="container fluide">
+                    <table id="Application" class="table table-borderless">
+                        <thead class="table-light text-primary">
+                            <tr>
+                                <th>Mission Title</th>
+                                <th>Mission Id</th>
+                                <th>User Id</th>
+                                <th>User Name</th>
+                                <th>Applied Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+
+
+                            @foreach (var obj in Model.Missions)
+                            {
+                                <tr>
+                                    <td>@obj.Title</td>
+                                    <td>@obj.MissionId</td>
+                                    <td>1</td>
+                                    <td>ritul</td>
+                                    <td>12-11-2022</td>
+                                    <td class="text-center d-flex">
+                                        <a class="btn btn-light" asp-controller="Admin" asp-action="aUseradd"><i
+                                                class="bi bi-pencil-square text-secondary"></i></a>
+                                        <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#deleteuser" aria-controls="deleteuser">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+
+
+
+
+@*
+                            <tr>
+                                <td>Lorem ipsum dolor sit amet.</td>
+                                <td>1</td>
+                                <td>10</td>
+                                <td>Ritul</td>
+                                <td>07-11-2022</td>
+                                <td class="text-center d-flex">
+                                    <button class="btn btn-light">
+                                        <i class="bi bi-check-circle" style="color:green;"></i>
+                                    </button>
+                                    <button class="btn btn-light">
+                                        <i class="bi bi-x-circle"
+                                           style="color:red"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Lorem ipsum dolor sit amet.</td>
+                                <td>2</td>
+                                <td>11</td>
+                                <td>Pritesh</td>
+                                <td>07-12-2022</td>
+                                <td class="text-center d-flex">
+                                    <button class="btn btn-light">
+                                        <i class="bi bi-check-circle" style="color:green;"></i>
+                                    </button>
+                                    <button class="btn btn-light">
+                                        <i class="bi bi-x-circle"
+                                           style="color:red"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>Lorem ipsum dolor sit amet.</td>
+                                <td>3</td>
+                                <td>12</td>
+                                <td>Brijesh</td>
+                                <td>07-05-2022</td>
+                                <td class="text-center d-flex">
+                                    <button class="btn btn-light">
+                                        <i class="bi bi-check-circle" style="color:green;"></i>
+                                    </button>
+                                    <button class="btn btn-light">
+                                        <i class="bi bi-x-circle"
+                                           style="color:red"></i>
+                                    </button>
+                                </td>
+                            </tr>
+*@
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,195 @@
+﻿
+<div class="body-1">
+    <div class="body-2">
+        <div class="nevbar-1" style="height:43px;">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid" style="padding:0px;justify-content:initial;">
+                    <button class="navbar-toggler pad1 pe-2" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="dropdown navbar-toggler border-0">
+                        <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                           id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                 class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
+                         id="navbarSupportedContent" aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#">Stories </a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            Policy <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Volunteering</a></li>
+                                            <li><a class="dropdown-item" href="#">Sponsored</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                                <div class="dropdown">
+                                    <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                                       id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false"
+                                       style="float:right;">
+                                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                             class="rounded-circle">
+                                        <span class="d-none d-sm-inline mx-1">
+                                            Ritul <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                        <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <hr class="mt-2 mb-3">
+    <div class="body-2">
+        <h5>Volunteering Timesheet</h5>
+        <div class="row">
+            <div class="col mt-4 me-1" style="border:1px solid #757575;">
+                <h4 class="mt-2" style="font-size:12px;">Volunteering Hours</h4>
+                <div class="container fluide">
+                    <table class="table table-borderless" style="font-size:10px;">
+                        <thead class="table-light text-primary">
+                            <tr>
+                                <th>Mission</th>
+                                <th>Date</th>
+                                <th>Hours</th>
+                                <th>Minutes</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var obj in Model)
+                            {
+                                <tr>
+                                    <td>Environment Conservation</td>
+                                    <td>02-02-2022</td>
+                                    <td>1h.</td>
+                                    <td>10 min.</td>
+                                    <td class="text-center d-flex">
+                                        <button class="btn btn-light">
+                                            <i class="bi bi-pencil-square text-secondary"></i>
+                                        </button>
+                                        <button class="btn btn-light"><i class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                            @*
+                            <tr>
+                            <td>Environment Conservation</td>
+                            <td>03-02-2022</td>
+                            <td>2h.</td>
+                            <td>20 min.</td>
+                            <td class="text-center d-flex">
+                            <button class="btn btn-light">
+                            <i class="bi bi-pencil-square text-secondary"></i>
+                            </button>
+                            <button class="btn btn-light"><i class="bi bi-trash"></i></button>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>Environment Conservation</td>
+                            <td>04-02-2022</td>
+                            <td>3h.</td>
+                            <td>30 min.</td>
+                            <td class="text-center d-flex">
+                            <button class="btn btn-light">
+                            <i class="bi bi-pencil-square text-secondary"></i>
+                            </button>
+                            <button class="btn btn-light"><i class="bi bi-trash"></i></button>
+                            </td>
+                            </tr>
+                            *@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mt-4 ms-1" style="border:1px solid #757575;">
+                <h4 class="mt-2 mb-3" style="font-size:12px;">Volunteering Goals</h4>
+                <div class="container fluide">
+                    <table class="table table-borderless" style="font-size:10px;">
+                        <thead class="table-light text-primary">
+                            <tr>
+                                <th>Mission</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Plantation Programme</td>
+                                <td>02-02-2022</td>
+                                <td>1</td>
+                                <td class="text-center d-flex">
+                                    <button class="btn btn-light">
+                                        <i class="bi bi-pencil-square text-secondary"></i>
+                                    </button>
+                                    <button class="btn btn-light"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Plantation Programme</td>
+                                <td>03-02-2022</td>
+                                <td>0</td>
+                                <td class="text-center d-flex">
+                                    <button class="btn btn-light">
+                                        <i class="bi bi-pencil-square text-secondary"></i>
+                                    </button>
+                                    <button class="btn btn-light"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Plantation Programme</td>
+                                <td>04-02-2022</td>
+                                <td>0</td>
+                                <td class="text-center d-flex">
+                                    <button class="btn btn-light">
+                                        <i class="bi bi-pencil-square text-secondary"></i>
+                                    </button>
+                                    <button class="btn btn-light"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:172px;">
+    <div class="body-2">
+        <a class="page-link" style="font-size: 10px;color: blue;position: fixed; bottom: 0;" href="#">
+            Privacy
+            Policy
+        </a>
+    </div>
+</div>

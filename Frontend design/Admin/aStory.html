@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/allpagestyle.css">
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"></script>
+
+    <!-- <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+</head>
+
+<body>
+    <div class="container-fluid" style="padding-left:0px;">
+        <div class="row flex-nowrap container-fluid">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color:#f88634;position: sticky;
+            top: 0;height: 100vh;">
+                <div class=" d-flex flex-column align-items-center align-items-sm-start pt-2 text-white
+                min-vh-100">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start pt-4"
+                        id="menu" style="font-size:13px;width: 100%;">
+                        <h6 class="navigation">NAVIGATION</h6>
+                        <li class="nav-item" style="width:inherit;">
+                            <a href="/Admin/aUser.html" class="nav-link sidebar" role="tab" aria-selected="false"
+                                style="width:100%;text-align: left;"><i class="bi bi-person-fill mr-3"></i>
+                                <span class="ms-1 d-none d-sm-inline">User</span></a>
+                        </li>
+                        <hr style="margin:2px;width:100%;color: white; ">
+
+                        <li class="nav-item" style="width:inherit;">
+                            <a href="/Admin/aCMS.html" class="nav-link sidebar" role="tab" aria-selected="false"
+                                style="width:100%;text-align: left;"><i
+                                    class="bi bi-file-earmark-text-fill mr-3"></i><span
+                                    class="ms-1 d-none d-sm-inline">CMS Pages</span></a>
+                        </li>
+                        <hr style="margin:2px;width:100%;color: white; ">
+                        <li class="nav-item" style="width:inherit;">
+                            <a href="/Admin/aMission.html" class="nav-link sidebar" role="tab" aria-selected="false"
+                                style="width:100%;text-align: left;"><i class="bi bi-bullseye mr-3"></i><span
+                                    class="ms-1 d-none d-sm-inline">Mission</span></a>
+                        </li>
+
+                        <hr style="margin:2px;width:100%;color: white; ">
+                        <li class="nav-item" style="width:inherit;">
+                            <a href="/Admin/aTheme.html" class="nav-link sidebar" role="tab" aria-selected="false"
+                                style="width:100%;text-align: left;"><i class="bi bi-columns-gap mr-3"></i> <span
+                                    class="ms-1 d-none d-sm-inline">
+                                    Mission Theme</span></a>
+                        </li>
+
+                        <hr style="margin:2px;width:100%;color: white; ">
+                        <li class="nav-item" style="width:inherit;">
+                            <a href="/Admin/aSkill.html" class="nav-link sidebar" role="tab" aria-selected="false"
+                                style="width:100%;text-align: left;"><i class="bi bi-tools mr-3"></i>
+                                <span class="ms-1 d-none d-sm-inline">Mission
+                                    Skills</span></a>
+                        </li>
+
+                        <hr style="margin:2px;width:100%;color: white; ">
+                        <li class="nav-item" style="width:inherit;">
+                            <a href="/Admin/aApplication.html" class="nav-link sidebar" role="tab" aria-selected="false"
+                                style="width:100%;text-align: left;"><i class="bi bi-files mr-3"></i>
+                                <span class="ms-1 d-none d-sm-inline">
+                                    Mission Application</span></a>
+                        </li>
+                        <hr style="margin:2px;width:100%;color: white; ">
+                        <li class="nav-item" style="width:inherit;">
+                            <a href="/Admin/aStory.html" class="nav-link active sidebar" role="tab" aria-selected="true"
+                                style="width:100%;text-align: left;"><i class="bi bi-bookmark-star"></i>
+                                <span class="ms-1 d-none d-sm-inline">
+                                    Story</span></a>
+                        </li>
+                        <hr style="margin:2px;width:100%;color: white; ">
+                        <li class="nav-item" style="width:inherit;">
+                            <a href="/Admin/aManagement.html" class="nav-link sidebar" role="tab" aria-selected="false"
+                                style="width:100%;text-align: left;"><i class="bi bi-card-heading"></i>
+                                <span class="ms-1 d-none d-sm-inline">
+                                    Banner Management</span></a>
+                        </li>
+                        <hr style="margin:2px;width:100%;color: white; ">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content col py-4 px-5" id="v-pills-tabContent" style="font-size:13px;">
+                <div class="dropdown pb-4">
+                    <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
+                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
+                        <img src="/assets/user-img.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Ritul</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-size:16px;">Story</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <button type="button "
+                                class="form-control rounded-pill btn btn-outline-warning font sherescontainer11"><a
+                                    class="adminaddbutton" href="/Admin/aStoryadd.html"><i
+                                        class="bi bi-plus adminaddbutton" style="width: 12px;"></i>Add</a>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="container fluide">
+                        <table id="Story" class="table table-borderless">
+                            <thead class="table-light text-primary">
+                                <tr>
+                                    <th>Story Title</th>
+                                    <th>Full Name</th>
+                                    <th>Mission Title</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                    <td>Ritul Limbasiya</td>
+                                    <td>Lorem ipsum dolor sit.</td>
+                                    <td class="text-center d-flex">
+                                        <button type="submit"
+                                            class="form-control rounded-pill btn btn-outline-warning font"
+                                            style="width: auto;font-size: 8px;height: 23px;margin-top: 8px;">View</button>
+                                        <button class="btn btn-light"><i class="bi bi-check-circle"
+                                                style="color:green;"></i></button>
+                                        <button class="btn btn-light"><i class="bi bi-x-circle"
+                                                style="color:red"></i></button>
+                                        <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#deleteuser" aria-controls="deleteuser"><i
+                                                class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                    <td>Pritesh Limbasiya</td>
+                                    <td>Lorem ipsum dolor sit.</td>
+                                    <td class="text-center d-flex">
+                                        <button type="submit"
+                                            class="form-control rounded-pill btn btn-outline-warning font"
+                                            style="width: auto;font-size: 8px;height: 23px;margin-top: 8px;">View</button>
+                                        <button class="btn btn-light"><i class="bi bi-check-circle"
+                                                style="color:green;"></i></button>
+                                        <button class="btn btn-light"><i class="bi bi-x-circle"
+                                                style="color:red"></i></button>
+                                        <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#deleteuser" aria-controls="deleteuser"><i
+                                                class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                    <td>Brijesh Padasala</td>
+                                    <td>Lorem ipsum dolor sit.</td>
+                                    <td class="text-center d-flex">
+                                        <button type="submit"
+                                            class="form-control rounded-pill btn btn-outline-warning font"
+                                            style="width: auto;font-size: 8px;height: 23px;margin-top: 8px;">View</button>
+                                        <button class="btn btn-light"><i class="bi bi-check-circle"
+                                                style="color:green;"></i></button>
+                                        <button class="btn btn-light"><i class="bi bi-x-circle"
+                                                style="color:red"></i></button>
+                                        <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#deleteuser" aria-controls="deleteuser"><i
+                                                class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- deleteuser -->
+                <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="deleteuser"
+                    aria-labelledby="staticBackdropLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="staticBackdropLabel">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div>
+                            <h6>Are you sure you want to delete this item?</h6>
+                        </div>
+                        <div class="row" style="margin:18px 0px;display:block;text-align: center;">
+                            <button type="submit"
+                                class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">cancel</button>
+                            <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- *********************** -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#User').DataTable();
+        });
+        $(document).ready(function () {
+            $('#CMSPages').DataTable();
+        });
+        $(document).ready(function () {
+            $('#Mission').DataTable();
+        });
+        $(document).ready(function () {
+            $('#Theme').DataTable();
+        });
+        $(document).ready(function () {
+            $('#Skills').DataTable();
+        });
+        $(document).ready(function () {
+            $('#Application').DataTable();
+        });
+        $(document).ready(function () {
+            $('#Story').DataTable();
+        });
+
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#editor1'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#editor2'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#editor3'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#editor4'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#editor5'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+</body>
+
+</html>

@@ -965,6 +965,13 @@
     bottom: 35%;
 }
 
+#storyadd {
+    left: 25%;
+    width: 50%;
+    top: 12%;
+    bottom: 24%;
+}
+
 @media (max-width:769px) {
     .ueditcontainer1 {
         text-align: center;
@@ -1049,6 +1056,15 @@
     #applicationadd {
         left: 0%;
         width: 70%;
+        bottom: 0%;
+        top: 0%;
+    }
+
+    #storyadd {
+        left: 0%;
+        width: 70%;
+        bottom: 0%;
+        top: 0%;
     }
 }
 
@@ -1060,4 +1076,25 @@
 .nav-pills .show>.nav-link {
     color: orange;
     background-color: white;
+}
+
+.adminaddbutton {
+    text-decoration: none;
+    color: #ffc107;
+}
+
+.adminaddbutton:hover {
+    color: black;
+}
+
+.navigation {
+    color: white;
+    font-size: 14px;
+    padding-left: 15px;
+}
+
+@media(max-width:578px) {
+    .navigation {
+        display: none;
+    }
 }
