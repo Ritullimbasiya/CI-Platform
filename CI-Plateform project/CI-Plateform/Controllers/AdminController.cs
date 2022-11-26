@@ -8,17 +8,6 @@ namespace CI_Plateform.Controllers
     {
         public ClPlatformContext _db = new ClPlatformContext();
 
-        
-        /*public IActionResult UserIndex(int id = 0)
-        {
-            if(id == 0)
-            {
-                return View();
-            }
-            User user = new User();
-            user = _db.Users.FirstOrDefault(u => u.UserId.Equals(id));
-            return View(user);
-        }*/
         public IActionResult aUser()
         {
             var user = new DatabaseUserViewModel();
@@ -29,7 +18,6 @@ namespace CI_Plateform.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public IActionResult aUseradd(User obj)
         {
@@ -37,7 +25,6 @@ namespace CI_Plateform.Controllers
             _db.SaveChanges();
             return RedirectToAction("aUser", "Admin");
         }
-
         public IActionResult aCMS()
         {
             var cmsPage = new DatabaseUserViewModel();
@@ -64,7 +51,7 @@ namespace CI_Plateform.Controllers
             skill.Skills = _db.Skills.ToList();
             return View(skill);
         }
-        public IActionResult aSkilladd()
+        public IActionResult aSkiiadd()
         {
             return View();
         }
@@ -81,12 +68,37 @@ namespace CI_Plateform.Controllers
         public IActionResult aApplication()
         {
             var application = new DatabaseUserViewModel();
+
+            application.MissionApplications = _db.MissionApplications.ToList();
             application.Missions = _db.Missions.ToList();
+            application.users = _db.Users.ToList();
             return View(application);
         }
         public IActionResult aApplicationadd()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult aApplicationadd(AMissionApplication obj)
+        {
+
+            MissionApplication i = new MissionApplication();
+            /*i = _db.MissionApplications.FirstOrDefault(u => u.MissionId.Equals(obj.MissionApplication.MissionId));
+            if (i != null)*/
+            {
+                i.MissionId = obj.MissionApplication.MissionId;
+                i.UserId = obj.MissionApplication.UserId;
+                i.AppliedAt = obj.MissionApplication.AppliedAt;
+                i.ApprovalStatus = obj.MissionApplication.ApprovalStatus;
+                /*_db.MissionApplications.Add(i);
+                _db.SaveChanges();*/
+            }
+            _db.MissionApplications.Add(i);
+            _db.SaveChanges();
+            return RedirectToAction("aApplication", "Admin");
+
+
+
         }
         public IActionResult aStory()
         {
@@ -102,6 +114,7 @@ namespace CI_Plateform.Controllers
         {
             return View();
         }
+
 
     }
 }

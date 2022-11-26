@@ -790,7 +790,9 @@ namespace CI_Plateform.DbModels
             {
                 entity.ToTable("story_invite");
 
-                entity.Property(e => e.StoryInviteId).HasColumnName("story_invite_id");
+                entity.Property(e => e.StoryInviteId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("story_invite_id");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")

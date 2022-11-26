@@ -150,7 +150,7 @@
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="Department">Select Department</label><br>
-                        <select name="department" asp-for="Department" id="department" class="sherescontainer1">
+                        <select asp-for="Department" id="department" name="department" class="sherescontainer1">
                             <option value="IT">IT</option>
                             <option value="CEO">CEo</option>
                         </select>
@@ -159,17 +159,15 @@
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="City">City*</label><br>
-                        <select name="City" asp-for="City" id="Country" class="sherescontainer1">
+                        <select asp-for="City" id="City" name="City" class="sherescontainer1">
                             <option value="">Select your City</option>
-                            <option value="India">Amreli</option>
-                            <option value="Italy">Rajkot</option>
-                            <option value="Switzerland">Surat</option>
-                            <option value="Canada">Ahmedabad</option>
+                            <option value="Amreli">Amreli</option>
+
                         </select>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="Country">Country*</label><br>
-                        <select name="Country" asp-for="Country" id="Country" class="sherescontainer1">
+                        <label asp-for="CountryId">Country*</label><br>
+                        <select asp-for="CountryId" id="CountryId" name="CountryId" class="sherescontainer1">
                             <option value="">Select your Country</option>
                             <option value="India">India</option>
                             <option value="Italy">Italy</option>

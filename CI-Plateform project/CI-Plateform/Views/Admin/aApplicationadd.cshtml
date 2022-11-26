@@ -1,5 +1,5 @@
 ﻿@using CI_Plateform.Models
-@model DatabaseUserViewModel
+@model AMissionApplication
 
 <div class="container-fluid" style="padding-left:0px;">
     <div class="row flex-nowrap container-fluid">
@@ -9,8 +9,8 @@
                 min-vh-100">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start pt-4"
                     id="menu" style="font-size:13px;width: 100%;">
+                    <h6 class="navigation">NAVIGATION</h6>
                     <li class="nav-item" style="width:inherit;">
-                        <h6 class="navigation">NAVIGATION</h6>
                         <a asp-controller="Admin" asp-action="aUser" class="nav-link sidebar" role="tab" aria-selected="false"
                            style="width:100%;text-align: left;">
                             <i class="bi bi-person-fill mr-3"></i>
@@ -57,8 +57,8 @@
 
                     <hr style="margin:2px;width:100%;color: white; ">
                     <li class="nav-item" style="width:inherit;">
-                        <a asp-controller="Admin" asp-action="aApplication" class="nav-link active sidebar" role="tab"
-                           aria-selected="true" style="width:100%;text-align: left;">
+                        <a asp-controller="Admin" asp-action="aApplication" class="nav-link active sidebar" role="tab" aria-selected="t"
+                           style="width:100%;text-align: left;">
                             <i class="bi bi-files mr-3"></i>
                             <span class="ms-1 d-none d-sm-inline">
                                 Mission Application
@@ -89,8 +89,8 @@
                 </ul>
             </div>
         </div>
-
         <div class="tab-content col py-4 px-5" id="v-pills-tabContent" style="font-size:13px;">
+
             <div class="dropdown pb-4">
                 <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
@@ -105,39 +105,39 @@
             </div>
             <h4>Add/Edit</h4>
             <hr>
-            <div>
+            <form method="post" action="aApplicationadd">
                 <div class="row" style="margin:18px 0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="mId">Mission Id</label><br>
-                        <input type="number" id="mId" name="mId" class="sherescontainer1" required>
+                        <label asp-for="MissionApplication.MissionId">Mission Id</label><br>
+                        <input asp-for="MissionApplication.MissionId" type="number" id="mId" name="MissionApplication.MissionId" class="sherescontainer1" required>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="uId">User Id</label><br>
-                        <input type="number" id="uId" name="uId" class="sherescontainer1" required>
+                        <label asp-for="MissionApplication.UserId">User Id</label><br>
+                        <input asp-for="MissionApplication.UserId" type="number" id="uId" name="MissionApplication.UserId" class="sherescontainer1" required>
                     </div>
                 </div>
                 <div class="row" style="margin:18px 0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="aDate">Applied Date</label><br>
-                        <input type="date" id="aDate" name="aDate" class="sherescontainer1" required>
+                        <label asp-for="MissionApplication.AppliedAt">Applied Date</label><br>
+                        <input asp-for="MissionApplication.AppliedAt" type="date" id="aDate" name="MissionApplication.AppliedAt" class="sherescontainer1" required>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                       <label for="number" class="ps-0">Status</label><br>
-                        <input type="number" id="number" name="number" placeholder="Enter 0 or 1" step="1" min="0"
-                            max="1" class="sherescontainer1">
+                        <label asp-for="MissionApplication.ApprovalStatus" class="ps-0">Status</label><br>
+                        <input asp-for="MissionApplication.ApprovalStatus" type="number" id="number" name="MissionApplication.ApprovalStatus" placeholder="Enter 0 or 1" step="1" min="0"
+                               max="1" class="sherescontainer1">
                     </div>
                 </div>
-            </div>
-            <div class="row mt-2" style="margin:0px;display:block;float: right;">
-                <button type="submit"
-                        class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
-                    cancel
-                </button>
-                <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                        style="width:auto;font-size: 12px;">
-                    Save
-                </button>
-            </div>
+                <div class="row mt-2" style="margin:0px;display:block;float: right;">
+                    <button type="button" asp-controller="Admin" asp-action="aApplicationadd"
+                            class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
+                        cancel
+                    </button>
+                    <button type="submit" asp-controller="Admin" asp-action="aApplicationadd" class="form-control rounded-pill btn btn-outline-warning font"
+                            style="width:auto;font-size: 12px;">
+                        Save
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

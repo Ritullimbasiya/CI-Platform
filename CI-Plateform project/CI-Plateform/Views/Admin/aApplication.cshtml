@@ -57,8 +57,8 @@
 
                     <hr style="margin:2px;width:100%;color: white; ">
                     <li class="nav-item" style="width:inherit;">
-                        <a asp-controller="Admin" asp-action="aApplication" class="nav-link active sidebar" role="tab"
-                           aria-selected="true" style="width:100%;text-align: left;">
+                        <a asp-controller="Admin" asp-action="aApplication" class="nav-link active sidebar" role="tab" aria-selected="true"
+                           style="width:100%;text-align: left;">
                             <i class="bi bi-files mr-3"></i>
                             <span class="ms-1 d-none d-sm-inline">
                                 Mission Application
@@ -108,7 +108,8 @@
                 <hr>
                 <div class="row">
                     <div class="col mb-3">
-                        <button class="form-control rounded-pill btn btn-outline-warning font sherescontainer11">
+                        <button type="submit"
+                                class="form-control rounded-pill btn btn-outline-warning font sherescontainer11">
                             <a class="adminaddbutton" asp-controller="Admin" asp-action="aApplicationadd">
                                 <i class="bi bi-plus adminaddbutton" style="width: 12px;"></i>Add
                             </a>
@@ -129,23 +130,21 @@
                         </thead>
                         <tbody>
 
-
-
-
-                            @foreach (var obj in Model.Missions)
+                            @foreach (var obj in @Model.MissionApplications)
                             {
                                 <tr>
-                                    <td>@obj.Title</td>
+                                    <td>@obj.Mission.Title</td>
                                     <td>@obj.MissionId</td>
-                                    <td>1</td>
-                                    <td>ritul</td>
-                                    <td>12-11-2022</td>
+                                    <td>@obj.UserId</td>
+                                    <td>@obj.User.FirstName</td>
+                                    <td>@obj.AppliedAt</td>
                                     <td class="text-center d-flex">
-                                        <a class="btn btn-light" asp-controller="Admin" asp-action="aUseradd"><i
-                                                class="bi bi-pencil-square text-secondary"></i></a>
-                                        <button class="btn btn-light" data-bs-toggle="offcanvas"
-                                            data-bs-target="#deleteuser" aria-controls="deleteuser">
-                                            <i class="bi bi-trash"></i>
+                                        <button class="btn btn-light">
+                                            <i class="bi bi-check-circle" style="color:green;"></i>
+                                        </button>
+                                        <button class="btn btn-light">
+                                            <i class="bi bi-x-circle"
+                                           style="color:red"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -155,57 +154,57 @@
 
 
 
-@*
-                            <tr>
-                                <td>Lorem ipsum dolor sit amet.</td>
-                                <td>1</td>
-                                <td>10</td>
-                                <td>Ritul</td>
-                                <td>07-11-2022</td>
-                                <td class="text-center d-flex">
-                                    <button class="btn btn-light">
-                                        <i class="bi bi-check-circle" style="color:green;"></i>
-                                    </button>
-                                    <button class="btn btn-light">
-                                        <i class="bi bi-x-circle"
-                                           style="color:red"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Lorem ipsum dolor sit amet.</td>
-                                <td>2</td>
-                                <td>11</td>
-                                <td>Pritesh</td>
-                                <td>07-12-2022</td>
-                                <td class="text-center d-flex">
-                                    <button class="btn btn-light">
-                                        <i class="bi bi-check-circle" style="color:green;"></i>
-                                    </button>
-                                    <button class="btn btn-light">
-                                        <i class="bi bi-x-circle"
-                                           style="color:red"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td>Lorem ipsum dolor sit amet.</td>
-                                <td>3</td>
-                                <td>12</td>
-                                <td>Brijesh</td>
-                                <td>07-05-2022</td>
-                                <td class="text-center d-flex">
-                                    <button class="btn btn-light">
-                                        <i class="bi bi-check-circle" style="color:green;"></i>
-                                    </button>
-                                    <button class="btn btn-light">
-                                        <i class="bi bi-x-circle"
-                                           style="color:red"></i>
-                                    </button>
-                                </td>
-                            </tr>
-*@
 
+
+                            @*<tr>
+                            <td>Lorem ipsum dolor sit amet.</td>
+                            <td>1</td>
+                            <td>10</td>
+                            <td>Ritul</td>
+                            <td>07-11-2022</td>
+                            <td class="text-center d-flex">
+                            <button class="btn btn-light">
+                            <i class="bi bi-check-circle" style="color:green;"></i>
+                            </button>
+                            <button class="btn btn-light">
+                            <i class="bi bi-x-circle"
+                            style="color:red"></i>
+                            </button>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>Lorem ipsum dolor sit amet.</td>
+                            <td>2</td>
+                            <td>11</td>
+                            <td>Pritesh</td>
+                            <td>07-12-2022</td>
+                            <td class="text-center d-flex">
+                            <button class="btn btn-light">
+                            <i class="bi bi-check-circle" style="color:green;"></i>
+                            </button>
+                            <button class="btn btn-light">
+                            <i class="bi bi-x-circle"
+                            style="color:red"></i>
+                            </button>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>Lorem ipsum dolor sit amet.</td>
+                            <td>3</td>
+                            <td>12</td>
+                            <td>Brijesh</td>
+                            <td>07-05-2022</td>
+                            <td class="text-center d-flex">
+                            <button class="btn btn-light">
+                            <i class="bi bi-check-circle" style="color:green;"></i>
+                            </button>
+                            <button class="btn btn-light">
+                            <i class="bi bi-x-circle"
+                            style="color:red"></i>
+                            </button>
+                            </td>
+                            </tr>
+                            *@
                         </tbody>
                     </table>
                 </div>
