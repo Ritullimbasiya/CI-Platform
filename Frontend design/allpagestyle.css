@@ -692,7 +692,6 @@
     left: 0px;
     opacity: 0.6;
     position: absolute;
-
 }
 
 .listcontainer2 {
@@ -775,7 +774,6 @@
         position: relative;
         margin: 0px;
     }
-
 }
 
 /* .sherescontainer2 {
@@ -918,7 +916,7 @@
     width: 70%;
 }
 
-#deleteuser {
+.deleteuser.offcanvas.offcanvas-start {
     left: 30%;
     top: 12%;
     height: 181px;
@@ -1017,7 +1015,7 @@
         width: 70%;
     }
 
-    #deleteuser {
+    .deleteuser.offcanvas.offcanvas-start {
         left: 0%;
         top: 2%;
         height: 181px;

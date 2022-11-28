@@ -1,5 +1,5 @@
-﻿@using CI_Plateform.DbModels
-@model User
+﻿@using CI_Plateform.Models
+@model UserVm
 
 <div class="container-fluid" style="padding-left:0px;">
     <div class="row flex-nowrap container-fluid">
@@ -103,95 +103,91 @@
                     <li><a class="dropdown-item" href="#">Logout</a></li>
                 </ul>
             </div>
-            <h4>Add/Edit</h4>
+            <h4>Add User</h4>
             <hr>
             <form method="post" action="aUseradd">
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="FirstName">Name*</label><br>
-                        <input type="text" asp-for="FirstName" id="name" name="FirstName" placeholder="Enter your name"
+                        <label asp-for="User.FirstName">Name*</label><br>
+                        <input type="text" asp-for="User.FirstName" id="name" name="User.FirstName" placeholder="Enter your name"
                                class="sherescontainer1" required>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="LastName">Surname*</label><br>
-                        <input type="text" asp-for="LastName" id="surname" name="LastName" placeholder="Enter your surname"
-                               class="sherescontainer1" required>
-                    </div>
-                </div>
-                <div class="row" style="margin:0px;font-size: 10px;">
-                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="Email">Email*</label><br>
-                        <input type="email" asp-for="Email" id="email" name="Email" placeholder="Enter your email"
-                               class="sherescontainer1" required>
-                    </div>
-                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="Password">Password*</label><br>
-                        <input type="password" asp-for="Password" id="password" name="Password" placeholder="Enter your password"
+                        <label asp-for="User.LastName">Surname*</label><br>
+                        <input type="text" asp-for="User.LastName" id="surname" name="User.LastName" placeholder="Enter your surname"
                                class="sherescontainer1" required>
                     </div>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="PhoneNumber">Phone number</label><br>
-                        <input type="number" asp-for="PhoneNumber" id="phonenumber" name="PhoneNumber"
+                        <label asp-for="User.Email">Email*</label><br>
+                        <input type="email" asp-for="User.Email" id="email" name="User.Email" placeholder="Enter your email"
+                               class="sherescontainer1" required>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                        <label asp-for="User.Password">Password*</label><br>
+                        <input type="password" asp-for="User.Password" id="password" name="User.Password" placeholder="Enter your password"
+                               class="sherescontainer1" required>
+                    </div>
+                </div>
+                <div class="row" style="margin:0px;font-size: 10px;">
+                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                        <label asp-for="User.PhoneNumber">Phone number</label><br>
+                        <input type="number" asp-for="User.PhoneNumber" id="phonenumber" name="User.PhoneNumber"
                                placeholder="Enter your phonenumber" class="sherescontainer1" required>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="Avatar" style="padding:0px;">Avatar</label><br>
-                        <input class="form-control form-control-sm mb-2" asp-for="Avatar" name="Avatar" style="font-size:10px;" id="formFileSm"
+                        <label asp-for="User.Avatar" style="padding:0px;">Avatar</label><br>
+                        <input class="form-control form-control-sm mb-2" asp-for="User.Avatar" name="User.Avatar" style="font-size:10px;" id="formFileSm"
                                type="file">
                     </div>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="EmployeeId">Employee id</label><br>
-                        <input type="number" asp-for="EmployeeId" id="empid" name="EmployeeId" placeholder="Enter your employee id"
+                        <label asp-for="User.EmployeeId">Employee id</label><br>
+                        <input type="number" asp-for="User.EmployeeId" id="empid" name="User.EmployeeId" placeholder="Enter your employee id"
                                class="sherescontainer1" required>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="Department">Select Department</label><br>
-                        <select asp-for="Department" id="department" name="department" class="sherescontainer1">
-                            <option value="IT">IT</option>
-                            <option value="CEO">CEo</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row" style="margin:0px;font-size: 10px;">
-                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="City">City*</label><br>
-                        <select asp-for="City" id="City" name="City" class="sherescontainer1">
-                            <option value="">Select your City</option>
-                            <option value="Amreli">Amreli</option>
-
-                        </select>
-                    </div>
-                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="CountryId">Country*</label><br>
-                        <select asp-for="CountryId" id="CountryId" name="CountryId" class="sherescontainer1">
-                            <option value="">Select your Country</option>
-                            <option value="India">India</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Switzerland">Switzerland</option>
-                            <option value="Canada">Canada</option>
-                            <option value="Ireland">Ireland</option>
-                        </select>
+                       <label asp-for="User.Department">Department</label><br>
+                        <input type="text" asp-for="User.Department" id="Department" name="User.Department" placeholder="Enter your depatment"
+                               class="sherescontainer1" required>
                     </div>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
-                    <label asp-for="ProfileText" style="padding:0px;">Profile Text</label><br>
-                    <div style="width:100%;padding:0px;">
-                        <div asp-for="ProfileText" id="editor1">Enter text.</div>
-                    </div>
+                    <label asp-for="User.WhyIVolunteer" style="padding:0px;">Why i volunteer??</label><br>
+                        <textarea  asp-for="User.WhyIVolunteer" name="User.WhyIVolunteer" placeholder="Enter description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="LinkedInUrl">Linked in URL</label><br>
-                        <input type="url" asp-for="LinkedInUrl" id="liu" name="LinkedInUrl" placeholder="Enter your linked in URL"
+                        <label asp-for="City.CityId">City</label>
+                        @Html.DropDownListFor(m => m.City.CityId, Model.CityList, "Select a City",
+                        new { @class = "sherescontainer1" })
+                        <span asp-validation-for="City.CityId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                        <label asp-for="Country.CountryId">Country</label>
+                        @Html.DropDownListFor(m => m.Country.CountryId, Model.CountryList, "Select a Country",
+                        new { @class = "sherescontainer1"})
+                        <span asp-validation-for="Country.CountryId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                    <label asp-for="User.ProfileText" style="padding:0px;">Profile Text</label><br>
+                        <textarea  asp-for="User.ProfileText" name="User.ProfileText" placeholder="Enter text..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
+                    @*<div style="width:100%;padding:0px;">
+                        <div asp-for="ProfileText" id="editor1">Enter text.</div>
+                    </div>*@
+                </div>
+                <div class="row" style="margin:0px;font-size: 10px;">
+                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                      <label asp-for="User.LinkedInUrl">Linked in URL</label><br>
+                        <input type="url" asp-for="User.LinkedInUrl" id="liu" name="User.LinkedInUrl" placeholder="Enter your linked in URL"
                                class="sherescontainer1" required>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="Title">Title</label><br>
-                        <input type="text" asp-for="Title" id="title" name="Title" placeholder="Enter your title" class="sherescontainer1"
+                        <label asp-for="User.Title">Title</label><br>
+                        <input type="text" asp-for="User.Title" id="title" name="User.Title" placeholder="Enter your title" class="sherescontainer1"
                                required>
                     </div>
                 </div>

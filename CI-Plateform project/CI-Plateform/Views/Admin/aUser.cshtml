@@ -139,11 +139,18 @@
                                     <td>@obj.Department</td>
                                     <td class="text-success font-awesome">@(@obj.Status==1 ? "Active":"Not Active")</td>
                                     <td class="text-center d-flex">
-                                        <a class="btn btn-light" asp-controller="Admin" asp-action="aUseradd">
+                                       @* <a class="btn btn-light" asp-controller="Admin" asp-action="aUseradd">
                                             <i class="bi bi-pencil-square text-secondary"></i>
                                         </a>
                                         <button class="btn btn-light" data-bs-toggle="offcanvas"
                                             data-bs-target="#deleteuser" aria-controls="deleteuser">
+                                            <i class="bi bi-trash"></i>
+                                        </button>*@
+                                         <a class="btn btn-light" asp-controller="Admin" asp-action="aUseredit" asp-route-id="@obj.UserId">
+                                            <i class="bi bi-pencil-square text-secondary"></i>
+                                        </a>
+                                        <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#deleteuser_@obj.UserId" aria-controls="deleteuser">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </td>
@@ -153,29 +160,46 @@
                     </table>
                 </div>
             </div>
-            <!-- deleteuser -->
-            <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="deleteuser"
+            @foreach (var obj in @Model.users)
+            {
+                <div class="deleteuser offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="deleteuser_@obj.UserId"
                  aria-labelledby="staticBackdropLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="staticBackdropLabel">Confirm Delete</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div>
-                        <h6>Are you sure you want to delete this item?</h6>
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="staticBackdropLabel">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                    <div class="row" style="margin:18px 0px;display:block;text-align: center;">
-                        <button type="button" 
+                    <div class="offcanvas-body">
+                        <div>
+                            <h6>Are you sure you want to delete this item?</h6>
+                        </div>
+                        <div class="row" style="margin:18px 0px;display:block;text-align: center;">
+                            <button type="button"
                                 class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
-                            cancel
-                        </button>
-                        <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                                style="width:auto;font-size: 12px;">
-                            Delete
-                        </button>
+                                cancel
+                            </button>
+                            @* <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                        style="width:auto;font-size: 12px;">
+                        Delete
+                        </button>*@
+
+                            @*<button type="submit"
+                                class="form-control rounded-pill btn btn-outline-warning font" style="width:auto;font-size: 12px;">
+                                <a asp-controller="Admin" asp-action="aUserdelete" asp-route-id="@obj.UserId" class="adminaddbutton">
+                                    Delete
+                                </a>
+                            </button>*@
+                            <button type="submit"
+                                class="form-control rounded-pill btn btn-outline-warning font" style="width:auto;font-size: 12px;">
+                                <a asp-controller="Admin" asp-action="aUserdelete" asp-route-id="@obj.UserId" class="adminaddbutton">
+                                    Delete
+                                </a>
+                            </button>
+                            
+
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
             <!-- *********************** -->
         </div>
     </div>
