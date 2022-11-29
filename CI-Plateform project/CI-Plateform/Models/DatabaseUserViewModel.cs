@@ -1,4 +1,5 @@
 ﻿using CI_Plateform.DbModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace CI_Plateform.Models
 {
@@ -10,7 +11,14 @@ namespace CI_Plateform.Models
         public List<Skill>? Skills { get; set; } = null!;
         public List<Story>? storys { get; set; } = null!;
         public List<MissionTheme>? missionThemes { get; set; } = null!;
-
+        public List<MissionSkill>? missionSkills { get; set; } = null!;
         public List<MissionApplication> MissionApplications { get; set; } = null!;
+
+        [Display(Name = "Date Created")]
+        public DateTime dateCreated
+        {
+            get { return DateTime.Now; }
+        }
     }
 }
+    

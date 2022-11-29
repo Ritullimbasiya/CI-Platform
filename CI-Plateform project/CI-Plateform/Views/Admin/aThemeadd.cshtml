@@ -1,5 +1,5 @@
 ﻿@using CI_Plateform.Models
-@model DatabaseUserViewModel
+@model UserVm
 
 <div class="container-fluid" style="padding-left:0px;">
     <div class="row flex-nowrap container-fluid">
@@ -7,7 +7,7 @@
             top: 0;height: 100vh;">
             <div class=" d-flex flex-column align-items-center align-items-sm-start pt-2 text-white
                 min-vh-100">
-               <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start pt-4"
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start pt-4"
                     id="menu" style="font-size:13px;width: 100%;">
                     <h6 class="navigation">NAVIGATION</h6>
                     <li class="nav-item" style="width:inherit;">
@@ -103,30 +103,31 @@
                     <li><a class="dropdown-item" href="#">Logout</a></li>
                 </ul>
             </div>
-            <h4>Add/Edit</h4>
+            <h4>Add Theme</h4>
             <hr>
-            <div>
+            <form method="post" action="aThemeadd">
                 <div class="row" style="margin:18px 0px;padding-left: 0px;font-size:10px;">
-                    <label for="mTitle" style="padding:0px;">Mission title</label><br>
-                    <input type="text" id="mTitle" name="mTitle" placeholder="Enter Mission title"
+                    <label asp-for="MissionTheme.Title" style="padding:0px;">Mission title</label><br>
+                    <input asp-for="MissionTheme.Title" type="text" id="mTitle" name="MissionTheme.Title" placeholder="Enter Mission title"
                            class="sherescontainer1" required>
                 </div>
                 <div class="row" style="margin:18px 0px;padding-left: 0px;font-size:10px;">
-                    <label for="number" class="ps-0">Status</label><br>
-                        <input type="number" id="number" name="number" placeholder="Enter 0 or 1" step="1" min="0"
-                            max="1" class="sherescontainer1">
+                    <label asp-for="MissionTheme.Status" class="ps-0">Status</label><br>
+                    <input asp-for="MissionTheme.Status" type="number" id="number" name="MissionTheme.Status" placeholder="Enter 0 or 1" step="1" min="0"
+                           max="1" class="sherescontainer1">
                 </div>
-            </div>
-            <div class="row mt-2" style="margin:0px;display:block;float: right;">
-                <button type="submit"
-                        class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
-                    cancel
-                </button>
-                <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                        style="width:auto;font-size: 12px;">
-                    Save
-                </button>
-            </div>
+                <div class="row mt-2" style="margin:0px;display:block;float: right;">
+                    <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                             <a asp-controller="Admin" asp-action="aTheme" class="cancelbutton">
+                               cancel
+                            </a>
+                    </button>
+                    <button type="submit" asp-controller="Admin" asp-action="aThemeadd" class="form-control rounded-pill btn btn-outline-warning font"
+                            style="width:auto;font-size: 12px;">
+                        Save
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

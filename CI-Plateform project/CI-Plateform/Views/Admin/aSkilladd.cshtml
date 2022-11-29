@@ -1,5 +1,5 @@
 ﻿@using CI_Plateform.Models
-@model DatabaseUserViewModel
+@model UserVm
 
 <div class="container-fluid" style="padding-left:0px;">
     <div class="row flex-nowrap container-fluid">
@@ -103,30 +103,33 @@
                     <li><a class="dropdown-item" href="#">Logout</a></li>
                 </ul>
             </div>
-            <h4>Add/Edit</h4>
+            <h4>Add Skill</h4>
             <hr>
-            <div>
-                <div class="row" style="margin:18px 0px;padding-left: 0px;font-size:10px;">
-                    <label for="mSkill" style="padding:0px;">Mission Skill</label><br>
-                    <input type="text" id="mSkill" name="mSkill" placeholder="Enter Mission Skill"
-                           class="sherescontainer1" required>
+            <form method="post" action="aSkilladd">
+                <div>
+                    <div class="row" style="margin:18px 0px;padding-left: 0px;font-size:10px;">
+                        <label asp-for="Skill.SkillName" style="padding:0px;">Mission Skill</label><br>
+                        <input asp-for="Skill.SkillName" type="text" id="mSkill" name="Skill.SkillName" placeholder="Enter Mission Skill"
+                               class="sherescontainer1" required>
+                    </div>
+                    <div class="row" style="margin:18px 0px;padding-left: 0px;font-size:10px;">
+                        <label asp-for="Skill.Status" class="ps-0">Status</label><br>
+                        <input asp-for="Skill.Status" type="number" id="number" name="Skill.Status" placeholder="Enter 0 or 1" step="1" min="0"
+                               max="1" class="sherescontainer1">
+                    </div>
                 </div>
-                <div class="row" style="margin:18px 0px;padding-left: 0px;font-size:10px;">
-                    <label for="number" class="ps-0">Status</label><br>
-                        <input type="number" id="number" name="number" placeholder="Enter 0 or 1" step="1" min="0"
-                            max="1" class="sherescontainer1">   
+                <div class="row mt-2" style="margin:0px;display:block;float: right;">
+                    <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                        <a asp-controller="Admin" asp-action="aSkill" class="cancelbutton">
+                            cancel
+                        </a>
+                    </button>
+                    <button type="submit" asp-controller="Admin" asp-action="aSkilladd" class="form-control rounded-pill btn btn-outline-warning font"
+                            style="width:auto;font-size: 12px;">
+                        Save
+                    </button>
                 </div>
-            </div>
-            <div class="row mt-2" style="margin:0px;display:block;float: right;">
-                <button type="submit"
-                        class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
-                    cancel
-                </button>
-                <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                        style="width:auto;font-size: 12px;">
-                    Save
-                </button>
-            </div>
+            </form>
         </div>
     </div>
 </div>

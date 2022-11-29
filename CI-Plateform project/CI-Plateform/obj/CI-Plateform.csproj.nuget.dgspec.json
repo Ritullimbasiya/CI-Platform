@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\25-11-2022\\CI-Plateform project\\CI-Plateform\\CI-Plateform.csproj": {}
+    "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\CI-Plateform.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\25-11-2022\\CI-Plateform project\\CI-Plateform\\CI-Plateform.csproj": {
+    "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\CI-Plateform.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\25-11-2022\\CI-Plateform project\\CI-Plateform\\CI-Plateform.csproj",
+        "projectUniqueName": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\CI-Plateform.csproj",
         "projectName": "CI-Plateform",
-        "projectPath": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\25-11-2022\\CI-Plateform project\\CI-Plateform\\CI-Plateform.csproj",
+        "projectPath": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\CI-Plateform.csproj",
         "packagesPath": "C:\\Users\\Ritul Limbasiya\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\25-11-2022\\CI-Plateform project\\CI-Plateform\\obj\\",
+        "outputPath": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ritul Limbasiya\\AppData\\Roaming\\NuGet\\NuGet.Config",

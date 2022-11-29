@@ -1081,9 +1081,17 @@
     color: #ffc107;
 }
 
-    .adminaddbutton:hover {
-        color: black;
-    }
+.sherescontainer11:hover .adminaddbutton{
+    color: black;
+}
+.cancelbutton {
+    text-decoration: none;
+    color: black;
+}
+
+.sherescontainer10:hover .cancelbutton {
+    color: white;
+}
 
 .navigation {
     color: white;

@@ -91,17 +91,22 @@
         </div>
 
         <div class="tab-content col py-4 px-5" id="v-pills-tabContent" style="font-size:13px;">
-            <div class="dropdown pb-4">
-                <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
-                   id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
-                    <img src="/assets/user-img.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                    <span class="d-none d-sm-inline mx-1">Ritul</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-white text-small shadow">
-                    <li><a class="dropdown-item" href="#">My Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
-                </ul>
+            <div style="display: flow-root;">
+                <div style="align-items: center;display: flex;">
+                    @Model.dateCreated.ToString("dddd, dd MMMM yyyy , hh:mm:tt")
+                </div>
+                <div class="dropdown" style="bottom:19px;">
+                    <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
+                       id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
+                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Ritul</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
             </div>
             <h4>Add User</h4>
             <hr>
@@ -193,9 +198,10 @@
                 </div>
 
                 <div class="row mt-2" style="margin:0px;display:block;float: right;">
-                    <button type="button" asp-controller="Admin" asp-action="aUseradd"
-                            class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
-                        cancel
+                    <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                             <a asp-controller="Admin" asp-action="aUser" class="cancelbutton">
+                               cancel
+                            </a>
                     </button>
                     <button type="submit" asp-controller="Admin" asp-action="aUseradd" class="form-control rounded-pill btn btn-outline-warning font"
                             style="width:auto;font-size: 12px;">

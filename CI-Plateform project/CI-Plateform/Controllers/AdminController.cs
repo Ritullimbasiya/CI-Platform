@@ -82,11 +82,12 @@ namespace CI_Plateform.Controllers
         [HttpPost]
         public IActionResult aUseredit(User obj)
         {
+            obj.UpdatedAt = DateTime.Now;
             _db.Users.Update(obj);
             _db.SaveChanges();
             return RedirectToAction("aUser", "Admin");
         }
-        
+
         public IActionResult aUserdelete(int? id)
         {
             var user = _db.Users.FirstOrDefault(x => x.UserId == id);
@@ -94,6 +95,7 @@ namespace CI_Plateform.Controllers
             {
                 return NotFound();
             }
+            user.DeletedAt = DateTime.Now;
             _db.Users.Remove(user);
             _db.SaveChanges();
             return RedirectToAction("aUser", "Admin");
@@ -108,9 +110,54 @@ namespace CI_Plateform.Controllers
             cmsPage.CmsPages = _db.CmsPages.ToList();
             return View(cmsPage);
         }
+        [HttpGet]
         public IActionResult aCMSadd()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult aCMSadd(UserVm userVm)
+        {
+            if(userVm != null)
+            {
+                CmsPage cmsPage = new CmsPage();
+                cmsPage.Title = userVm.CmsPage.Title;
+                cmsPage.Description = userVm.CmsPage.Description;
+                cmsPage.Slug = userVm.CmsPage.Slug;
+                cmsPage.Status = userVm.CmsPage.Status;
+                cmsPage.CreatedAt = DateTime.Now;
+                _db.CmsPages.Add(cmsPage);
+                _db.SaveChanges();
+                return RedirectToAction("aCMS", "Admin");
+            }
+            return NotFound();
+        }
+        [HttpGet]
+        public IActionResult aCMSedit(int ? id)
+        {
+            var cmsPage = _db.CmsPages.FirstOrDefault(x => x.CmPageId == id);
+            if(cmsPage == null)
+            {
+                NotFound();
+            }
+            return View(cmsPage);
+        }
+        [HttpPost]
+        public IActionResult aCMSedit(CmsPage obj)
+        {
+            obj.UpdatedAt = DateTime.Now;
+            _db.CmsPages.Update(obj);
+            _db.SaveChanges();
+            return RedirectToAction("aCMS", "Admin");
+        }
+
+        public IActionResult aCMSdelete(int? id)
+        {
+            var cmsPage = _db.CmsPages.FirstOrDefault(x => x.CmPageId == id);
+            cmsPage.DeletedAt = DateTime.Now;
+            _db.CmsPages.Remove(cmsPage);
+            _db.SaveChanges();
+            return RedirectToAction("aCMS", "Admin");
         }
         #endregion CMS
 
@@ -134,9 +181,60 @@ namespace CI_Plateform.Controllers
             skill.Skills = _db.Skills.ToList();
             return View(skill);
         }
-        public IActionResult aSkiiadd()
+        [HttpGet]
+        public IActionResult aSkilladd()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult aSkilladd(UserVm userVm)
+        {
+            if (userVm != null)
+            {
+                Skill skill = new Skill();
+                skill.SkillName = userVm.Skill.SkillName;
+                skill.Status = userVm.Skill.Status;
+                skill.CreatedAt = DateTime.Now;
+                _db.Skills.Add(skill);
+                _db.SaveChanges();
+                return RedirectToAction("aSkill", "Admin");
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpGet]
+        public IActionResult aSkilledit(int? id)
+        {
+            var skill = _db.Skills.FirstOrDefault(x => x.SkillId == id);
+            if (skill == null)
+            {
+                return NotFound();
+            }
+            return View(skill);
+        }
+        
+        [HttpPost]
+        public IActionResult aSkilledit(Skill obj)
+        {
+            obj.UpdatedAt = DateTime.Now;
+            _db.Update(obj);
+            _db.SaveChanges();
+            return RedirectToAction("aSkill", "Admin");
+        }
+        public IActionResult aSkilldelete(int? id)
+        {
+            var skill = _db.Skills.FirstOrDefault(x => x.SkillId == id);
+            if (skill == null)
+            {
+                return NotFound();
+            }
+            skill.DeletedAt = DateTime.Now;
+            _db.Skills.Remove(skill);
+            _db.SaveChanges();
+            return RedirectToAction("aSkill", "Admin");
+
         }
         #endregion Skill
 
@@ -147,10 +245,60 @@ namespace CI_Plateform.Controllers
             theme.missionThemes = _db.MissionThemes.ToList();
             return View(theme);
         }
+        [HttpGet]
         public IActionResult aThemeadd()
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult aThemeadd(UserVm userVm)
+        {
+            if (userVm != null)
+            {
+                MissionTheme missionTheme = new MissionTheme();
+                missionTheme.Title = userVm.MissionTheme.Title;
+                missionTheme.Status = userVm.MissionTheme.Status;
+                missionTheme.CreatedAt = DateTime.Now;
+                _db.MissionThemes.Add(missionTheme);
+                _db.SaveChanges();
+                return RedirectToAction("aTheme", "Admin");
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpGet]
+        public IActionResult aThemeedit(int? id)
+        {
+            var missionTheme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == id);
+            if (missionTheme == null)
+            {
+                return NotFound();
+            }
+            return View(missionTheme);
+        }
+        [HttpPost]
+        public IActionResult aThemeedit(MissionTheme obj)
+        {
+            obj.UpdatedAt = DateTime.Now;
+            _db.MissionThemes.Update(obj);
+            _db.SaveChanges();
+            return RedirectToAction("aTheme", "Admin");
+        }
+        public IActionResult aThemedelete(int? id)
+        {
+            var missionTheme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == id);
+            if (missionTheme == null)
+            {
+                return NotFound();
+            }
+            missionTheme.DeletedAt = DateTime.Now;
+            _db.MissionThemes.Remove(missionTheme);
+            _db.SaveChanges();
+            return RedirectToAction("aTheme", "Admin");
+        }
+
         #endregion Theme
 
         #region Application
