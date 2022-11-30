@@ -67,11 +67,21 @@
                     </li>
                     <hr style="margin:2px;width:100%;color: white; ">
                     <li class="nav-item" style="width:inherit;">
-                        <a asp-controller="Admin" asp-action="aStory" class="nav-link sidebar" role="tab" aria-selected="false"
+                        <a asp-controller="Admin" asp-action="aStorylisting" class="nav-link sidebar" role="tab" aria-selected="false"
                            style="width:100%;text-align: left;">
                             <i class="bi bi-bookmark-star"></i>
                             <span class="ms-1 d-none d-sm-inline">
-                                Story
+                                Story Listing
+                            </span>
+                        </a>
+                    </li>
+                    <hr style="margin:2px;width:100%;color: white; ">
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aStorydetail" class="nav-link sidebar" role="tab" aria-selected="false"
+                           style="width:100%;text-align: left;">
+                            <i class="bi bi-book"></i>
+                            <span class="ms-1 d-none d-sm-inline">
+                                Story Detail
                             </span>
                         </a>
                     </li>
@@ -91,32 +101,39 @@
         </div>
 
         <div class="tab-content col py-4 px-5" id="v-pills-tabContent" style="font-size:13px;">
-            <div class="dropdown pb-4">
-                <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
-                   id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
-                    <img src="/assets/user-img.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                    <span class="d-none d-sm-inline mx-1">Ritul</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-white text-small shadow">
-                    <li><a class="dropdown-item" href="#">My Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 style="font-size:16px;">Mission Application</h4>
-                <hr>
-                <div class="row">
-                    <div class="col mb-3">
-                        <button type="submit"
-                                class="form-control rounded-pill btn btn-outline-warning font sherescontainer11">
-                            <a class="adminaddbutton" asp-controller="Admin" asp-action="aApplicationadd">
-                                <i class="bi bi-plus adminaddbutton" style="width: 12px;"></i>Add
-                            </a>
-                        </button>
-                    </div>
+            <div style="display: flow-root;">
+                <div style="align-items: center;display: flex;">
+                    @Model.dateCreated.ToString("dddd, dd MMMM yyyy , hh:mm:tt")
                 </div>
-                <div class="container fluide">
+                <div class="dropdown" style="bottom:19px;">
+                    <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
+                       id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
+                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Ritul</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="margin-top: 0px;border-bottom: groove;" />
+            <div>
+                <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">Mission Application</span>
+                @*<div class="row">
+                <div class="col mb-3">
+                <button type="submit"
+                class="form-control rounded-pill btn btn-outline-warning font sherescontainer11">
+                <i class="bi bi-plus" style="width: 12px;"></i>
+                <a asp-controller="Admin" asp-action="aApplicationadd" class="adminaddbutton">
+                Add
+                </a>
+                </button>
+                </div>
+                </div>*@
+                @* <form class="pt-3" method="post" action="aApplicationadd">*@
+                <div class="container fluide pt-3">
                     <table id="Application" class="table table-borderless">
                         <thead class="table-light text-primary">
                             <tr>
@@ -132,29 +149,30 @@
 
                             @foreach (var obj in @Model.MissionApplications)
                             {
-                                <tr>
-                                    <td>@obj.Mission.Title</td>
-                                    <td>@obj.MissionId</td>
-                                    <td>@obj.UserId</td>
-                                    <td>@obj.User.FirstName</td>
-                                    <td>@obj.AppliedAt</td>
-                                    <td class="text-center d-flex">
-                                        <button class="btn btn-light">
-                                            <i class="bi bi-check-circle" style="color:green;"></i>
-                                        </button>
-                                        <button class="btn btn-light">
-                                            <i class="bi bi-x-circle"
-                                           style="color:red"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                @if (@obj.ApprovalStatus == 0)
+                                {
+                                    <tr>
+                                        <td>@obj.Mission.Title</td>
+                                        <td>@obj.MissionId</td>
+                                        <td>@obj.UserId</td>
+                                        <td>@obj.User.FirstName &nbsp; @obj.User.LastName</td>
+                                        <td>@obj.AppliedAt</td>
+                                        <td class="text-center d-flex">
+                                            <button type="submit" class="btn btn-light">
+                                                <a asp-controller="Admin" asp-action="aApplicationupdate" asp-route-id=@obj.MissionApplicationId class="adminaddbutton">
+                                                    <i class="bi bi-check-circle" style="color:green;"></i>
+                                                </a>
+                                            </button>
+                                            <button class="btn btn-light">
+                                                <a asp-controller="Admin" asp-action="aApplicationdelete" asp-route-id=@obj.MissionApplicationId class="adminaddbutton">
+                                                   <i class="bi bi-x-circle" style="color:red"></i>
+                                                </a>            
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+
                             }
-
-
-
-
-
-
 
                             @*<tr>
                             <td>Lorem ipsum dolor sit amet.</td>
@@ -208,6 +226,7 @@
                         </tbody>
                     </table>
                 </div>
+                @*</form>*@
             </div>
         </div>
     </div>

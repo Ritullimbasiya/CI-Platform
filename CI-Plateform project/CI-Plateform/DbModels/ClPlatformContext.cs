@@ -343,7 +343,9 @@ namespace CI_Plateform.DbModels
 
                 entity.Property(e => e.MissionId).HasColumnName("mission_id");
 
-                entity.Property(e => e.Availability).HasColumnName("availability");
+                entity.Property(e => e.Availability)
+                    .HasColumnType("decimal(18, 0)")
+                    .HasColumnName("availability");
 
                 entity.Property(e => e.CityId).HasColumnName("city_id");
 
@@ -400,19 +402,16 @@ namespace CI_Plateform.DbModels
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Missions)
                     .HasForeignKey(d => d.CityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_mission_city");
 
                 entity.HasOne(d => d.Country)
                     .WithMany(p => p.Missions)
                     .HasForeignKey(d => d.CountryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_mission_country");
 
                 entity.HasOne(d => d.MissionTheme)
                     .WithMany(p => p.Missions)
                     .HasForeignKey(d => d.MissionThemeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_mission_mission_theme");
             });
 
@@ -790,9 +789,7 @@ namespace CI_Plateform.DbModels
             {
                 entity.ToTable("story_invite");
 
-                entity.Property(e => e.StoryInviteId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("story_invite_id");
+                entity.Property(e => e.StoryInviteId).HasColumnName("story_invite_id");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")

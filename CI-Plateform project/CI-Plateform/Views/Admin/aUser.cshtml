@@ -32,7 +32,6 @@
                             <i class="bi bi-bullseye mr-3"></i><span class="ms-1 d-none d-sm-inline">Mission</span>
                         </a>
                     </li>
-
                     <hr style="margin:2px;width:100%;color: white; ">
                     <li class="nav-item" style="width:inherit;">
                         <a asp-controller="Admin" asp-action="aTheme" class="nav-link sidebar" role="tab" aria-selected="false"
@@ -42,7 +41,6 @@
                             </span>
                         </a>
                     </li>
-
                     <hr style="margin:2px;width:100%;color: white; ">
                     <li class="nav-item" style="width:inherit;">
                         <a asp-controller="Admin" asp-action="aSkill" class="nav-link sidebar" role="tab" aria-selected="false"
@@ -53,7 +51,6 @@
                             </span>
                         </a>
                     </li>
-
                     <hr style="margin:2px;width:100%;color: white; ">
                     <li class="nav-item" style="width:inherit;">
                         <a asp-controller="Admin" asp-action="aApplication" class="nav-link sidebar" role="tab" aria-selected="false"
@@ -66,11 +63,21 @@
                     </li>
                     <hr style="margin:2px;width:100%;color: white; ">
                     <li class="nav-item" style="width:inherit;">
-                        <a asp-controller="Admin" asp-action="aStory" class="nav-link sidebar" role="tab" aria-selected="false"
+                        <a asp-controller="Admin" asp-action="aStorylisting" class="nav-link sidebar" role="tab" aria-selected="false"
                            style="width:100%;text-align: left;">
                             <i class="bi bi-bookmark-star"></i>
                             <span class="ms-1 d-none d-sm-inline">
-                                Story
+                                Story Listing
+                            </span>
+                        </a>
+                    </li>
+                    <hr style="margin:2px;width:100%;color: white; ">
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aStorydetail" class="nav-link sidebar" role="tab" aria-selected="false"
+                           style="width:100%;text-align: left;">
+                            <i class="bi bi-book"></i>
+                            <span class="ms-1 d-none d-sm-inline">
+                                Story Detail
                             </span>
                         </a>
                     </li>
@@ -84,7 +91,7 @@
                             </span>
                         </a>
                     </li>
-                    <hr style="margin:2px;width:100%;color: white; ">
+                    <hr style="margin:2px;width:100%;color: white;">
                 </ul>
             </div>
         </div>
@@ -107,9 +114,9 @@
                     </ul>
                 </div>
             </div>
-            <hr style="margin-top: 0px;border-bottom: groove;"/>
+            <hr style="margin-top: 0px;border-bottom: groove;" />
             <div>
-               <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">User</span>
+                <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">User</span>
                 <div class="row">
                     <div class="col mb-3">
                         <button type="submit"

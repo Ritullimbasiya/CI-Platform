@@ -21,9 +21,9 @@ namespace CI_Plateform.DbModels
         }
 
         public long MissionId { get; set; }
-        public long MissionThemeId { get; set; }
-        public long CityId { get; set; }
-        public long CountryId { get; set; }
+        public long? MissionThemeId { get; set; }
+        public long? CityId { get; set; }
+        public long? CountryId { get; set; }
         public string Title { get; set; } = null!;
         public string ShortDescription { get; set; } = null!;
         public string Description { get; set; } = null!;
@@ -33,14 +33,14 @@ namespace CI_Plateform.DbModels
         public int Status { get; set; }
         public string? OrganizationName { get; set; }
         public string? OrganizationDetail { get; set; }
-        public int? Availability { get; set; }
+        public decimal? Availability { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 
-        public virtual City City { get; set; } = null!;
-        public virtual Country Country { get; set; } = null!;
-        public virtual MissionTheme MissionTheme { get; set; } = null!;
+        public virtual City? City { get; set; }
+        public virtual Country? Country { get; set; }
+        public virtual MissionTheme? MissionTheme { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<FavouriteMission> FavouriteMissions { get; set; }
         public virtual ICollection<GoalMission> GoalMissions { get; set; }

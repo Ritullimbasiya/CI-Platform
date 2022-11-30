@@ -1,5 +1,5 @@
 ﻿@using CI_Plateform.Models
-@model DatabaseUserViewModel
+@model UserVm
 
 <div class="container-fluid" style="padding-left:0px;">
     <div class="row flex-nowrap container-fluid">
@@ -7,7 +7,7 @@
             top: 0;height: 100vh;">
             <div class=" d-flex flex-column align-items-center align-items-sm-start pt-2 text-white
                 min-vh-100">
-               <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start pt-4"
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start pt-4"
                     id="menu" style="font-size:13px;width: 100%;">
                     <h6 class="navigation">NAVIGATION</h6>
                     <li class="nav-item" style="width:inherit;">
@@ -57,11 +57,21 @@
 
                     <hr style="margin:2px;width:100%;color: white; ">
                     <li class="nav-item" style="width:inherit;">
-                        <a asp-controller="Admin" asp-action="aApplication" class="nav-link sidebar" role="tab" aria-selected="false"
+                        <a asp-controller="Admin" asp-action="aStorylisting" class="nav-link sidebar" role="tab" aria-selected="false"
                            style="width:100%;text-align: left;">
-                            <i class="bi bi-files mr-3"></i>
+                            <i class="bi bi-bookmark-star"></i>
                             <span class="ms-1 d-none d-sm-inline">
-                                Mission Application
+                                Story Listing
+                            </span>
+                        </a>
+                    </li>
+                    <hr style="margin:2px;width:100%;color: white; ">
+                    <li class="nav-item" style="width:inherit;">
+                        <a asp-controller="Admin" asp-action="aStorydetail" class="nav-link sidebar" role="tab" aria-selected="false"
+                           style="width:100%;text-align: left;">
+                            <i class="bi bi-book"></i>
+                            <span class="ms-1 d-none d-sm-inline">
+                                Story Detail
                             </span>
                         </a>
                     </li>
@@ -91,103 +101,113 @@
         </div>
 
         <div class="tab-content col py-4 px-5" id="v-pills-tabContent" style="font-size:13px;">
-            <div class="dropdown pb-4">
-                <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
-                   id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
-                    <img src="/assets/user-img.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                    <span class="d-none d-sm-inline mx-1">Ritul</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-white text-small shadow">
-                    <li><a class="dropdown-item" href="#">My Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
-                </ul>
+            <div style="display: flow-root;">
+                <div style="align-items: center;display: flex;">
+                    @Model.dateCreated.ToString("dddd, dd MMMM yyyy , hh:mm:tt")
+                </div>
+                <div class="dropdown" style="bottom:19px;">
+                    <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
+                       id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
+                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Ritul</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
             </div>
-            <h4>Add/Edit</h4>
-            <hr>
-            <div>
+            <hr style="margin-top: 0px;border-bottom: groove;" />
+            <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">Add Mission</span>
+            <form class="pt-3" method="post" action="aMissionadd">
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="Theme">Mission Theme</label><br>
-                        <input type="text" id="Theme" name="Theme" placeholder="Enter your mission theme"
-                               class="sherescontainer1" required>
+                        <label asp-for="MissionTheme.MissionThemeId">Mission Theme</label>
+                        @Html.DropDownListFor(m => m.MissionTheme.MissionThemeId, Model.MissionThemeList, "Select a Mission",
+                        new { @class = "sherescontainer1" })
+                        <span asp-validation-for="MissionTheme.MissionThemeId" class="text-danger"></span>
                     </div>
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="city">City</label><br>
-                        <input type="text" id="city" name="city" placeholder="Enter city" class="sherescontainer1"
-                               required>
+                        <label asp-for="City.CityId">City</label>
+                        @Html.DropDownListFor(m => m.City.CityId, Model.CityList, "Select a City",
+                        new { @class = "sherescontainer1" })
+                        <span asp-validation-for="City.CityId" class="text-danger"></span>
                     </div>
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="country">Country</label><br>
-                        <input type="text" id="country" name="country" placeholder="Enter country"
-                               class="sherescontainer1" required>
+                        <label asp-for="Country.CountryId">Country</label>
+                        @Html.DropDownListFor(m => m.Country.CountryId, Model.CountryList, "Select a Country",
+                        new { @class = "sherescontainer1"})
+                        <span asp-validation-for="Country.CountryId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
-                    <label for="title" style="padding:0px;">Title</label><br>
-                    <input type="text" id="title" name="title" placeholder="Enter title" class="sherescontainer1"
+                    <label asp-for="Mission.Title" style="padding:0px;">Title</label><br>
+                    <input asp-for="Mission.Title" type="text" id="title" name="Mission.Title" placeholder="Enter title" class="sherescontainer1"
                            required>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
-                    <label for="sDescription" style="padding:0px;">Short Description</label><br>
-                    <input type="text" id="sDescription" name="sDescription" placeholder="Enter Short Description"
+                    <label asp-for="Mission.ShortDescription" style="padding:0px;">Short Description</label><br>
+                    <input asp-for="Mission.ShortDescription" type="text" id="sDescription" name="Mission.ShortDescription" placeholder="Enter Short Description"
                            class="sherescontainer1" required>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
-                    <label for="Description" style="padding:0px;">Description</label><br>
-                    <input type="text" id="Description" name="Description" placeholder="Enter Description"
+                    <label asp-for="Mission.Description" style="padding:0px;">Description</label><br>
+                    <input asp-for="Mission.Description" type="text" id="Description" name="Mission.Description" placeholder="Enter Description"
                            class="sherescontainer1" required>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="sDate">Start Date</label><br>
-                        <input type="date" id="sDate" name="sDate" class="sherescontainer1" required>
+                        <label asp-for="Mission.StartDate">Start Date</label><br>
+                        <input asp-for="Mission.StartDate" type="date" id="sDate" name="Mission.StartDate" class="sherescontainer1" required>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="eDate">End Date</label><br>
-                        <input type="date" id="eDate" name="eDate" class="sherescontainer1" required>
+                        <label asp-for="Mission.EndDate">End Date</label><br>
+                        <input asp-for="Mission.EndDate" type="date" id="eDate" name="Mission.EndDate" class="sherescontainer1" required>
                     </div>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="mType">Mission Type</label><br>
-                        <input type="text" id="mType" name="mType" placeholder="Enter your mission type"
+                        <label asp-for="Mission.MissionType">Mission Type</label><br>
+                        <input asp-for="Mission.MissionType" type="text" id="mType" name="Mission.MissionType" placeholder="Enter your mission type"
                                class="sherescontainer1" required>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="number" class="ps-0">Status</label><br>
-                        <input type="number" id="number" name="number" placeholder="Enter 0 or 1" step="1" min="0"
-                            max="1" class="sherescontainer1">
+                        <label asp-for="Mission.Status" class="ps-0">Status</label><br>
+                        <input asp-for="Mission.Status" type="number" id="number" name="Mission.Status" placeholder="Enter 0 or 1" step="1" min="0"
+                               max="1" class="sherescontainer1">
                     </div>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="oName">Organization Name</label><br>
-                        <input type="text" id="oName" name="oName" placeholder="Enter your Organization Name"
+                        <label asp-for="Mission.OrganizationName">Organization Name</label><br>
+                        <input asp-for="Mission.OrganizationName" type="text" id="oName" name="Mission.OrganizationName" placeholder="Enter your Organization Name"
                                class="sherescontainer1" required>
                     </div>
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="oDetail">Organization Detail</label><br>
-                        <input type="text" id="oDetail" name="oDetail" placeholder="Enter Organization Detail"
+                        <label asp-for="Mission.OrganizationDetail">Organization Detail</label><br>
+                        <input asp-for="Mission.OrganizationDetail" type="text" id="oDetail" name="Mission.OrganizationDetail" placeholder="Enter Organization Detail"
                                class="sherescontainer1" required>
                     </div>
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label for="Availability">Availability</label><br>
-                        <input type="text" id="Availability" name="Availability" placeholder="Enter Availability"
+                        <label asp-for="Mission.Availability">Availability</label><br>
+                        <input asp-for="Mission.Availability" type="number" id="Availability" name="Mission.Availability" placeholder="Enter Availability time"
                                class="sherescontainer1" required>
                     </div>
                 </div>
-            </div>
-            <div class="row mt-2" style="margin:0px;display:block;float: right;">
-                <button type="submit"
-                        class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
-                    cancel
-                </button>
-                <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                        style="width:auto;font-size: 12px;">
-                    Save
-                </button>
-            </div>
+
+                <div class="row mt-2" style="margin:0px;display:block;float: right;">
+                    <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                        <a asp-controller="Admin" asp-action="aMission" class="cancelbutton">
+                            cancel
+                        </a>
+                    </button>
+                    <button type="submit" asp-controller="Admin" asp-action="aMissionadd" class="form-control rounded-pill btn btn-outline-warning font"
+                            style="width:auto;font-size: 12px;">
+                        Save
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

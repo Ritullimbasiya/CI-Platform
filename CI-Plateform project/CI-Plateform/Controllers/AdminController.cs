@@ -22,7 +22,6 @@ namespace CI_Plateform.Controllers
         {
             UserVm userVM = new UserVm()
             {
-                User = new User(),
                 CityList = _db.Cities.Select(i => new SelectListItem
                 {
                     Text = i.Name,
@@ -113,12 +112,13 @@ namespace CI_Plateform.Controllers
         [HttpGet]
         public IActionResult aCMSadd()
         {
-            return View();
+            UserVm userVm = new UserVm();
+            return View(userVm);
         }
         [HttpPost]
         public IActionResult aCMSadd(UserVm userVm)
         {
-            if(userVm != null)
+            if (userVm != null)
             {
                 CmsPage cmsPage = new CmsPage();
                 cmsPage.Title = userVm.CmsPage.Title;
@@ -133,10 +133,10 @@ namespace CI_Plateform.Controllers
             return NotFound();
         }
         [HttpGet]
-        public IActionResult aCMSedit(int ? id)
+        public IActionResult aCMSedit(int? id)
         {
             var cmsPage = _db.CmsPages.FirstOrDefault(x => x.CmPageId == id);
-            if(cmsPage == null)
+            if (cmsPage == null)
             {
                 NotFound();
             }
@@ -168,9 +168,82 @@ namespace CI_Plateform.Controllers
             mission.Missions = _db.Missions.ToList();
             return View(mission);
         }
+        [HttpGet]
         public IActionResult aMissionadd()
         {
-            return View();
+            UserVm userVM = new UserVm()
+            {
+                MissionThemeList = _db.MissionThemes.Select(i => new SelectListItem
+                {
+                    Text = i.Title,
+                    Value = i.MissionThemeId.ToString()
+                }),
+                CityList = _db.Cities.Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.CityId.ToString()
+                }),
+                CountryList = _db.Countries.Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.CountryId.ToString()
+                })
+            };
+            return View(userVM);
+        }
+        [HttpPost]
+        public IActionResult aMissionadd(UserVm userVm)
+        {
+            if (userVm != null)
+            {
+                Mission mission = new Mission();
+                mission.MissionThemeId = userVm.MissionTheme.MissionThemeId;
+                mission.CityId = userVm.City.CityId;
+                mission.CountryId = userVm.Country.CountryId;
+                mission.Title = userVm.Mission.Title;
+                mission.ShortDescription = userVm.Mission.ShortDescription;
+                mission.Description = userVm.Mission.Description;
+                mission.StartDate = userVm.Mission.StartDate;
+                mission.EndDate = userVm.Mission.EndDate;
+                mission.MissionType = userVm.Mission.MissionType;
+                mission.Status = userVm.Mission.Status;
+                mission.OrganizationName = userVm.Mission.OrganizationName;
+                mission.OrganizationDetail = userVm.Mission.OrganizationDetail;
+                mission.Availability = userVm.Mission.Availability;
+                mission.CreatedAt = DateTime.Now;
+                _db.Missions.Add(mission);
+                _db.SaveChanges();
+                return RedirectToAction("aMission", "Admin");
+            }
+            else
+                return NotFound();
+        }
+        [HttpGet]
+        public IActionResult aMissionedit(int? id)
+        {
+            var mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
+            return View(mission);
+        }
+        [HttpPost]
+        public IActionResult aMissionedit(Mission obj)
+        {
+            obj.UpdatedAt = DateTime.Now;
+            _db.Missions.Update(obj);
+            _db.SaveChanges();
+            return RedirectToAction("aMission", "Admin");
+        }
+
+        public IActionResult aMissiondelete(int? id)
+        {
+            var mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
+            if (mission == null)
+            {
+                return NotFound();
+            }
+            mission.DeletedAt = DateTime.Now;
+            _db.Missions.Remove(mission);
+            _db.SaveChanges();
+            return RedirectToAction("aMission", "Admin");
         }
         #endregion Mission
 
@@ -184,7 +257,8 @@ namespace CI_Plateform.Controllers
         [HttpGet]
         public IActionResult aSkilladd()
         {
-            return View();
+            UserVm userVm = new UserVm();
+            return View(userVm);
         }
         [HttpPost]
         public IActionResult aSkilladd(UserVm userVm)
@@ -214,7 +288,7 @@ namespace CI_Plateform.Controllers
             }
             return View(skill);
         }
-        
+
         [HttpPost]
         public IActionResult aSkilledit(Skill obj)
         {
@@ -248,7 +322,8 @@ namespace CI_Plateform.Controllers
         [HttpGet]
         public IActionResult aThemeadd()
         {
-            return View();
+            UserVm userVm = new UserVm();
+            return View(userVm);
         }
         [HttpPost]
         public IActionResult aThemeadd(UserVm userVm)
@@ -302,6 +377,7 @@ namespace CI_Plateform.Controllers
         #endregion Theme
 
         #region Application
+
         public IActionResult aApplication()
         {
             var application = new DatabaseUserViewModel();
@@ -311,52 +387,80 @@ namespace CI_Plateform.Controllers
             application.users = _db.Users.ToList();
             return View(application);
         }
+        /*[HttpGet]
         public IActionResult aApplicationadd()
         {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult aApplicationadd(AMissionApplication obj)
-        {
+            MissionApplication missionApplication = new MissionApplication();
+            return View(missionApplication);
+        }*/
 
-            MissionApplication i = new MissionApplication();
-            /*i = _db.MissionApplications.FirstOrDefault(u => u.MissionId.Equals(obj.MissionApplication.MissionId));
-            if (i != null)*/
-            {
-                i.MissionId = obj.MissionApplication.MissionId;
-                i.UserId = obj.MissionApplication.UserId;
-                i.AppliedAt = obj.MissionApplication.AppliedAt;
-                i.ApprovalStatus = obj.MissionApplication.ApprovalStatus;
-                /*_db.MissionApplications.Add(i);
-                _db.SaveChanges();*/
-            }
-            _db.MissionApplications.Add(i);
+        public IActionResult aApplicationupdate(int? id)
+        {
+            var obj = _db.MissionApplications.FirstOrDefault(a => a.MissionApplicationId == id);
+            obj.ApprovalStatus = 1;
+            obj.UpdatedAt = DateTime.Now;
+            _db.MissionApplications.Update(obj);
             _db.SaveChanges();
             return RedirectToAction("aApplication", "Admin");
-
-
-
         }
+        public IActionResult aApplicationdelete(int? id)
+        {
+            var obj = _db.MissionApplications.FirstOrDefault(a => a.MissionApplicationId == id);
+            obj.DeletedAt = DateTime.Now;
+            _db.MissionApplications.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("aApplication", "Admin");
+        }
+
         #endregion Application
 
-        #region Story
-        public IActionResult aStory()
+        #region Story Listing
+        public IActionResult aStorylisting()
         {
-            var story = new DatabaseUserViewModel();
-            story.storys = _db.Stories.ToList();
-            return View(story);
+            var storylisting = new DatabaseUserViewModel();
+            storylisting.storys = _db.Stories.ToList();
+            return View(storylisting);
         }
-        public IActionResult aStoryadd()
+        public IActionResult aStorylistingpublish(int ? id)
         {
-            return View();
+            var obj = _db.Stories.FirstOrDefault(x => x.StoryId == id);
+            obj.PublishedAt = DateTime.Now;
+            obj.UpdatedAt = DateTime.Now;
+            _db.Stories.Update(obj);
+            _db.SaveChanges();
+            return View(obj);
+        }
+        public IActionResult aStorylistingdecline(int ? id)
+        {
+            var obj = _db.Stories.FirstOrDefault(x => x.StoryId == id);
+            obj.DeletedAt = DateTime.Now;
+            _db.Stories.Remove(obj);
+            _db.SaveChanges();
+            return View(obj);
         }
 
-        #endregion Story
+        #endregion Story Listing
+
+        #region Story detail
+        public IActionResult aStorydetail()
+        {
+            var storydetail = new DatabaseUserViewModel();
+            storydetail.storys = _db.Stories.ToList();
+            return View(storydetail);
+        }
+        public IActionResult aStorydetailadd()
+        {
+            UserVm userVm = new UserVm();
+            return View(userVm);
+        }
+
+        #endregion Story detail
 
         #region Management
         public IActionResult aManagement()
         {
-            return View();
+            UserVm userVm = new UserVm();
+            return View(userVm);
         }
         #endregion Management
 

@@ -14,6 +14,13 @@ namespace CI_Plateform.Models
         public List<MissionSkill>? missionSkills { get; set; } = null!;
         public List<MissionApplication> MissionApplications { get; set; } = null!;
 
+        public Mission? GetMission { get; set; } = null!;
+        public User? GetUser { get; set; } = null!;
+        public MissionApplication? GetMissionApplication { get; set; } = null!;
+        public Story? GetStory { get; set; } = null!;
+
+        public Nullable<DateTime> dateTime { get; set; } = null!;
+
         [Display(Name = "Date Created")]
         public DateTime dateCreated
         {
