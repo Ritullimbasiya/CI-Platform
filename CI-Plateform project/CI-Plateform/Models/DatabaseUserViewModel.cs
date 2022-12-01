@@ -9,17 +9,12 @@ namespace CI_Plateform.Models
         public List<Mission>? Missions { get; set; } = null!;
         public List<CmsPage>? CmsPages { get; set; } = null!;
         public List<Skill>? Skills { get; set; } = null!;
-        public List<Story>? storys { get; set; } = null!;
+        public List<Story>? Storys { get; set; } = null!;
         public List<MissionTheme>? missionThemes { get; set; } = null!;
         public List<MissionSkill>? missionSkills { get; set; } = null!;
         public List<MissionApplication> MissionApplications { get; set; } = null!;
-
-        public Mission? GetMission { get; set; } = null!;
-        public User? GetUser { get; set; } = null!;
-        public MissionApplication? GetMissionApplication { get; set; } = null!;
-        public Story? GetStory { get; set; } = null!;
-
-        public Nullable<DateTime> dateTime { get; set; } = null!;
+        public List<StoryMedium> StoryMediums { get; set; } = null!;
+        public List<Banner> Banners { get; set; } = null!;
 
         [Display(Name = "Date Created")]
         public DateTime dateCreated

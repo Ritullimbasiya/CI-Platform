@@ -19,6 +19,18 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYUFwcGxpY2F0aW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/ddummy/CI-Plateform project/CI-Plateform/Views/Admin/aBanner.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYUJhbm5lci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/ddummy/CI-Plateform project/CI-Plateform/Views/Admin/aBanneradd.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYUJhbm5lcmFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/ddummy/CI-Plateform project/CI-Plateform/Views/Admin/aBanneredit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYUJhbm5lcmVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/ddummy/CI-Plateform project/CI-Plateform/Views/Admin/aCMS.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYUNNUy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -29,10 +41,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/ddummy/CI-Plateform project/CI-Plateform/Views/Admin/aCMSedit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYUNNU2VkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/ddummy/CI-Plateform project/CI-Plateform/Views/Admin/aManagement.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYU1hbmFnZW1lbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/ddummy/CI-Plateform project/CI-Plateform/Views/Admin/aMission.cshtml]
@@ -65,10 +73,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/ddummy/CI-Plateform project/CI-Plateform/Views/Admin/aStorylisting.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYVN0b3J5bGlzdGluZy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/ddummy/CI-Plateform project/CI-Plateform/Views/Admin/aStorylistingadd.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYVN0b3J5bGlzdGluZ2FkZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/ddummy/CI-Plateform project/CI-Plateform/Views/Admin/aTheme.cshtml]

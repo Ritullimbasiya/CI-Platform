@@ -87,7 +87,7 @@
                     </li>
                     <hr style="margin:2px;width:100%;color: white; ">
                     <li class="nav-item" style="width:inherit;">
-                        <a asp-controller="Admin" asp-action="aManagement" class="nav-link sidebar" role="tab" aria-selected="false"
+                        <a asp-controller="Admin" asp-action="aBanner" class="nav-link sidebar" role="tab" aria-selected="false"
                            style="width:100%;text-align: left;">
                             <i class="bi bi-card-heading"></i>
                             <span class="ms-1 d-none d-sm-inline">
@@ -122,39 +122,40 @@
             <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">Add Mission</span>
             <form class="pt-3" method="post" action="aMissionadd">
                 <div class="row" style="margin:0px;font-size: 10px;">
-                    <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="MissionTheme.MissionThemeId">Mission Theme</label>
-                        @Html.DropDownListFor(m => m.MissionTheme.MissionThemeId, Model.MissionThemeList, "Select a Mission",
-                        new { @class = "sherescontainer1" })
-                        <span asp-validation-for="MissionTheme.MissionThemeId" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="City.CityId">City</label>
-                        @Html.DropDownListFor(m => m.City.CityId, Model.CityList, "Select a City",
-                        new { @class = "sherescontainer1" })
-                        <span asp-validation-for="City.CityId" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="Country.CountryId">Country</label>
                         @Html.DropDownListFor(m => m.Country.CountryId, Model.CountryList, "Select a Country",
                         new { @class = "sherescontainer1"})
                         <span asp-validation-for="Country.CountryId" class="text-danger"></span>
                     </div>
+                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                        <label asp-for="City.CityId">City</label>
+                        @Html.DropDownListFor(m => m.City.CityId, Model.CityList, "Select a City",
+                        new { @class = "sherescontainer1" })
+                        <span asp-validation-for="City.CityId" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
-                    <label asp-for="Mission.Title" style="padding:0px;">Title</label><br>
+                    <label asp-for="Mission.Title" style="padding:0px;">Mission Title</label><br>
                     <input asp-for="Mission.Title" type="text" id="title" name="Mission.Title" placeholder="Enter title" class="sherescontainer1"
                            required>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
                     <label asp-for="Mission.ShortDescription" style="padding:0px;">Short Description</label><br>
-                    <input asp-for="Mission.ShortDescription" type="text" id="sDescription" name="Mission.ShortDescription" placeholder="Enter Short Description"
-                           class="sherescontainer1" required>
+                    <textarea asp-for="Mission.ShortDescription" name="Mission.ShortDescription" placeholder="Enter Short description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
                     <label asp-for="Mission.Description" style="padding:0px;">Description</label><br>
-                    <input asp-for="Mission.Description" type="text" id="Description" name="Mission.Description" placeholder="Enter Description"
+                    <textarea asp-for="Mission.Description" name="Mission.Description" placeholder="Enter  description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
+                </div>
+                <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
+                    <label asp-for="Mission.OrganizationName">Organization Name</label><br>
+                    <input asp-for="Mission.OrganizationName" type="text" id="oName" name="Mission.OrganizationName" placeholder="Enter your Organization Name"
                            class="sherescontainer1" required>
+                </div>
+                <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
+                    <label asp-for="Mission.OrganizationDetail">Organisation Detail</label><br>
+                    <textarea asp-for="Mission.OrganizationDetail" name="Mission.OrganizationDetail" placeholder="Enter organisation description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
@@ -166,28 +167,64 @@
                         <input asp-for="Mission.EndDate" type="date" id="eDate" name="Mission.EndDate" class="sherescontainer1" required>
                     </div>
                 </div>
+                @*<div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
+                <label asp-for="Mission.TotalSheet">Total Sheet</label><br>
+                <input asp-for="Mission.TotalSheet" type="number" id="tSheet" name="Mission.TotalSheet" placeholder="Enter your Organization Name"
+                class="sherescontainer1" required>
+                </div>*@
                 <div class="row" style="margin:0px;font-size: 10px;">
+
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="Mission.MissionType">Mission Type</label><br>
-                        <input asp-for="Mission.MissionType" type="text" id="mType" name="Mission.MissionType" placeholder="Enter your mission type"
+                        <input asp-for="Mission.MissionType" type="number" id="mType" name="Mission.MissionType" placeholder="Enter your mission type"
                                class="sherescontainer1" required>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="Mission.Status" class="ps-0">Status</label><br>
-                        <input asp-for="Mission.Status" type="number" id="number" name="Mission.Status" placeholder="Enter 0 or 1" step="1" min="0"
-                               max="1" class="sherescontainer1">
+                        @* @foreach (var obj in Model.Missionss)
+                        {
+                        @if (@obj.MissionType == 1)
+                        {*@
+                        <label asp-for="Mission.Deadline">Mession registration deadline</label>
+
+                        <br>
+                        <input asp-for="Mission.Deadline" type="date" id="dDate" name="Mission.Deadline" class="sherescontainer1" required>
+                        @* }
+                        else
+                        {
+                        <label asp-for="GoalMission.GoalValue">Goal Value</label>
+
+                        <br>
+                        <input asp-for="GoalMission.GoalValue" type="number" id="gValue" name="GoalMission.GoalValue" class="sherescontainer1" required>
+                        }
+                        }*@
+                    </div>
+                </div>
+                <div class="row" style="margin:0px;font-size: 10px;">
+                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                        <label asp-for="MissionTheme.MissionThemeId">Mission Theme</label>
+                        @Html.DropDownListFor(m => m.MissionTheme.MissionThemeId, Model.MissionThemeList, "Select a Mission",
+                        new { @class = "sherescontainer1" })
+                        <span asp-validation-for="MissionTheme.MissionThemeId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                        <label asp-for="Skill.SkillId">Mission Skill</label>
+                        @Html.DropDownListFor(m => m.Skill.SkillId, Model.SkillList, "Select a Skill",
+                        new { @class = "sherescontainer1" })
+                        <span asp-validation-for="Skill.SkillId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="Mission.OrganizationName">Organization Name</label><br>
-                        <input asp-for="Mission.OrganizationName" type="text" id="oName" name="Mission.OrganizationName" placeholder="Enter your Organization Name"
-                               class="sherescontainer1" required>
+                        <label asp-for="MissionMedium.MessionPath" style="padding:0px;">Image</label><br>
+                        <input asp-for="MissionMedium.MessionPath" class="form-control form-control-sm mb-2" name="MissionMedium.MessionPath" style="font-size:10px;" id="formFileSm"
+                               type="file">
+                        <label style="padding:0px;">Image</label>
+                        <input id="formFileSm" type="file" multiple name="missionImages">
                     </div>
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                        <label asp-for="Mission.OrganizationDetail">Organization Detail</label><br>
-                        <input asp-for="Mission.OrganizationDetail" type="text" id="oDetail" name="Mission.OrganizationDetail" placeholder="Enter Organization Detail"
-                               class="sherescontainer1" required>
+                        <label asp-for="MissionDocument.DocumentPath" style="padding:0px;">Misssion Document</label><br>
+                        <input asp-for="MissionDocument.DocumentPath" class="form-control form-control-sm mb-2" name="MissionDocument.DocumentPath" style="font-size:10px;" id="formFileSm"
+                               type="file">
                     </div>
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="Mission.Availability">Availability</label><br>

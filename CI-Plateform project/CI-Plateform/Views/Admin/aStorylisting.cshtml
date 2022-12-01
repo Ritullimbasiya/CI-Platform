@@ -87,7 +87,7 @@
                     </li>
                     <hr style="margin:2px;width:100%;color: white; ">
                     <li class="nav-item" style="width:inherit;">
-                        <a asp-controller="Admin" asp-action="aManagement" class="nav-link sidebar" role="tab" aria-selected="false"
+                        <a asp-controller="Admin" asp-action="aBanner" class="nav-link sidebar" role="tab" aria-selected="false"
                            style="width:100%;text-align: left;">
                             <i class="bi bi-card-heading"></i>
                             <span class="ms-1 d-none d-sm-inline">
@@ -120,7 +120,7 @@
             </div>
             <hr style="margin-top: 0px;border-bottom: groove;" />
             <div>
-                <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">Mission Story</span>
+                <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">Story Listing</span>
                 <div class="container fluide pt-3">
                     <table id="Story" class="table table-borderless">
                         <thead class="table-light text-primary">
@@ -132,129 +132,42 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @*      @foreach (var obj in @Model.storys)
+                            @foreach (var obj in Model.Storys)
                             {
-                            @if (@obj.PublishedAt == null)
-                            {
-                            <tr>
-                            <td>@obj.Title</td>
-                            <td>@obj.Mission.Title</td>
-                            <td>@obj.User.FirstName &nbsp; @obj.User.LastName</td>
-                            <td class="text-center d-flex">
-                            <button type="submit"
-                            class="form-control rounded-pill btn btn-outline-warning font"
-                            style="width: auto;font-size: 8px;height: 23px;margin-top: 8px;">
-                            View
-                            </button>
-                            <button type="submit" class="btn btn-light">
-                            <a asp-controller="Admin" asp-action="aStorylistingpublish" asp-route-id=@obj.StoryId class="adminaddbutton">
-                            <i class="bi bi-check-circle" style="color:green;"></i>
-                            </a>
-                            </button>
-                            <button class="btn btn-light">
-                            <a asp-controller="Admin" asp-action="aStorylistingdecline" asp-route-id=@obj.StoryId class="adminaddbutton">
-                            <i class="bi bi-x-circle" style="color:red"></i>
-                            </a>
-                            </button>
-                            <button class="btn btn-light" data-bs-toggle="offcanvas"
-                            data-bs-target="#deleteuser" aria-controls="deleteuser">
-                            <i class="bi bi-trash"></i>
-                            </button>
-                            </td>
-                            </tr>
-                            }*@
-                            @foreach (var obje in @Model.storys)
-                            {
-                                @if (@obje.PublishedAt == null)
+                                if (@obj.Status==1)
                                 {
                                     <tr>
-                                        <td>@obje.Title</td>
-                                        <td>@obje.Mission.Title</td>
-                                        <td>@obje.User.FirstName &nbsp; @obje.User.LastName</td>
+                                        <td>@obj.Title</td> 
+                                        <td>@obj.Mission.Title</td>
+                                        <td>@obj.User.FirstName  &nbsp; @obj.User.LastName</td>
                                         <td class="text-center d-flex">
                                             <button type="submit"
                                             class="form-control rounded-pill btn btn-outline-warning font"
                                             style="width: auto;font-size: 8px;height: 23px;margin-top: 8px;">
                                                 View
                                             </button>
-                                            <button type="submit" class="btn btn-light">
-                                                <a asp-controller="Admin" asp-action="aStorylistingpublish" asp-route-id=@obje.StoryId class="adminaddbutton">
+                                            @*<button type="submit" class="btn btn-light">
+                                                <a asp-controller="Admin" asp-action="aStorylistingpublish" asp-route-id=@obj.StoryId class="adminaddbutton">
                                                     <i class="bi bi-check-circle" style="color:green;"></i>
                                                 </a>
-                                            </button>
+                                            </button>*@
                                             <button class="btn btn-light">
-                                                <a asp-controller="Admin" asp-action="aStorylistingdecline" asp-route-id=@obje.StoryId class="adminaddbutton">
+                                                <a asp-controller="Admin" asp-action="aStorylistingdecline" asp-route-id=@obj.StoryId class="adminaddbutton">
                                                     <i class="bi bi-x-circle" style="color:red"></i>
                                                 </a>
                                             </button>
                                             @*<button class="btn btn-light" data-bs-toggle="offcanvas"
-                                    data-bs-target="#deleteuser" aria-controls="deleteuser">
-                                    <i class="bi bi-trash"></i>
-                                    </button>*@
+                                            data-bs-target="#deleteuser" aria-controls="deleteuser">
+                                                <i class="bi bi-trash"></i>
+                                            </button>*@
                                         </td>
                                     </tr>
                                 }
                             }
-
-
-
-
-
-
-                            @*
-                            <tr>
-                            <td>Lorem ipsum dolor sit amet.</td>
-                            <td>Ritul Limbasiya</td>
-                            <td>Lorem ipsum dolor sit.</td>
-                            <td class="text-center d-flex">
-                            <button type="submit"
-                            class="form-control rounded-pill btn btn-outline-warning font"
-                            style="width: auto;font-size: 8px;height: 23px;margin-top: 8px;">
-                            View
-                            </button>
-                            <button class="btn btn-light">
-                            <i class="bi bi-check-circle"
-                            style="color:green;"></i>
-                            </button>
-                            <button class="btn btn-light">
-                            <i class="bi bi-x-circle"
-                            style="color:red"></i>
-                            </button>
-                            <button class="btn btn-light" data-bs-toggle="offcanvas"
-                            data-bs-target="#deleteuser" aria-controls="deleteuser">
-                            <i class="bi bi-trash"></i>
-                            </button>
-                            </td>
-                            </tr>
-                            *@
                         </tbody>
                     </table>
                 </div>
             </div>
-            <!-- deleteuser -->
-            <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="deleteuser"
-                 aria-labelledby="staticBackdropLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="staticBackdropLabel">Confirm Delete</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div>
-                        <h6>Are you sure you want to delete this item?</h6>
-                    </div>
-                    <div class="row" style="margin:18px 0px;display:block;text-align: center;">
-                        <button type="submit"
-                                class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
-                            cancel
-                        </button>
-                        <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                                style="width:auto;font-size: 12px;">
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- *********************** -->
         </div>
     </div>
 </div>

@@ -34,6 +34,8 @@ namespace CI_Plateform.DbModels
         public string? OrganizationName { get; set; }
         public string? OrganizationDetail { get; set; }
         public decimal? Availability { get; set; }
+        public int? TotalSheet { get; set; }
+        public DateTime? Deadline { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }

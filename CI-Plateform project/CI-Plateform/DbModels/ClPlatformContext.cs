@@ -356,6 +356,10 @@ namespace CI_Plateform.DbModels
                     .HasColumnName("created_at")
                     .HasDefaultValueSql("(getdate())");
 
+                entity.Property(e => e.Deadline)
+                    .HasColumnType("datetime")
+                    .HasColumnName("deadline");
+
                 entity.Property(e => e.DeletedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("deleted_at");
@@ -394,6 +398,8 @@ namespace CI_Plateform.DbModels
                     .HasMaxLength(128)
                     .HasColumnName("title")
                     .HasDefaultValueSql("(N'None')");
+
+                entity.Property(e => e.TotalSheet).HasColumnName("total_sheet");
 
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnType("datetime")
