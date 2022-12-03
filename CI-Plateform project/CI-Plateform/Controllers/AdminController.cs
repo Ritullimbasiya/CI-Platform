@@ -9,6 +9,13 @@ namespace CI_Plateform.Controllers
     public class AdminController : Controller
     {
         public ClPlatformContext _db = new ClPlatformContext();
+        private readonly IWebHostEnvironment _hostEnvironment;
+
+        public AdminController(IWebHostEnvironment _environment)
+        {
+            _hostEnvironment = _environment;
+        }
+
 
         #region User
         public IActionResult aUser()
@@ -20,7 +27,63 @@ namespace CI_Plateform.Controllers
         [HttpGet]
         public IActionResult aUseradd(int id = 0)
         {
-            UserVm userVM = new UserVm()
+            UserVm userVM = new UserVm();
+            List<SelectListItem> list = new List<SelectListItem>();
+            var temp = _db.Countries.ToList();
+            foreach (var item in temp)
+            {
+                list.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
+            }
+            userVM.CountryList = list;
+            return View(userVM);
+        }
+        [HttpPost]
+        public JsonResult GetCity(int id)
+        {
+            UserVm userVM = new UserVm();
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            var temp = _db.Cities.Where(x => x.CountryId == id).AsEnumerable().ToList();
+            foreach (var item in temp)
+            {
+                list.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });
+            }
+            userVM.CityList = list;
+            return Json(userVM.CityList);
+        }
+        [HttpPost]
+        public IActionResult aUseradd(UserVm userVM , List<IFormFile> userAvatar)
+        {
+            if (userVM != null)
+            {
+               
+                if (userAvatar != null)
+                {
+                    foreach (var img in userAvatar)
+                    {
+                        userVM.User.Avatar = saveImg(img, "UserAvatar");
+                    }
+                }
+                userVM.User.Status = 1;
+                userVM.User.CreatedAt = DateTime.Now;
+                _db.Users.Add(userVM.User);
+                _db.SaveChanges();
+                return RedirectToAction("aUser", "Admin");
+            }
+            else
+                return NotFound();
+        }
+        [HttpGet]
+        public IActionResult aUseredit(int? id)
+        {
+            /*var user = _db.Users.FirstOrDefault(x => x.UserId == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);*/
+
+            /*var userVM = new UserVm()
             {
                 CityList = _db.Cities.Select(i => new SelectListItem
                 {
@@ -32,50 +95,19 @@ namespace CI_Plateform.Controllers
                     Text = i.Name,
                     Value = i.CountryId.ToString()
                 })
-            };
-            return View(userVM);
-        }
-        [HttpPost]
-        public IActionResult aUseradd(UserVm userVM)
-        {
-            if (userVM != null)
-            {
-                User user = new User();
+            };*/
 
-                user.FirstName = userVM.User.FirstName;
-                user.LastName = userVM.User.LastName;
-                user.Email = userVM.User.Email;
-                if (userVM.User.Password != null)
-                    user.Password = userVM.User.Password;
-                user.PhoneNumber = userVM.User.PhoneNumber;
-                user.Avatar = userVM.User.Avatar;
-                user.WhyIVolunteer = userVM.User.WhyIVolunteer;
-                user.EmployeeId = userVM.User.EmployeeId;
-                user.Department = userVM.User.Department;
-                user.CityId = userVM.City.CityId;
-                user.CountryId = userVM.Country.CountryId;
-                user.ProfileText = userVM.User.ProfileText;
-                user.WhyIVolunteer = userVM.User.WhyIVolunteer;
-                user.LinkedInUrl = userVM.User.LinkedInUrl;
-                user.Title = userVM.User.Title;
-                user.Status = 1;
-                user.CreatedAt = DateTime.Now;
-                _db.Users.Add(user);
-                _db.SaveChanges();
-                return RedirectToAction("aUser", "Admin");
-            }
-            else
-                return NotFound();
-        }
-        [HttpGet]
-        public IActionResult aUseredit(int? id)
-        {
-            var user = _db.Users.FirstOrDefault(x => x.UserId == id);
-            if (user == null)
+            UserVm userVM = new UserVm();
+            userVM.User = _db.Users.FirstOrDefault(x => x.UserId == id);
+            
+            List<SelectListItem> list = new List<SelectListItem>();
+            var temp = _db.Countries.ToList();
+            foreach (var item in temp)
             {
-                return NotFound();
+                list.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
             }
-            return View(user);
+            userVM.CountryList = list;
+            return View(userVM);
         }
         [HttpPost]
         public IActionResult aUseredit(User obj)
@@ -171,16 +203,7 @@ namespace CI_Plateform.Controllers
         {
             UserVm userVM = new UserVm()
             {
-                MissionThemeList = _db.MissionThemes.Select(i => new SelectListItem
-                {
-                    Text = i.Title,
-                    Value = i.MissionThemeId.ToString()
-                }),
-                SkillList = _db.Skills.Select(i => new SelectListItem
-                {
-                    Text = i.SkillName,
-                    Value = i.SkillId.ToString()
-                }),
+                /*
                 CityList = _db.Cities.Select(i => new SelectListItem
                 {
                     Text = i.Name,
@@ -191,18 +214,53 @@ namespace CI_Plateform.Controllers
                     Text = i.Name,
                     Value = i.CountryId.ToString()
                 }),
-                Missionss = _db.Missions.ToList(),
+                Missionss = _db.Missions.ToList(),*/
             };
+            List<SelectListItem> list = new List<SelectListItem>();
+            var temp = _db.Countries.ToList();
+            foreach (var item in temp)
+            {
+                list.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
+            }
+            userVM.CountryList = list;
+            List<SelectListItem> list1 = new List<SelectListItem>();
+            var temp1 = _db.MissionThemes.ToList();
+            foreach (var item in temp1)
+            {
+                list1.Add(new SelectListItem() { Text = item.Title, Value = item.MissionThemeId.ToString() });
+            }
+            userVM.ThemeList = list1;
+            List<SelectListItem> list2 = new List<SelectListItem>();
+            var temp2 = _db.Skills.ToList();
+            foreach (var item in temp2)
+            {
+                list2.Add(new SelectListItem() { Text = item.SkillName, Value = item.SkillId.ToString() });
+            }
+            userVM.SkillList = list2;
             return View(userVM);
         }
         [HttpPost]
-        public IActionResult aMissionadd(UserVm userVm, List<IFormFile> misssionImages)
+        public JsonResult GetCitys(int id)
+        {
+            UserVm userVM = new UserVm();
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            var temp = _db.Cities.Where(x => x.CountryId == id).AsEnumerable().ToList();
+            foreach (var item in temp)
+            {
+                list.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });
+            }
+            userVM.CityList = list;
+            return Json(userVM.CityList);
+        }
+        [HttpPost]
+        public IActionResult aMissionadd(UserVm userVm, List<IFormFile> misssionImages, List<IFormFile> missionDoc)
         {
             if (userVm != null)
             {
-                Mission mission = new Mission();
-                mission.CityId = userVm.City.CityId;
-                mission.CountryId = userVm.Country.CountryId;
+                /*Mission mission = new Mission();
+                mission.CountryId = userVm.Mission.CountryId;
+                mission.CityId = userVm.Mission.CityId;
                 mission.Title = userVm.Mission.Title;
                 mission.ShortDescription = userVm.Mission.ShortDescription;
                 mission.Description = userVm.Mission.Description;
@@ -213,45 +271,67 @@ namespace CI_Plateform.Controllers
                 mission.MissionType = userVm.Mission.MissionType;
                 mission.Deadline = userVm.Mission.Deadline;
                 mission.Status = 1;
-                mission.MissionThemeId = userVm.MissionTheme.MissionThemeId;
+                mission.MissionThemeId = userVm.Mission.MissionThemeId;
                 mission.Availability = userVm.Mission.Availability;
-                mission.CreatedAt = DateTime.Now;
-                _db.Missions.Add(mission);
+                mission.CreatedAt = DateTime.Now;*/
+                userVm.Mission.Status = 1;
+                userVm.Mission.CreatedAt = DateTime.Now;
+                _db.Missions.Add(userVm.Mission);
                 _db.SaveChanges();
-                /*GoalMission goalMission = new GoalMission();
-                goalMission.GoalValue = userVm.GoalMission.GoalValue;
-                _db.GoalMissions.Add(goalMission);*/
+
+
+                if (userVm.Mission.MissionType == 2)
+                {
+                    GoalMission goalMission = new GoalMission();
+                    goalMission.MissionId = userVm.Mission.MissionId;
+                    goalMission.GoalObjectiveText = userVm.GoalMission.GoalObjectiveText;
+                    goalMission.GoalValue = userVm.GoalMission.GoalValue;
+                    goalMission.CreatedAt = DateTime.Now;
+                    _db.GoalMissions.Add(goalMission);
+                    _db.SaveChanges();
+                }
 
                 if (misssionImages != null)
                 {
-                    foreach (var image in misssionImages)
+                    foreach (var img in misssionImages)
                     {
-                        MissionMedium missionMedium = new MissionMedium();
+                        var missionMedium = new MissionMedium();
                         missionMedium.MissionId = userVm.Mission.MissionId;
-                        missionMedium.MediaName = image.FileName;
-                        missionMedium.MessionType = Path.GetExtension(image.FileName);
-                        missionMedium.MessionPath = saveImg(image, "missionMedia");
+                        missionMedium.MediaName = img.FileName;
+                        missionMedium.MediaType = Path.GetExtension(img.FileName);
+                        missionMedium.MediaPath = saveImg(img, "MissionImages");
                         missionMedium.CreatedAt = DateTime.Now;
                         _db.MissionMedia.Add(missionMedium);
                         _db.SaveChanges();
                     }
                 }
-                MissionSkill missionSkill = new MissionSkill();
-                missionSkill.SkillId = userVm.Skill.SkillId;
-                missionSkill.MissionId = userVm.Mission.MissionId;
-                missionSkill.CreatedAt = DateTime.Now;
-                _db.MissionSkills.Add(missionSkill);
-                _db.SaveChanges();
+                if (missionDoc != null)
+                {
+                    foreach (var doc in missionDoc)
+                    {
+                        MissionDocument document = new MissionDocument();
+                        document.MissionId = userVm.Mission.MissionId;
+                        document.DocumentName = doc.FileName;
+                        document.DocumentType = Path.GetExtension(doc.FileName);
+                        document.DocumentName = saveImg(doc, "MissionDoc");
+                        /*document.DocumentPath = @"Images\MissionDoc\" + document.DocumentName + "." + document.DocumentType;*/
+                        document.CreatedAt = DateTime.Now;
+                        _db.MissionDocuments.Add(document);
+                        _db.SaveChanges();
+                    }
 
-                MissionDocument missionDocument = new MissionDocument();
-                missionDocument.MissionId = userVm.Mission.MissionId;
-                missionDocument.DocumentName = userVm.MissionDocument.DocumentName;
-                missionDocument.DocumentType = userVm.MissionDocument.DocumentType;
-                missionDocument.DocumentPath = userVm.MissionDocument.DocumentPath;
-                missionDocument.CreatedAt = DateTime.Now;
-                _db.MissionDocuments.Add(missionDocument);
-                _db.SaveChanges();
-
+                }
+                var temp = userVm.addSkill[0];
+                var number = temp?.Split(',')?.Select(Int32.Parse)?.ToList();
+                foreach (var n in number)
+                {
+                    MissionSkill missionSkill = new MissionSkill();
+                    missionSkill.SkillId = n;
+                    missionSkill.MissionId = userVm.Mission.MissionId;
+                    missionSkill.CreatedAt = DateTime.Now;
+                    _db.MissionSkills.Add(missionSkill);
+                    _db.SaveChanges();
+                }
 
                 return RedirectToAction("aMission", "Admin");
             }
@@ -259,6 +339,136 @@ namespace CI_Plateform.Controllers
                 return NotFound();
         }
         [HttpGet]
+        public IActionResult aMissionedit(int id)
+        {
+            UserVm userVm = new UserVm();
+
+            userVm.Mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
+
+            userVm.GoalMission = _db.GoalMissions.FirstOrDefault(x => x.MissionId == userVm.Mission.MissionId);
+
+            userVm.addSkill = _db.MissionSkills.Where(s => s.MissionId == userVm.Mission.MissionId).Select(x => x.SkillId.ToString()).ToList();
+
+            List<SelectListItem> list = new List<SelectListItem>();
+            var temp = _db.Countries.ToList();
+            foreach (var item in temp)
+            {
+                list.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
+            }
+            userVm.CountryList = list;
+
+            List<SelectListItem> list3 = new List<SelectListItem>();
+            var temp3 = _db.Cities.ToList();
+            foreach (var item in temp3)
+            {
+                list3.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
+            }
+            userVm.CityList = list3;
+
+            List<SelectListItem> list1 = new List<SelectListItem>();
+            var temp1 = _db.MissionThemes.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
+            foreach (var item in temp1)
+            {
+                list1.Add(new SelectListItem() { Text = item.Title, Value = item.MissionThemeId.ToString() });
+            }
+            userVm.MissionThemeList = list1;
+
+            List<SelectListItem> list2 = new List<SelectListItem>();
+            var temp2 = _db.Skills.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
+            foreach (var item in temp2)
+            {
+                list2.Add(new SelectListItem() { Text = item.SkillName, Value = item.SkillId.ToString() });
+            }
+            userVm.SkillList = list2;
+
+            return View(userVm);
+        }
+
+        [HttpPost]
+        public IActionResult aMissionedit(UserVm userVm, List<IFormFile> misssionImages, List<IFormFile> missionDoc)
+        {
+            if (userVm.Mission.MissionType == 2)
+            {
+                userVm.Mission.StartDate = null;
+                userVm.Mission.EndDate = null;
+                userVm.Mission.Deadline = null;
+            }
+            userVm.Mission.UpdatedAt = DateTime.Now;
+            _db.Missions.Update(userVm.Mission);
+            _db.SaveChanges();
+
+            if (misssionImages != null)
+            {
+                foreach (var img in misssionImages)
+                {
+                    var missionMedia = new MissionMedium();
+                    missionMedia.MissionId = userVm.Mission.MissionId;
+                    missionMedia.MediaType = Path.GetExtension(img.FileName);
+                    missionMedia.MediaName = img.FileName;
+                    missionMedia.MediaPath = saveImg(img, "MissionMedia");
+                    missionMedia.UpdatedAt = DateTime.Now;
+
+                    _db.MissionMedia.Update(missionMedia);
+                    _db.SaveChanges();
+                }
+            }
+
+            if (missionDoc != null)
+            {
+                foreach (var missdoc in missionDoc)
+                {
+                    var missionDocument = new MissionDocument();
+                    missionDocument.MissionId = userVm.Mission.MissionId;
+                    missionDocument.DocumentType = Path.GetExtension(missdoc.FileName);
+                    missionDocument.DocumentName = missdoc.FileName;
+                    missionDocument.DocumentPath = saveImg(missdoc, "MissionDocument");
+                    missionDocument.UpdatedAt = DateTime.Now;
+
+                    _db.MissionDocuments.Update(missionDocument);
+                    _db.SaveChanges();
+                }
+            }
+
+            if (userVm.Mission.MissionType == 2)
+            {
+                userVm.GoalMission.MissionId = userVm.Mission.MissionId;
+                userVm.GoalMission.UpdatedAt = DateTime.Now;
+                _db.GoalMissions.Update(userVm.GoalMission);
+                _db.SaveChanges();
+            }
+            else
+            {
+                var temp = _db.GoalMissions.FirstOrDefault(x => x.MissionId == userVm.Mission.MissionId);
+                if (temp != null)
+                {
+                    _db.GoalMissions.Remove(temp);
+                }
+            }
+
+            if (userVm.addSkill != null)
+            {
+                var temp = userVm.addSkill[0];
+                var numbers = temp?.Split(',')?.Select(Int32.Parse)?.ToList();
+
+                _db.MissionSkills.RemoveRange(_db.MissionSkills.Where(x => x.MissionId == userVm.Mission.MissionId));
+                _db.SaveChanges();
+
+                foreach (var n in numbers)
+                {
+                    var missionSkill = new MissionSkill();
+                    missionSkill.MissionId = userVm.Mission.MissionId;
+                    missionSkill.SkillId = n;
+                    missionSkill.UpdatedAt = DateTime.Now;
+
+                    _db.MissionSkills.Add(missionSkill);
+                    _db.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("aMission", "Admin");
+        }
+
+        /*[HttpGet]
         public IActionResult aMissionedit(int? id)
         {
             var mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
@@ -271,18 +481,36 @@ namespace CI_Plateform.Controllers
             _db.Missions.Update(obj);
             _db.SaveChanges();
             return RedirectToAction("aMission", "Admin");
-        }
-
+        }*/
         public IActionResult aMissiondelete(int? id)
         {
             var mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
             if (mission == null)
             {
-                return NotFound();
+                return NotFound("Mission not found");
             }
-            mission.DeletedAt = DateTime.Now;
-            _db.Missions.Remove(mission);
-            _db.SaveChanges();
+            else
+            {
+
+                /* List<MissionSkill> missionSkills = new List<MissionSkill>();
+                 foreach (var obj in missionSkills)
+                 {
+                     if (obj.MissionId == id)
+                     {
+                         var missionSkill = _db.MissionSkills.FirstOrDefault(x => x.MissionId == id);
+                         missionSkill.DeletedAt = DateTime.Now;
+                         _db.MissionSkills.Remove(missionSkill);
+                         _db.SaveChanges();
+                     }
+                 }*/
+                _db.MissionSkills.RemoveRange(_db.MissionSkills.Where(x => x.MissionId == id));
+                _db.MissionDocuments.RemoveRange(_db.MissionDocuments.Where(x => x.MissionId == id));
+                _db.MissionMedia.RemoveRange(_db.MissionMedia.Where(x => x.MissionId == id));
+
+                mission.DeletedAt = DateTime.Now;
+                _db.Missions.Remove(mission);
+                _db.SaveChanges();
+            }
             return RedirectToAction("aMission", "Admin");
         }
         #endregion Mission
@@ -494,7 +722,7 @@ namespace CI_Plateform.Controllers
         }
         #endregion Story detail
 
-        #region Management
+        #region Banner
         public IActionResult aBanner()
         {
             var banner = new DatabaseUserViewModel();
@@ -549,11 +777,10 @@ namespace CI_Plateform.Controllers
         }
         #endregion Management
 
-
         #region saveImg
         public string saveImg(IFormFile img, string folder)
         {
-            string wwwRootPath = _hostEnviroment.WebRootPath;
+            string wwwRootPath = _hostEnvironment.WebRootPath;
 
             string fileName = Guid.NewGuid().ToString();
             var uploads = Path.Combine(wwwRootPath, @"Images\" + folder);
@@ -569,6 +796,3 @@ namespace CI_Plateform.Controllers
         #endregion saveImg
     }
 }
-
-
-

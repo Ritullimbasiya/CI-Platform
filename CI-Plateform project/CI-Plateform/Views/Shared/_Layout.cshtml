@@ -15,53 +15,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
           integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/virtual-select-plugin@1.0.33/dist/virtual-select.min.css">
+    <link rel="stylesheet" href="~/css/Virtual-Select.css" />
 
 </head>
 <body>
-    @* @if (controllerName != "Login")
-    {
-    <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container-fluid">
-    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CI_Plateform</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-    <ul class="navbar-nav flex-grow-1">
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Plateform" asp-action="Plateform">Home</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="PolicyPage">Privacy</a>
-    </li>
-    </ul>
-    </div>
-    </div>
-    </nav>
-    </header>
-    }*@
+
     <div>
         <main role="main">
             @RenderBody()
         </main>
     </div>
-    @if (controllerName != "Login")
-    {
-        @* <footer class="border-top footer text-muted">
-    <div class="container">
-    &copy; 2022 - CI_Plateform - <a asp-area="" asp-controller="Login" asp-action="PolicyPage">Privacy</a>
-    </div>
-    </footer>*@
-    }
+
+    <script src="~/js/popper.min.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
 
     <script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"></script>
     <script>
@@ -103,55 +75,118 @@
             $('#Story1').DataTable();
         });
 
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('#editor1'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('#editor2'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('#editor3'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('#editor4'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('#editor5'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        /*  ClassicEditor
+              .create(document.querySelector('#editor'))
+              .then(editor => {
+                  console.log(editor);
+              })
+              .catch(error => {
+                  console.error(error);
+              });
+          ClassicEditor
+              .create(document.querySelector('#editor1'))
+              .then(editor => {
+                  console.log(editor);
+              })
+              .catch(error => {
+                  console.error(error);
+              });
+          ClassicEditor
+              .create(document.querySelector('#editor2'))
+              .then(editor => {
+                  console.log(editor);
+              })
+              .catch(error => {
+                  console.error(error);
+              });
+          ClassicEditor
+              .create(document.querySelector('#editor3'))
+              .then(editor => {
+                  console.log(editor);
+              })
+              .catch(error => {
+                  console.error(error);
+              });
+          ClassicEditor
+              .create(document.querySelector('#editor4'))
+              .then(editor => {
+                  console.log(editor);
+              })
+              .catch(error => {
+                  console.error(error);
+              });
+          ClassicEditor
+              .create(document.querySelector('#editor5'))
+              .then(editor => {
+                  console.log(editor);
+              })
+              .catch(error => {
+                  console.error(error);
+              });/*
     </script>
+
+
+    <script>
+    setTimeout(alertFunc, 1000);
+    function alertFunc() {
+        VirtualSelect.init({
+            ele: '#skillSelect'
+        });
+    }
+    $(document).ready(function() {
+        $("#goalMission").hide();
+        $("#timeMission").hide();
+        $("#ddlCountry").change(function() {
+            ddlCity = $('#ddlCity');
+            $.ajax({
+                url: '/Admin/GetCitys',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: $(this).val() },
+                success: function(d) {
+                    ddlCity.empty();
+                    ddlCity.append($("<option></option>").val('').html('Select City'));
+                    $.each(d, function(i, city) {
+                        ddlCity.append($("<option></option>").val(city.value).html(city.text));
+                    });
+                },
+                error: function() {
+                    alert('Error');
+                }
+            });
+        });
+        $("#ddllCountry").change(function() {
+            ddlCity = $('#ddllCity');
+            $.ajax({
+                url: '/Admin/GetCity',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: $(this).val() },
+                success: function(d) {
+                    ddlCity.empty();
+                    ddlCity.append($("<option></option>").val('').html('Select City'));
+                    $.each(d, function(i, city) {
+                        ddlCity.append($("<option></option>").val(city.value).html(city.text));
+                    });
+                },
+                error: function() {
+                    alert('Error');
+                }
+            });
+        });
+        $("#ddlMissionType").change(function() {
+            value = $(this).val();
+            if (value == 1) {
+                $("#timeMission").show();
+                $("#goalMission").hide();
+            }
+            else if (value == 2) {
+                $("#timeMission").hide();
+                $("#goalMission").show();
+            }
+        });
+    });
+</script>
 
 
 

@@ -568,16 +568,19 @@ namespace CI_Plateform.DbModels
                     .HasColumnName("deleted_at");
 
                 entity.Property(e => e.MediaName)
-                    .HasMaxLength(64)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
                     .HasColumnName("media_name");
 
-                entity.Property(e => e.MessionPath)
-                    .HasMaxLength(255)
-                    .HasColumnName("mession_path");
+                entity.Property(e => e.MediaPath)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("media_path");
 
-                entity.Property(e => e.MessionType)
-                    .HasMaxLength(4)
-                    .HasColumnName("mession_type");
+                entity.Property(e => e.MediaType)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("media_type");
 
                 entity.Property(e => e.MissionId).HasColumnName("mission_id");
 
@@ -656,6 +659,7 @@ namespace CI_Plateform.DbModels
                 entity.HasOne(d => d.Mission)
                     .WithMany(p => p.MissionSkills)
                     .HasForeignKey(d => d.MissionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_mission_skill_mission");
 
                 entity.HasOne(d => d.Skill)

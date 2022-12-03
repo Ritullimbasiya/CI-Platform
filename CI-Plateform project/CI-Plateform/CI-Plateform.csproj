@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Images\MissionMedia\" />
+    <Folder Include="wwwroot\Images\MissionImages\" />
+    <Folder Include="wwwroot\Images\MissionDoc\" />
+    <Folder Include="wwwroot\Images\UserAvatar\" />
   </ItemGroup>
 
 </Project>
