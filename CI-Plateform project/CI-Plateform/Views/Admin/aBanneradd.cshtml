@@ -120,12 +120,14 @@
             </div>
             <hr style="margin-top: 0px;border-bottom: groove;" />
             <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">Add Banner</span>
-            <form class="pt-3" method="post" action="aBanneradd">
+            <form class="pt-3" method="post" action="aBanneradd" enctype="multipart/form-data">
                 <div>
                     <div>
-                        <label asp-for="Banner.Image" style="padding:0px;">Image</label><br>
+                        @*<label asp-for="Banner.Image" style="padding:0px;">Image</label><br>
                         <input asp-for="Banner.Image" class="form-control form-control-sm mb-2" name="Banner.Image" style="font-size:10px;" id="formFileSm"
-                               type="file">
+                        type="file">*@
+                        <label style="padding:0px;">Image</label>
+                        <input id="" type="file" name="bannerImage">
                     </div>
                     <div class="row" style="margin:18px 0px;padding-left: 0px;">
                         <label asp-for="Banner.Title" style="padding:0px;">Banner Title</label><br>
@@ -140,10 +142,6 @@
                             <label asp-for="Banner.SortOrder">Short Order</label><br>
                             <input type="number" asp-for="Banner.SortOrder" id="sorder" name="Banner.SortOrder" placeholder="Enter your short order"
                                    class="sherescontainer1" required>
-                        </div>
-                        <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                            <label asp-for="Banner.CreatedAt">Created at</label><br>
-                            <input type="date" asp-for="Banner.CreatedAt" id="cdate" name="Banner.CreatedAt" class="sherescontainer1" required>
                         </div>
                     </div>
                 </div>

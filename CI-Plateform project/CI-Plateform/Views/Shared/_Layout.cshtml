@@ -139,25 +139,6 @@
         $("#ddlCountry").change(function() {
             ddlCity = $('#ddlCity');
             $.ajax({
-                url: '/Admin/GetCitys',
-                type: 'POST',
-                dataType: 'json',
-                data: { id: $(this).val() },
-                success: function(d) {
-                    ddlCity.empty();
-                    ddlCity.append($("<option></option>").val('').html('Select City'));
-                    $.each(d, function(i, city) {
-                        ddlCity.append($("<option></option>").val(city.value).html(city.text));
-                    });
-                },
-                error: function() {
-                    alert('Error');
-                }
-            });
-        });
-        $("#ddllCountry").change(function() {
-            ddlCity = $('#ddllCity');
-            $.ajax({
                 url: '/Admin/GetCity',
                 type: 'POST',
                 dataType: 'json',

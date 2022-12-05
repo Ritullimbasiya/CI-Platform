@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nIb69zQKcyaLebeel0AVM3Uz7+mTIqrkDSLZflh3GUU=",
+  "Hash": "i5RWKK8X1eRI0SD3N04xOKzgVNjt6q3DXrNx3WJNSdI=",
   "Source": "CI-Plateform",
   "BasePath": "_content/CI-Plateform",
   "Mode": "Default",
@@ -34578,12 +34578,12 @@
       "OriginalItemSpec": "wwwroot\\Images\\img-3.png"
     },
     {
-      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDoc\\bab00463-9ec5-4da8-b884-75e19082d4de.jpg",
+      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDocument\\ae6d9728-3e65-4b90-a00b-b5c1d7c8257f.jpg",
       "SourceId": "CI-Plateform",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\",
       "BasePath": "_content/CI-Plateform",
-      "RelativePath": "Images/MissionDoc/bab00463-9ec5-4da8-b884-75e19082d4de.jpg",
+      "RelativePath": "Images/MissionDocument/ae6d9728-3e65-4b90-a00b-b5c1d7c8257f.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -34592,15 +34592,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\MissionDoc\\bab00463-9ec5-4da8-b884-75e19082d4de.jpg"
+      "OriginalItemSpec": "wwwroot\\Images\\MissionDocument\\ae6d9728-3e65-4b90-a00b-b5c1d7c8257f.jpg"
     },
     {
-      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionImages\\84c77c54-5e4c-4368-b201-5d015603e30f.jpg",
+      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDocument\\bab00463-9ec5-4da8-b884-75e19082d4de.jpg",
       "SourceId": "CI-Plateform",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\",
       "BasePath": "_content/CI-Plateform",
-      "RelativePath": "Images/MissionImages/84c77c54-5e4c-4368-b201-5d015603e30f.jpg",
+      "RelativePath": "Images/MissionDocument/bab00463-9ec5-4da8-b884-75e19082d4de.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -34609,15 +34609,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\MissionImages\\84c77c54-5e4c-4368-b201-5d015603e30f.jpg"
+      "OriginalItemSpec": "wwwroot\\Images\\MissionDocument\\bab00463-9ec5-4da8-b884-75e19082d4de.jpg"
     },
     {
-      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionImages\\9f0e4e65-eb29-4f02-aeb3-70f20952d76b.jpg",
+      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDocument\\d578304c-02d7-442c-b50e-516bd7c5111c.jpg",
       "SourceId": "CI-Plateform",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\",
       "BasePath": "_content/CI-Plateform",
-      "RelativePath": "Images/MissionImages/9f0e4e65-eb29-4f02-aeb3-70f20952d76b.jpg",
+      "RelativePath": "Images/MissionDocument/d578304c-02d7-442c-b50e-516bd7c5111c.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -34626,15 +34626,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\MissionImages\\9f0e4e65-eb29-4f02-aeb3-70f20952d76b.jpg"
+      "OriginalItemSpec": "wwwroot\\Images\\MissionDocument\\d578304c-02d7-442c-b50e-516bd7c5111c.jpg"
     },
     {
-      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\UserAvatar\\9fced2cb-14e7-430e-a3df-cd2809b9e3cb.jpg",
+      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\1d6a8ff3-7bb8-4598-a2fd-53246cc8f3a4.jpg",
       "SourceId": "CI-Plateform",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\",
       "BasePath": "_content/CI-Plateform",
-      "RelativePath": "Images/UserAvatar/9fced2cb-14e7-430e-a3df-cd2809b9e3cb.jpg",
+      "RelativePath": "Images/Missionmedia/1d6a8ff3-7bb8-4598-a2fd-53246cc8f3a4.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -34643,15 +34643,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\UserAvatar\\9fced2cb-14e7-430e-a3df-cd2809b9e3cb.jpg"
+      "OriginalItemSpec": "wwwroot\\Images\\Missionmedia\\1d6a8ff3-7bb8-4598-a2fd-53246cc8f3a4.jpg"
     },
     {
-      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\UserAvatar\\c75e4145-7f44-4cb1-8f78-f9a6aa6f6f66.jpg",
+      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\84c77c54-5e4c-4368-b201-5d015603e30f.jpg",
       "SourceId": "CI-Plateform",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\",
       "BasePath": "_content/CI-Plateform",
-      "RelativePath": "Images/UserAvatar/c75e4145-7f44-4cb1-8f78-f9a6aa6f6f66.jpg",
+      "RelativePath": "Images/Missionmedia/84c77c54-5e4c-4368-b201-5d015603e30f.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -34660,15 +34660,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\UserAvatar\\c75e4145-7f44-4cb1-8f78-f9a6aa6f6f66.jpg"
+      "OriginalItemSpec": "wwwroot\\Images\\Missionmedia\\84c77c54-5e4c-4368-b201-5d015603e30f.jpg"
     },
     {
-      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\UserAvatar\\de53f9db-4f39-4464-8333-c5c607b739f8.jpg",
+      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\d4345bcc-2483-4388-9897-24375c7a62d4.jpg",
       "SourceId": "CI-Plateform",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\",
       "BasePath": "_content/CI-Plateform",
-      "RelativePath": "Images/UserAvatar/de53f9db-4f39-4464-8333-c5c607b739f8.jpg",
+      "RelativePath": "Images/Missionmedia/d4345bcc-2483-4388-9897-24375c7a62d4.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -34677,15 +34677,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\UserAvatar\\de53f9db-4f39-4464-8333-c5c607b739f8.jpg"
+      "OriginalItemSpec": "wwwroot\\Images\\Missionmedia\\d4345bcc-2483-4388-9897-24375c7a62d4.jpg"
     },
     {
-      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\UserAvatar\\f59dd72a-cb02-484b-89f9-960f39feaaf2.jpg",
+      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\UserAvatar\\0c1b84ac-8082-4540-951c-7888d23c4758.jpg",
       "SourceId": "CI-Plateform",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\",
       "BasePath": "_content/CI-Plateform",
-      "RelativePath": "Images/UserAvatar/f59dd72a-cb02-484b-89f9-960f39feaaf2.jpg",
+      "RelativePath": "Images/UserAvatar/0c1b84ac-8082-4540-951c-7888d23c4758.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -34694,15 +34694,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\UserAvatar\\f59dd72a-cb02-484b-89f9-960f39feaaf2.jpg"
+      "OriginalItemSpec": "wwwroot\\Images\\UserAvatar\\0c1b84ac-8082-4540-951c-7888d23c4758.jpg"
     },
     {
-      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\UserAvatar\\f9e6ba8d-b184-4e8d-ac5a-fc07225cfc38.jpg",
+      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\UserAvatar\\6481a36c-c285-4b38-b22c-16e7c50a624f.jpg",
       "SourceId": "CI-Plateform",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\",
       "BasePath": "_content/CI-Plateform",
-      "RelativePath": "Images/UserAvatar/f9e6ba8d-b184-4e8d-ac5a-fc07225cfc38.jpg",
+      "RelativePath": "Images/UserAvatar/6481a36c-c285-4b38-b22c-16e7c50a624f.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -34711,7 +34711,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\UserAvatar\\f9e6ba8d-b184-4e8d-ac5a-fc07225cfc38.jpg"
+      "OriginalItemSpec": "wwwroot\\Images\\UserAvatar\\6481a36c-c285-4b38-b22c-16e7c50a624f.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\UserAvatar\\715e3dc3-ed8e-47c3-8bbf-2b84a694c09e.jpg",
+      "SourceId": "CI-Plateform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\",
+      "BasePath": "_content/CI-Plateform",
+      "RelativePath": "Images/UserAvatar/715e3dc3-ed8e-47c3-8bbf-2b84a694c09e.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\UserAvatar\\715e3dc3-ed8e-47c3-8bbf-2b84a694c09e.jpg"
     },
     {
       "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\wwwroot\\js\\site.js",

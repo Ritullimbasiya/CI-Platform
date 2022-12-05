@@ -134,6 +134,19 @@
             <hr style="margin-top: 0px;border-bottom: groove;" />
             <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">Edit Mission</span>
             <form class="pt-3" method="post" action="aMissionedit" enctype="multipart/form-data">
+                <input asp-for="Mission.MissionId" hidden/>
+                <input asp-for="Mission.Status" hidden/>
+                <input asp-for="Mission.CreatedAt" hidden/>
+
+                <input asp-for="missionMedium.MissionMediaId" hidden/>
+                <input asp-for="missionMedium.CreatedAt" hidden/>
+
+                <input asp-for="missionDocument.MissionDocumentId" hidden/>
+                <input asp-for="missionDocument.CreatedAt" hidden/>
+
+                <input asp-for="GoalMission.GoalMissionId" hidden/>
+                <input asp-for="GoalMission.CreatedAt" hidden/>
+
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label for="">Country</label>

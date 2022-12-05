@@ -1,5 +1,5 @@
-﻿@using CI_Plateform.DbModels
-@model Skill
+﻿@using CI_Plateform.Models
+@model UserVm
 
 <div class="container-fluid" style="padding-left:0px;">
     <div class="row flex-nowrap container-fluid">
@@ -101,10 +101,10 @@
         </div>
 
         <div class="tab-content col py-4 px-5" id="v-pills-tabContent" style="font-size:13px;">
-           <div style="display: flow-root;">
-               @* <div style="align-items: center;display: flex;">
+            <div style="display: flow-root;">
+                <div style="align-items: center;display: flex;">
                     @Model.dateCreated.ToString("dddd, dd MMMM yyyy , hh:mm:tt")
-                </div>*@
+                </div>
                 <div class="dropdown" style="bottom:19px;">
                     <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
@@ -121,19 +121,19 @@
             <hr style="margin-top: 0px;border-bottom: groove;" />
             <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">Edit Skill</span>
             <form class="pt-3" method="post" action="aSkilledit">
+                <input asp-for="Skill.SkillId" hidden/>
+                <input asp-for="Skill.CreatedAt" hidden/>
                 <div>
                     <div class="row" style="margin:18px 0px;padding-left: 0px;font-size:10px;">
-                        <label asp-for="SkillName" style="padding:0px;">Mission Skill</label><br>
-                        <input asp-for="SkillName" type="text" id="mSkill" name="SkillName" placeholder="Enter Mission Skill"
+                        <label asp-for="Skill.SkillName" style="padding:0px;">Mission Skill</label><br>
+                        <input asp-for="Skill.SkillName" type="text" id="mSkill" name="Skill.SkillName" placeholder="Enter Mission Skill"
                                class="sherescontainer1" required>
                     </div>
                     <div class="row" style="margin:18px 0px;padding-left: 0px;font-size:10px;">
-                        <label asp-for="Status" class="ps-0">Status</label><br>
-                        <input asp-for="Status" type="number" id="number" name="Status" placeholder="Enter 0 or 1" step="1" min="0"
+                        <label asp-for="Skill.Status" class="ps-0">Status</label><br>
+                        <input asp-for="Skill.Status" type="number" id="number" name="Skill.Status" placeholder="Enter 0 or 1" step="1" min="0"
                                max="1" class="sherescontainer1">
                     </div>
-                    <input asp-for="SkillId" hidden/>
-                    <input asp-for="CreatedAt" hidden/>
                 </div>
                 <div class="row mt-2" style="margin:0px;display:block;float: right;">
                     <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">

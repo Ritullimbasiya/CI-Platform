@@ -38,25 +38,11 @@ namespace CI_Plateform.Controllers
             return View(userVM);
         }
         [HttpPost]
-        public JsonResult GetCity(int id)
-        {
-            UserVm userVM = new UserVm();
-            List<SelectListItem> list = new List<SelectListItem>();
-
-            var temp = _db.Cities.Where(x => x.CountryId == id).AsEnumerable().ToList();
-            foreach (var item in temp)
-            {
-                list.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });
-            }
-            userVM.CityList = list;
-            return Json(userVM.CityList);
-        }
-        [HttpPost]
-        public IActionResult aUseradd(UserVm userVM , List<IFormFile> userAvatar)
+        public IActionResult aUseradd(UserVm userVM, List<IFormFile> userAvatar)
         {
             if (userVM != null)
             {
-               
+
                 if (userAvatar != null)
                 {
                     foreach (var img in userAvatar)
@@ -99,7 +85,7 @@ namespace CI_Plateform.Controllers
 
             UserVm userVM = new UserVm();
             userVM.User = _db.Users.FirstOrDefault(x => x.UserId == id);
-            
+
             List<SelectListItem> list = new List<SelectListItem>();
             var temp = _db.Countries.ToList();
             foreach (var item in temp)
@@ -107,15 +93,36 @@ namespace CI_Plateform.Controllers
                 list.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
             }
             userVM.CountryList = list;
+
+            List<SelectListItem> list3 = new List<SelectListItem>();
+            var temp3 = _db.Cities.ToList();
+            foreach (var item in temp3)
+            {
+                list3.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
+            }
+            userVM.CityList = list3;
             return View(userVM);
         }
         [HttpPost]
-        public IActionResult aUseredit(User obj)
+        public IActionResult aUseredit(UserVm userVM, List<IFormFile> userAvatar)
         {
-            obj.UpdatedAt = DateTime.Now;
-            _db.Users.Update(obj);
-            _db.SaveChanges();
-            return RedirectToAction("aUser", "Admin");
+            if (userVM.User != null)
+            {
+                if (userVM.User.Avatar != null)
+                {
+                    foreach (var img in userAvatar)
+                    {
+                        userVM.User.Avatar = saveImg(img, "UserAvatar");
+                    }
+                }
+                userVM.User.UpdatedAt = DateTime.Now;
+                userVM.User.Status = 1;
+                _db.Users.Update(userVM.User);
+                _db.SaveChanges();
+                return RedirectToAction("aUser", "Admin");
+            }
+            else
+                return NotFound();
         }
         public IActionResult aUserdelete(int? id)
         {
@@ -150,13 +157,8 @@ namespace CI_Plateform.Controllers
         {
             if (userVm != null)
             {
-                CmsPage cmsPage = new CmsPage();
-                cmsPage.Title = userVm.CmsPage.Title;
-                cmsPage.Description = userVm.CmsPage.Description;
-                cmsPage.Slug = userVm.CmsPage.Slug;
-                cmsPage.Status = userVm.CmsPage.Status;
-                cmsPage.CreatedAt = DateTime.Now;
-                _db.CmsPages.Add(cmsPage);
+                userVm.CmsPage.CreatedAt = DateTime.Now;
+                _db.CmsPages.Add(userVm.CmsPage);
                 _db.SaveChanges();
                 return RedirectToAction("aCMS", "Admin");
             }
@@ -165,20 +167,24 @@ namespace CI_Plateform.Controllers
         [HttpGet]
         public IActionResult aCMSedit(int? id)
         {
-            var cmsPage = _db.CmsPages.FirstOrDefault(x => x.CmPageId == id);
-            if (cmsPage == null)
-            {
-                NotFound();
-            }
-            return View(cmsPage);
+            UserVm userVm = new UserVm();
+            userVm.CmsPage = _db.CmsPages.FirstOrDefault(x => x.CmPageId == id);
+            return View(userVm);
         }
         [HttpPost]
-        public IActionResult aCMSedit(CmsPage obj)
+        public IActionResult aCMSedit(UserVm userVm)
         {
-            obj.UpdatedAt = DateTime.Now;
-            _db.CmsPages.Update(obj);
-            _db.SaveChanges();
-            return RedirectToAction("aCMS", "Admin");
+            if (userVm == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                userVm.CmsPage.UpdatedAt = DateTime.Now;
+                _db.CmsPages.Update(userVm.CmsPage);
+                _db.SaveChanges();
+                return RedirectToAction("aCMS", "Admin");
+            }
         }
 
         public IActionResult aCMSdelete(int? id)
@@ -240,7 +246,7 @@ namespace CI_Plateform.Controllers
             return View(userVM);
         }
         [HttpPost]
-        public JsonResult GetCitys(int id)
+        public JsonResult GetCity(int id)
         {
             UserVm userVM = new UserVm();
             List<SelectListItem> list = new List<SelectListItem>();
@@ -258,23 +264,8 @@ namespace CI_Plateform.Controllers
         {
             if (userVm != null)
             {
-                /*Mission mission = new Mission();
-                mission.CountryId = userVm.Mission.CountryId;
-                mission.CityId = userVm.Mission.CityId;
-                mission.Title = userVm.Mission.Title;
-                mission.ShortDescription = userVm.Mission.ShortDescription;
-                mission.Description = userVm.Mission.Description;
-                mission.OrganizationName = userVm.Mission.OrganizationName;
-                mission.OrganizationDetail = userVm.Mission.OrganizationDetail;
-                mission.StartDate = userVm.Mission.StartDate;
-                mission.EndDate = userVm.Mission.EndDate;
-                mission.MissionType = userVm.Mission.MissionType;
-                mission.Deadline = userVm.Mission.Deadline;
-                mission.Status = 1;
-                mission.MissionThemeId = userVm.Mission.MissionThemeId;
-                mission.Availability = userVm.Mission.Availability;
-                mission.CreatedAt = DateTime.Now;*/
                 userVm.Mission.Status = 1;
+                userVm.Mission.TotalSheet = userVm.GoalMission.GoalValue;
                 userVm.Mission.CreatedAt = DateTime.Now;
                 _db.Missions.Add(userVm.Mission);
                 _db.SaveChanges();
@@ -299,7 +290,7 @@ namespace CI_Plateform.Controllers
                         missionMedium.MissionId = userVm.Mission.MissionId;
                         missionMedium.MediaName = img.FileName;
                         missionMedium.MediaType = Path.GetExtension(img.FileName);
-                        missionMedium.MediaPath = saveImg(img, "MissionImages");
+                        missionMedium.MediaPath = saveImg(img, "Missionmedia");
                         missionMedium.CreatedAt = DateTime.Now;
                         _db.MissionMedia.Add(missionMedium);
                         _db.SaveChanges();
@@ -313,7 +304,7 @@ namespace CI_Plateform.Controllers
                         document.MissionId = userVm.Mission.MissionId;
                         document.DocumentName = doc.FileName;
                         document.DocumentType = Path.GetExtension(doc.FileName);
-                        document.DocumentName = saveImg(doc, "MissionDoc");
+                        document.DocumentName = saveImg(doc, "MissionDocument");
                         /*document.DocumentPath = @"Images\MissionDoc\" + document.DocumentName + "." + document.DocumentType;*/
                         document.CreatedAt = DateTime.Now;
                         _db.MissionDocuments.Add(document);
@@ -366,12 +357,12 @@ namespace CI_Plateform.Controllers
             userVm.CityList = list3;
 
             List<SelectListItem> list1 = new List<SelectListItem>();
-            var temp1 = _db.MissionThemes.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
+            var temp1 = _db.MissionThemes.ToList();
             foreach (var item in temp1)
             {
                 list1.Add(new SelectListItem() { Text = item.Title, Value = item.MissionThemeId.ToString() });
             }
-            userVm.MissionThemeList = list1;
+            userVm.ThemeList = list1;
 
             List<SelectListItem> list2 = new List<SelectListItem>();
             var temp2 = _db.Skills.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
@@ -383,7 +374,6 @@ namespace CI_Plateform.Controllers
 
             return View(userVm);
         }
-
         [HttpPost]
         public IActionResult aMissionedit(UserVm userVm, List<IFormFile> misssionImages, List<IFormFile> missionDoc)
         {
@@ -394,6 +384,7 @@ namespace CI_Plateform.Controllers
                 userVm.Mission.Deadline = null;
             }
             userVm.Mission.UpdatedAt = DateTime.Now;
+            userVm.Mission.TotalSheet = userVm.GoalMission.GoalValue;
             _db.Missions.Update(userVm.Mission);
             _db.SaveChanges();
 
@@ -405,7 +396,7 @@ namespace CI_Plateform.Controllers
                     missionMedia.MissionId = userVm.Mission.MissionId;
                     missionMedia.MediaType = Path.GetExtension(img.FileName);
                     missionMedia.MediaName = img.FileName;
-                    missionMedia.MediaPath = saveImg(img, "MissionMedia");
+                    missionMedia.MediaPath = saveImg(img, "Missionmedia");
                     missionMedia.UpdatedAt = DateTime.Now;
 
                     _db.MissionMedia.Update(missionMedia);
@@ -467,21 +458,6 @@ namespace CI_Plateform.Controllers
 
             return RedirectToAction("aMission", "Admin");
         }
-
-        /*[HttpGet]
-        public IActionResult aMissionedit(int? id)
-        {
-            var mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
-            return View(mission);
-        }
-        [HttpPost]
-        public IActionResult aMissionedit(Mission obj)
-        {
-            obj.UpdatedAt = DateTime.Now;
-            _db.Missions.Update(obj);
-            _db.SaveChanges();
-            return RedirectToAction("aMission", "Admin");
-        }*/
         public IActionResult aMissiondelete(int? id)
         {
             var mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
@@ -491,18 +467,12 @@ namespace CI_Plateform.Controllers
             }
             else
             {
-
-                /* List<MissionSkill> missionSkills = new List<MissionSkill>();
-                 foreach (var obj in missionSkills)
-                 {
-                     if (obj.MissionId == id)
-                     {
-                         var missionSkill = _db.MissionSkills.FirstOrDefault(x => x.MissionId == id);
-                         missionSkill.DeletedAt = DateTime.Now;
-                         _db.MissionSkills.Remove(missionSkill);
-                         _db.SaveChanges();
-                     }
-                 }*/
+                if (mission.MissionType == 2)
+                {
+                    var temp = _db.GoalMissions.FirstOrDefault(x => x.MissionId == id);
+                    _db.GoalMissions.Remove(temp);
+                    _db.SaveChanges();
+                }
                 _db.MissionSkills.RemoveRange(_db.MissionSkills.Where(x => x.MissionId == id));
                 _db.MissionDocuments.RemoveRange(_db.MissionDocuments.Where(x => x.MissionId == id));
                 _db.MissionMedia.RemoveRange(_db.MissionMedia.Where(x => x.MissionId == id));
@@ -533,11 +503,8 @@ namespace CI_Plateform.Controllers
         {
             if (userVm != null)
             {
-                Skill skill = new Skill();
-                skill.SkillName = userVm.Skill.SkillName;
-                skill.Status = userVm.Skill.Status;
-                skill.CreatedAt = DateTime.Now;
-                _db.Skills.Add(skill);
+                userVm.Skill.CreatedAt = DateTime.Now;
+                _db.Skills.Add(userVm.Skill);
                 _db.SaveChanges();
                 return RedirectToAction("aSkill", "Admin");
             }
@@ -549,18 +516,19 @@ namespace CI_Plateform.Controllers
         [HttpGet]
         public IActionResult aSkilledit(int? id)
         {
-            var skill = _db.Skills.FirstOrDefault(x => x.SkillId == id);
-            if (skill == null)
+            UserVm userVm = new UserVm();
+            userVm.Skill = _db.Skills.FirstOrDefault(x => x.SkillId == id);
+            if (userVm == null)
             {
                 return NotFound();
             }
-            return View(skill);
+            return View(userVm);
         }
         [HttpPost]
-        public IActionResult aSkilledit(Skill obj)
+        public IActionResult aSkilledit(UserVm userVm)
         {
-            obj.UpdatedAt = DateTime.Now;
-            _db.Update(obj);
+            userVm.Skill.UpdatedAt = DateTime.Now;
+            _db.Skills.Update(userVm.Skill);
             _db.SaveChanges();
             return RedirectToAction("aSkill", "Admin");
         }
@@ -597,11 +565,8 @@ namespace CI_Plateform.Controllers
         {
             if (userVm != null)
             {
-                MissionTheme missionTheme = new MissionTheme();
-                missionTheme.Title = userVm.MissionTheme.Title;
-                missionTheme.Status = userVm.MissionTheme.Status;
-                missionTheme.CreatedAt = DateTime.Now;
-                _db.MissionThemes.Add(missionTheme);
+                userVm.MissionTheme.CreatedAt = DateTime.Now;
+                _db.MissionThemes.Add(userVm.MissionTheme);
                 _db.SaveChanges();
                 return RedirectToAction("aTheme", "Admin");
             }
@@ -613,18 +578,19 @@ namespace CI_Plateform.Controllers
         [HttpGet]
         public IActionResult aThemeedit(int? id)
         {
-            var missionTheme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == id);
-            if (missionTheme == null)
+            UserVm userVm = new UserVm();
+            userVm.MissionTheme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == id);
+            if (userVm.MissionTheme == null)
             {
                 return NotFound();
             }
-            return View(missionTheme);
+            return View(userVm.MissionTheme);
         }
         [HttpPost]
-        public IActionResult aThemeedit(MissionTheme obj)
+        public IActionResult aThemeedit(UserVm userVm)
         {
-            obj.UpdatedAt = DateTime.Now;
-            _db.MissionThemes.Update(obj);
+            userVm.MissionTheme.UpdatedAt = DateTime.Now;
+            _db.MissionThemes.Update(userVm.MissionTheme);
             _db.SaveChanges();
             return RedirectToAction("aTheme", "Admin");
         }
@@ -736,18 +702,20 @@ namespace CI_Plateform.Controllers
             return View(userVm);
         }
         [HttpPost]
-        public IActionResult aBanneradd(UserVm userVm)
+        public IActionResult aBanneradd(UserVm userVm, List<IFormFile> bannerImage)
         {
             if (userVm != null)
             {
-                Banner banner = new Banner();
-                banner.Image = userVm.Banner.Image;
-                banner.Title = userVm.Banner.Title;
-                banner.Text = userVm.Banner.Text;
-                banner.SortOrder = userVm.Banner.SortOrder;
-                banner.CreatedAt = userVm.Banner.CreatedAt;
-                _db.Banners.Add(banner);
-                _db.SaveChanges();
+                if (bannerImage != null)
+                {
+                    foreach (var img in bannerImage)
+                    {
+                        userVm.Banner.Image = saveImg(img, "Banner");
+                    }
+                    userVm.Banner.CreatedAt = DateTime.Now;
+                    _db.Banners.Add(userVm.Banner);
+                    _db.SaveChanges();
+                }
                 return RedirectToAction("aBanner", "Admin");
             }
             else
@@ -756,16 +724,29 @@ namespace CI_Plateform.Controllers
         [HttpGet]
         public IActionResult aBanneredit(int? id)
         {
-            var banner = _db.Banners.FirstOrDefault(x => x.BannerId == id);
-            return View(banner);
+            UserVm userVm = new UserVm();
+            userVm.Banner = _db.Banners.FirstOrDefault(x => x.BannerId == id);
+            return View(userVm);
         }
         [HttpPost]
-        public IActionResult abanneredit(Banner banner)
+        public IActionResult abanneredit(UserVm userVm, List<IFormFile> bannerImage)
         {
-            banner.UpdatedAt = DateTime.Now;
-            _db.Banners.Update(banner);
-            _db.SaveChanges();
-            return RedirectToAction("aBanner", "Admin");
+            if (userVm.Banner != null)
+            {
+                if (bannerImage != null)
+                {
+                    foreach (var img in bannerImage)
+                    {
+                        userVm.Banner.Image = saveImg(img, "Banner");
+                    }
+                }
+                userVm.Banner.UpdatedAt = DateTime.Now;
+                _db.Banners.Update(userVm.Banner);
+                _db.SaveChanges();
+                return RedirectToAction("aBanner", "Admin");
+            }
+            else
+                return NotFound();
         }
         public IActionResult aBannerdelete(int? id)
         {
