@@ -1,4 +1,6 @@
-﻿
+﻿@using CI_Plateform.Models
+@model PlateformVM
+
 <div class="body-1">
     <div class="body-2">
         <div class="nevbar-1" style="height:43px;">
@@ -87,10 +89,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var obj in Model)
+                            @foreach (var obj in @Model.Missions)
                             {
                                 <tr>
-                                    <td>Environment Conservation</td>
+                                    <td>@obj.Title</td>
                                     <td>02-02-2022</td>
                                     <td>1h.</td>
                                     <td>10 min.</td>

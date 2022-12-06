@@ -1073,7 +1073,7 @@
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     color: orange;
-    background-color: white;
+    background-color: white; 
 }
 
 .adminaddbutton {

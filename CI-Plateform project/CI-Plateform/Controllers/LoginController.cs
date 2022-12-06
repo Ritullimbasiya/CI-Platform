@@ -21,13 +21,13 @@ namespace CI_Plateform.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
-            var admin = _db.Admins.FirstOrDefault(u => (u.Email == model.Email.ToLower() && u.Password == model.Password));
+            var admin = _db.Admins.FirstOrDefault(u => (u.Email == model.User.Email.ToLower() && u.Password == model.User.Password));
 
             if (admin != null)
             {
                 return RedirectToAction("aUser", "Admin");
             }
-            var user = _db.Users.FirstOrDefault(u => (u.Email == model.Email.ToLower() && u.Password == model.Password));
+            var user = _db.Users.FirstOrDefault(u => (u.Email == model.User.Email.ToLower() && u.Password == model.User.Password));
             if (user != null)
             {
                 return RedirectToAction("Plateform", "Plateform");
@@ -42,14 +42,16 @@ namespace CI_Plateform.Controllers
         #region Register
         public IActionResult Register()
         {
-            return View();
+            LoginViewModel loginViewModel = new LoginViewModel();
+            loginViewModel.banner = _db.Banners.ToList();
+            return View(loginViewModel);
         }
 
         [HttpPost]
-        public IActionResult Register(User Dbmodel)
+        public IActionResult Register(LoginViewModel model)
         {
-            Dbmodel.Status = 1;
-            var user = _db.Users.Add(Dbmodel);
+            model.User.Status = 1;
+            var user = _db.Users.Add(model.User);
             _db.SaveChanges();
 
             return RedirectToAction("Login", "Login");
@@ -59,38 +61,44 @@ namespace CI_Plateform.Controllers
         #region Lostpassword
         public IActionResult LostPassword()
         {
-            return View();
+            LoginViewModel loginViewModel = new LoginViewModel();
+            loginViewModel.banner = _db.Banners.ToList();
+            return View(loginViewModel);
         }
 
         [HttpPost]
-        public IActionResult LostPassword(User model)
+        public IActionResult LostPassword(LoginViewModel model)
         {
-            var user = _db.Users.FirstOrDefault(u => u.Email.Equals(model.Email.ToLower()));
+            var user = _db.Users.FirstOrDefault(u => (u.Email == model.User.Email && model.User.DeletedAt == null));
 
             if (user == null)
             {
                 TempData["ErrorMes"] = "Email Not exist";
                 return View();
             }
+            else
+            {
+                var encryptedId = Convert.ToBase64String(Encoding.ASCII.GetBytes(user.UserId.ToString()));
+                return RedirectToAction("ResetPassword", "Login", new { id = encryptedId });
+            }
 
-            var encryptedId = Convert.ToBase64String(Encoding.ASCII.GetBytes(user.UserId.ToString()));
-
-            return RedirectToAction("ResetPassword", "Login", new { id = encryptedId });
         }
         #endregion
 
         #region ResetPassword
         public IActionResult ResetPassword()
         {
-            return View();
+            LoginViewModel loginViewModel = new LoginViewModel();
+            loginViewModel.banner = _db.Banners.ToList();
+            return View(loginViewModel);
         }
 
         [HttpPost]
-        public IActionResult ResetPassword(User model, string id)
+        public IActionResult ResetPassword(LoginViewModel model, string id)
         {
             id = Encoding.UTF8.GetString(Convert.FromBase64String(id));
             var user = _db.Users.FirstOrDefault(u => u.UserId == int.Parse(id));
-            user.Password = model.Password;
+            user.Password = model.User.Password;
             _db.Users.Update(user);
             _db.SaveChanges();
 
