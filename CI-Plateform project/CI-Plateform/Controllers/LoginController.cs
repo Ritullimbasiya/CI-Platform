@@ -25,11 +25,21 @@ namespace CI_Plateform.Controllers
 
             if (admin != null)
             {
+                HttpContext.Session.SetString("UserId", admin.AdminId.ToString());
+                HttpContext.Session.SetString("UserName", admin.FirstName);
                 return RedirectToAction("aUser", "Admin");
             }
             var user = _db.Users.FirstOrDefault(u => (u.Email == model.User.Email.ToLower() && u.Password == model.User.Password));
             if (user != null)
             {
+               /* if (user.Status == 0)
+                {
+                    TempData["ErrorMes"] = "This user is deactivated";
+                    return RedirectToAction("Login", "Login");
+                }*/
+                HttpContext.Session.SetString("UserId", user.UserId.ToString());
+                HttpContext.Session.SetString("UserName", user.FirstName);
+
                 return RedirectToAction("Plateform", "Plateform");
             }
             else
@@ -38,6 +48,14 @@ namespace CI_Plateform.Controllers
             }
         }
         #endregion
+
+        [CheckSession]
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.SetString("UserId", "");
+            HttpContext.Session.SetString("UserName", "");
+            return RedirectToAction("Login", "Login");
+        }
 
         #region Register
         public IActionResult Register()

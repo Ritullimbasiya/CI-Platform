@@ -7,13 +7,16 @@ namespace CI_Plateform.Models
     {
 
         #region Plateform
-        public List<City>? Cityes { get; set; } = null!;
-        public List<Country>? Countryes { get; set; } = null!;
-        public List<Skill>? Skills { get; set; } = null!;
-        public List<MissionTheme>? MissionThemes { get; set; } = null!;
         public List<Mission>? Missions { get; set; } = null!;
-        public List<MissionMedium>?  MissionMedia { get; set; } = null!;
-        public List<GoalMission>? GoalMissions { get; set; } = null!;
+        public IEnumerable<SelectListItem> SkillList { get; set; }
+        public List<string>? addSkill { get; set; }
+        public IEnumerable<SelectListItem> ThemeList { get; set; }
+        public List<string>? addTheme { get; set; }
+        public IEnumerable<SelectListItem> CityList { get; set; }
+        public List<string>? addCity { get; set; }
+        public IEnumerable<SelectListItem> CountryList { get; set; }
+        public List<string>? addCountry { get; set; }
+        public List<MissionCardModel> missionsCard { get; set; }
 
         #endregion Plateform
 

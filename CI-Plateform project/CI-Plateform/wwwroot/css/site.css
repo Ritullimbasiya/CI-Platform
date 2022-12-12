@@ -1073,7 +1073,7 @@
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     color: orange;
-    background-color: white; 
+    background-color: white;
 }
 
 .adminaddbutton {
@@ -1081,9 +1081,10 @@
     color: #ffc107;
 }
 
-.sherescontainer11:hover .adminaddbutton{
+.sherescontainer11:hover .adminaddbutton {
     color: black;
 }
+
 .cancelbutton {
     text-decoration: none;
     color: black;
@@ -1104,3 +1105,9 @@
         display: none;
     }
 }
+
+/*.customshadow:focus {
+    box-shadow: none !important;
+    border-color: #2b64b1 !important;
+}
+*/

@@ -1,6 +1,106 @@
 ﻿@using CI_Plateform.Models;
 @model PlateformVM
 
+<link href="https://cdn.jsdelivr.net/npm/virtual-select-plugin@1.0.33/dist/virtual-select.min.js" />
+<script src="https://cdn.jsdelivr.net/npm/virtual-select-plugin@1.0.33/dist/virtual-select.min.js"></script>
+<link rel="stylesheet" href="~/css/Virtual-Select-for-Plateform.css" />
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+
+<script>
+    setTimeout(alertFunc, 1000);
+    function alertFunc() {
+        VirtualSelect.init({
+            ele: '#ddlskill'
+        });
+        VirtualSelect.init({
+            ele: '#ddltheme'
+        });
+        VirtualSelect.init({
+            ele: '#ddlcity',
+            dropboxWidth: '170px'
+        });
+        VirtualSelect.init({
+            ele: '#ddlcountry'
+        });
+    }
+    $(document).ready(function() {
+        $("#countryDiv").change(function() {
+            FilterTag("#ddlcountry");
+            Filter();
+        });
+        $("#cityDiv").change(function() {
+            FilterTag("#ddlcity");
+            Filter();
+        });
+        $("#themeDiv").change(function() {
+            FilterTag("#ddltheme");
+            Filter();
+        });
+        $("#skillDiv").change(function() {
+            FilterTag("#ddlskill");
+            Filter();
+        });
+        $("#ddlShort").change(function() {
+            Filter();
+        });
+    });
+
+    function Search() {
+        Filter();
+    }
+
+    function favouriteMission(Missionid,Missionfav){
+         $.ajax({
+            url: '/Plateform/FavouriteMission',
+            type:'POST',
+            dataType:'json',
+            data:{id:Missionid,fav:Missionfav},
+            success:function(d){
+                Filter();
+            },
+            error:function(){
+                alert('Error');
+            }
+         });
+     }
+
+    function FilterTag(str) {
+        var a = document.querySelector(str).getSelectedOptions();
+        $(str + "Div").empty();
+        $.each(a, function(i, text) {
+            $(str + "Div").append('<button type="button" class="form-control rounded-pill btn btn-outline-secondary font" style="width:auto;font-size: 12px; padding: 3px 7px;margin-right: 5px;"><span class="text-wrap">' + text.label + '</span><i class="bi bi-x"></i></button>');
+        });
+    }
+
+    function Filter() {
+        var country = $("#ddlcountry").val();
+        var city = $("#ddlcity").val();
+        var theme = $("#ddltheme").val();
+        var skill = $("#ddlskill").val();
+        var search = $("#box").val();
+        var search2 = $("#box2").val();
+        var Sort = $("#ddlShort").val();
+        console.log(country);
+        $.ajax({
+            url: '/Plateform/Filter',
+            type: 'POST',
+            dataType: 'html',
+            data: { CountryId: country, CityId: city, ThemeId: theme, SkillId: skill, searchText: search,searchText2: search2, sort: Sort },
+            success: function(d) {
+                $("#missionGrid").empty();
+                $("#missionGrid").html(d);
+            },
+            error: function() {
+                alert('Error');
+            }
+        });
+    }
+
+</script>
+
+
 <div class="body-1">
     <div class="body-2">
         <div class="nevbar-1" style="height:43px;">
@@ -13,7 +113,7 @@
                     </button>
                     <span class="navbar-toggler pad1 pad01" style="margin-left:4px;">
                         <form class="form-horizontal">
-                            <input type="search" class="form-control pad0" placeholder=" &#xF002; Search Mission"
+                            <input type="search" class="form-control pad0" id="box2" onkeyup="Search()" placeholder=" &#xF002; Search Mission"
                                    aria-label="Search" />
                         </form>
                     </span>
@@ -93,94 +193,119 @@
                     <div class="offcanvas-body">
                         <div class="navbar-collapse" id="navbarScroll">
                             <form class="form-horizontal me-auto mb-2 mb-lg-0 d-none d-lg-block  ">
-                                <input type="search"  class="form-control"
+                                <input type="search" id="box" onkeyup="Search()" class="form-control"
                                        style="width:auto; border: 0px; font-family:Arial, FontAwesome;"
                                        placeholder="&#128269; Search Mission" aria-label="Search" />
                             </form>
                             <div class="col">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
-                                    style="float: right;border-left:1px solid #b3aeae;border-right:1px solid #b3aeae;">
+                                    style="float: right;">
                                     <li class="nav-item dropdown me-md-4">
-                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                            Skills <i class="bi bi-chevron-down" style="font-size:12px;"></i>
+                                        @*<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Skills <i class="bi bi-chevron-down" style="font-size:12px;"></i>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            @foreach (var item in @Model.Skills)
-                                            {
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <label>
-                                                            <input type="checkbox"> @item.SkillName
-                                                        </label>
-                                                    </a>
-                                                </li>
-                                            }
-                                        </ul>
+                                        @foreach (var item in @Model.Skills)
+                                        {
+                                        <li>
+                                        <a class="dropdown-item" href="#">
+                                        <label>
+                                        <input type="checkbox"> @item.SkillName
+                                        </label>
+                                        </a>
+                                        </li>
+                                        }
+                                        </ul>*@
+
+                                        <div id="skillDiv">
+                                            <select asp-for="addSkill" multiple asp-items="@Model.SkillList" id="ddlskill"
+                                                    placeholder="Skills"
+                                                    data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
+                                            </select>
+                                        </div>
                                     </li>
                                 </ul>
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
-                                    style="float: right;border-left:1px solid #b3aeae;">
+                                    style="float: right;">
                                     <li class="nav-item dropdown me-md-4">
-                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                            Theme <i class="bi bi-chevron-down" style="font-size:12px;"></i>
+                                        @*<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Theme <i class="bi bi-chevron-down" style="font-size:12px;"></i>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            @foreach (var item in @Model.MissionThemes)
-                                            {
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <label>
-                                                            <input type="checkbox"> @item.Title
-                                                        </label>
-                                                    </a>
-                                                </li>
-                                            }
-                                        </ul>
+                                        @foreach (var item in @Model.MissionThemes)
+                                        {
+                                        <li>
+                                        <a class="dropdown-item" href="#">
+                                        <label>
+                                        <input type="checkbox"> @item.Title
+                                        </label>
+                                        </a>
+                                        </li>
+                                        }
+                                        </ul>*@
+                                        <div id="themeDiv">
+                                            <select asp-for="addTheme" multiple asp-items="@Model.ThemeList" id="ddltheme"
+                                                    placeholder="Theme"
+                                                    data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
+                                            </select>
+                                        </div>
                                     </li>
                                 </ul>
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
-                                    style="float: right;border-left:1px solid #b3aeae;">
+                                    style="float: right;">
                                     <li class="nav-item dropdown me-md-4">
-                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                            City <i class="bi bi-chevron-down" style="font-size:12px;"></i>
+                                        @*<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        City <i class="bi bi-chevron-down" style="font-size:12px;"></i>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            @foreach (var item in @Model.Cityes)
-                                            {
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <label>
-                                                            <input type="checkbox"> @item.Name
-                                                        </label>
-                                                    </a>
-                                                </li>
-                                            }
-                                        </ul>
+                                        @foreach (var item in @Model.Cityes)
+                                        {
+                                        <li>
+                                        <a class="dropdown-item" href="#">
+                                        <label>
+                                        <input type="checkbox"> @item.Name
+                                        </label>
+                                        </a>
+                                        </li>
+                                        }
+                                        </ul>*@
+                                        <div id="cityDiv">
+                                            <select asp-for="addCity" multiple asp-items="@Model.CityList" id="ddlcity"
+                                                    placeholder="City"
+                                                    data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
+                                            </select>
+                                        </div>
                                     </li>
                                 </ul>
 
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
-                                    style="float: right;border-left:1px solid #b3aeae;">
+                                    style="float: right;">
                                     <li class="nav-item dropdown me-md-4">
-                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                            Country <i class="bi bi-chevron-down" style="font-size:12px;"></i>
+                                        @*<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Country <i class="bi bi-chevron-down" style="font-size:12px;"></i>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            @foreach (var item in @Model.Countryes)
-                                            {
-                                                <li>
-                                                    <a class="dropdown-item" href="#">
-                                                        <label>
-                                                            <input type="checkbox" > @item.Name
-                                                        </label>
-                                                    </a>
-                                                </li>
-                                            }
-                                        </ul>
+                                        @foreach (var item in @Model.Countryes)
+                                        {
+                                        <li>
+                                        <a class="dropdown-item" href="#">
+                                        <label>
+                                        <input type="checkbox"> @item.Name
+                                        </label>
+                                        </a>
+                                        </li>
+                                        }
+                                        </ul>*@
+                                        <div id="countryDiv">
+                                            <select asp-for="addCountry" multiple asp-items="@Model.CountryList" id="ddlcountry"
+                                                    placeholder="Country"
+                                                    data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
+                                            </select>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -190,54 +315,23 @@
             </div>
         </div>
     </nav>
-    <div class="body-2">
-        <div class="nevbar-3">
-            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
-                    style="width:auto;font-size: 12px;padding: 3px 7px;">
-                Tree
-                Plantation
-                <img src="~/assets/cancel.png" alt="Error">
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
-                    style="width:auto;font-size: 12px; padding: 3px 7px;">
-                Canada
-                <img src="~/assets/cancel.png" alt="Error">
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
-                    style="width:auto;font-size: 12px; padding: 3px 7px;">
-                Toronto
-                <img src="~/assets/cancel.png" alt="Error">
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
-                    style="width:auto;font-size: 12px; padding: 3px 7px;">
-                Montreal
-                <img src="~/assets/cancel.png" alt="Error">
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
-                    style="width:auto;font-size: 12px; padding: 3px 7px;">
-                Environment
-                <img src="~/assets/cancel.png" alt="Error">
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
-                    style="width:auto;font-size: 12px; padding: 3px 7px;">
-                Nutrition
-                <img src="~/assets/cancel.png" alt="Error">
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
-                    style="width:auto;font-size: 12px; padding: 3px 7px;">
-                Anthropology
-                <img src="~/assets/cancel.png" alt="Error">
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
-                    style="width:auto;font-size: 12px; padding: 3px 7px;">
-                Environmental Science
-                <img src="~/assets/cancel.png" alt="Error">
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
-                    style="width:auto;font-size: 12px; padding: 3px 7px;">
-                Clear all
-            </button>
-        </div>
+    <div class="body-2 nevbar-3">
+
+        @*<button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+        style="width:auto;font-size: 12px;padding: 3px 7px;">
+        Tree
+        Plantation
+        <img src="~/assets/cancel.png" alt="Error">
+        </button>
+        <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+        style="width:auto;font-size: 12px; padding: 3px 7px;">
+        Clear all
+        </button>*@
+        <span id="ddlcountryDiv"></span>
+        <span id="ddlcityDiv"></span>
+        <span id="ddlthemeDiv"></span>
+        <span id="ddlskillDiv"></span>
+
     </div>
     <div class="body-2">
         <div class="nevbar-4">
@@ -248,21 +342,21 @@
                                 font-weight: 300;">Explore </span>@Model.Missions.Count() missions
                     </span>
                     <div class="nev4container">
-                        <div class="btn-group" style="width: 171px;height: 29px;">
-                            <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false" style="background-color:white; color:
-                                     #414141; float: right; border: solid 1px #d9d9d9;">
-                                Sort by <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item active" href="#">Newest</a></li>
-                                <li><a class="dropdown-item" href="#">Oldest</a></li>
-                                <li><a class="dropdown-item" href="#">Lowest available seats</a></li>
-                                <li><a class="dropdown-item" href="#">Highest available seats</a></li>
-                                <li><a class="dropdown-item" href="#">Short by my favourite</a></li>
-                                <li><a class="dropdown-item" href="#">Short by deadline</a></li>
-                            </ul>
-                        </div>
+                        <ul style="width: 171px;height: 29px;display:inline;padding:0px;">
+                            <li style="background-color:white; color:#414141; float: left;list-style-type: none;">
+                                <span id="SortDiv">
+                                    <select id="ddlShort" placeholder="Sort By" style="height: 30px;color: #807d7d;border: 1px solid #807d7d;">
+                                        <option selected>Sort By</option>
+                                        <option value="1">Newest</option>
+                                        <option value="2">Oldest</option>
+                                        <option value="3">Lowest available seats</option>
+                                        <option value="4">Highest available seats</option>
+                                        <option value="5">Sort by my favourite</option>
+                                        <option value="6">Sort by deadline</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
 
                         <button class="gridbutton" style="border:0px; height: 30px;
                                 width: 30px;  border-radius: 100%; margin-left: 26px;">
@@ -290,203 +384,10 @@
             </nav>
         </div>
     </div>
-    <div class="body-2">
-        <div class="row">
-            @foreach (var card in @Model.Missions)
-            {
-                @if (@card.MissionType == 2)
-                {
-                    <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
-                        <div class="card h-100 shadow">
-                            <div class="cardcontainer11">
-                                @*@foreach (var item in @Model.MissionMedia)
-                        {
-                        if (@card.MissionId == @item.MissionId)
-                        {
-                        <img src="@Url.Content(item.MediaPath)" class="card-img-top"alt="Error">
-                        break;
-                        }
-                        }*@
-                                <img src="~/assets/Animal-welfare-&-save-birds-campaign.png" class="card-img-top" alt="Error">
-                                <button class="cardcontainer12">
-                                    <img src="~/assets/pin.png" alt="Error" style="width:11px;">
-                                    <span>@card.Country.Name</span>
-                                </button>
-                                <button class="cardcontainer13">
-                                    <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
-                                </button>
-                                <button class="cardcontainer14">
-                                    <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
-                                </button>
-                                <button class="cardcontainer15">
-                                    @card.MissionTheme.Title
-                                </button>
-                            </div>
-                            <div class="card-body" style="margin-bottom:-15px;position: relative;">
-                                <p class="card-title">@card.ShortDescription</p>
-                                <p class="card-text">
-                                    @card.ShortDescription
-                                </p>
-                                <div class="cardcontainer1" style="display:flex;align-items:baseline;">
-                                    <p class="cardcontainer2">@card.OrganizationName</p>
-                                    <div style="margin-left: auto;">
-                                        <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                        <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                        <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                        <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
-                                        <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
-                                    </div>
-                                </div>
-                            </div>
-                            <hr style="margin-top:0px;margin-bottom: 11px;">
-                            <div class="cardcontainer18" style="position:relative;bottom:13px;">
-                                @foreach (var item in @Model.GoalMissions)
-                                {
-                                    if (@card.MissionId == @item.MissionId)
-                                    {
-                                        <button class="cardcontainer16">
-                                            @item.GoalObjectiveText
-                                        </button>
-                                        break;
-                                    }
-                                }
-                            </div>
-                            <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
-                                <li class="list-group-item">
-                                    <div class="cardcontainer4" style="display:flex; height:26px;">
-                                        <div class="row" style="width:278px;">
-                                            <div class="col-6" style="width:43%; padding:0 0 0 6px;">
-                                                <div class="cardcontainer5">
-                                                    <img class="cardcontainer3" src="~/assets/Seats-left.png" alt="Error">
-                                                    <div class="cardcontainer7">
-                                                        <p class="cardcontainer8">@card.Availability</p>
-                                                        <p class="cardcontainer9">Seats-left</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6" style="width:57%;padding:0 0 0 6px;">
-                                                <div class="cardcontainer6">
-                                                    <img class="cardcontainer3" src="~/assets/achieved.png" alt="Error">
-                                                    <div class="cardcontainer7" style="width:60%;">
-                                                        <div class="progress cardcontainer8"
-                                                     style="width:auto;height: 8px;">
-                                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                         aria-label="Warning example" style="width: 75%"
-                                                         aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                                            </div>
-                                                        </div>
-                                                        @foreach (var item in @Model.GoalMissions)
-                                                        {
-                                                            if (@card.MissionId == @item.MissionId)
-                                                            {
-                                                                <p class="cardcontainer9">@item.GoalValue achieved</p>
-                                                                break;
-                                                            }
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <!-- <hr> -->
-                            <hr style="margin-top:0px; margin-bottom:0px;">
-                            <div class="card-body" style="text-align:center;">
-                                <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                                style="width:auto;font-size: 12px;">
-                                    Apply <i class="bi bi-arrow-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="col-sm-12 col-md-6 col-lg-4 mb-4" style="padding: 0px 20px 12px 4px;">
-                        <div class="card h-100 shadow">
-                            <div class="cardcontainer11">
-                                @*@foreach(var mImage in @Model.MissionMedia)
-                        {
-                        <img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png"
-                        class="card-img-top" alt="Error">
-                        }*@
-                                <img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top" alt="Error">
-                                <button class="cardcontainer12">
-                                    <img src="~/assets/pin.png" alt="Error" style="width:11px;">&nbsp;
-                                    <span> @card.Country.Name</span>
-                                </button>
-                                <button class="cardcontainer13">
-                                    <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
-                                </button>
-                                <button class="cardcontainer14">
-                                    <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
-                                </button>
-                                <button class="cardcontainer15">
-                                    @card.MissionTheme.Title
-                                </button>
-                            </div>
-                            <div class="card-body" style="margin-bottom:-15px;position: relative;">
-                                <p class="card-title">@card.Title</p>
-                                <p class="card-text">
-                                    @card.ShortDescription
-                                </p>
-                                <div class="cardcontainer1" style="display:flex;align-items:baseline;">
-                                    <p class="cardcontainer2">@card.OrganizationName</p>
-                                    <div style="margin-left: auto;">
-                                        <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                        <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                        <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                        <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
-                                        <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
-                                    </div>
-                                </div>
-                            </div>
-                            <hr style="margin-top:0px;margin-bottom: 11px;">
-                            <div class="cardcontainer18" style="position:relative;bottom:13px;">
-                                <button class="cardcontainer16">
-                                    From @card.StartDate?.ToString("dd-MM-yyyy") until @card.EndDate?.ToString("dd-MM-yyyy")
-                                </button>
-                            </div>
-                            <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
-                                <li class="list-group-item">
-                                    <div class="cardcontainer4" style="display:flex; height:26px;">
-                                        <div class="row" style="width:278px;">
-                                            <div class="col-6">
-                                                <div class="cardcontainer5">
-                                                    <img class="cardcontainer3" src="~/assets/Seats-left.png" alt="Error">
-                                                    <div class="cardcontainer7">
-                                                        <p class="cardcontainer8">@card.Availability</p>
-                                                        <p class="cardcontainer9">Seats-left</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="cardcontainer6">
-                                                    <img class="cardcontainer3" src="~/assets/deadline.png" alt="Error">
-                                                    <div class="cardcontainer7">
-                                                        <p class="cardcontainer8">@card.Deadline?.ToString("dd-MM-yyyy")</p>
-                                                        <p class="cardcontainer9">Deadline</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <!-- <hr> -->
-                            <hr style="margin-top:0px; margin-bottom:0px;">
-                            <div class="card-body" style="text-align:center;">
-                                <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                                style="width:auto;font-size: 12px;">
-                                    Apply <i class="bi bi-arrow-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
+    <div class="body-2" id="missionGrid">
+        @{
+            Html.RenderPartial("_MissionGridPartial", @Model.missionsCard);
+        }
     </div>
     <div class="body-2" style="margin-top:35px;">
         <nav aria-label="Page navigation example">

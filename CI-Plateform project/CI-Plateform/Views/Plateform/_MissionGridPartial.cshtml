@@ -1,0 +1,235 @@
+﻿@using CI_Plateform.Models;
+@model List<MissionCardModel>
+
+<script>
+    function() {
+        var PlaceHolderElement = $('#PlaceHolderHere');
+        $('button[data-toggle="ajax-modal"]').click(function(event) {
+            var url = $(this).data('url');
+            var decodeUrl = decodeURIComponent(url);
+            $.get(decodeUrl).done(function(data) {
+                PlaceHolderElement.html(data);
+                PlaceHolderElement.find('.modal').modal('show');
+            })
+        })
+        PlaceHolderElement.on('click', '[data-bs-save="modal"]', function(event) {
+            var formData = new FormData($('#modalForm').get(0));
+            var form = $(this).parents('.modal').find('form');
+            var actionUrl = form.attr('action');
+            $.ajax({
+                url: "/Plateform/" + actionUrl,
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function(data) {
+                    PlaceHolderElement.find('.modal').modal('hide');
+                }
+            })
+            PlaceHolderElement.find('.modal').modal('hide');
+        })
+    };
+</script>
+
+<div class="row">
+    @foreach (var card in @Model)
+    {
+        @if (@card.mission.MissionType == 2)
+        {
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" id="CardMission_@card.mission.MissionId" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/Animal-welfare-&-save-birds-campaign.png" class="card-img-top" alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">
+                            <span>@card.country</span>
+                        </button>
+
+                        @if (card.favouriteMission == 0)
+                        {
+                            <button type="button" onclick="favouriteMission(@card.mission.MissionId,1)" class="cardcontainer13">
+                                <i class="bi bi-heart" style="font-size: 13px; padding-bottom: 6px;color: white;"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" onclick="favouriteMission(@card.mission.MissionId,0)" class="cardcontainer13">
+                                <i class="bi bi-heart-fill text-danger" style="font-size: 13px; padding-bottom: 6px;"></i>
+                            </button>
+                        }
+
+
+
+                         @*<button class="cardcontainer13">
+                <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                </button>*@
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            @card.theme
+                        </button>
+                    </div>
+                    <div class="card-body" style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">@card.mission.Title</p>
+                        <p class="card-text">
+                            @card.mission.ShortDescription
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">@card.mission.OrganizationName</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        @if (@card.mission.MissionId == @card.goalMission.MissionId)
+                        {
+                            <button class="cardcontainer16">
+                                @card.goalMission.GoalObjectiveText
+                            </button>
+                        }
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+                                    <div class="col-6" style="width:43%; padding:0 0 0 6px;">
+                                        <div class="cardcontainer5">
+                                            <img class="cardcontainer3" src="~/assets/Seats-left.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">@card.seatsLeft</p>
+                                                <p class="cardcontainer9">Seats-left</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6" style="width:57%;padding:0 0 0 6px;">
+                                        <div class="cardcontainer6">
+                                            <img class="cardcontainer3" src="~/assets/achieved.png" alt="Error">
+                                            <div class="cardcontainer7" style="width:60%;">
+                                                <div class="progress cardcontainer8"
+                                             style="width:auto;height: 8px;">
+                                                    <div class="progress-bar bg-warning" role="progressbar"
+                                                 aria-label="Warning example" style="width: 75%"
+                                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                                @if (@card.mission.MissionId == @card.goalMission.MissionId)
+                                                {
+                                                    <p class="cardcontainer9">@card.goalMission.GoalValue achieved</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                        <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                        style="width:auto;font-size: 12px;">
+                            Apply <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4" id="CardMission_@card.mission.MissionId" style="padding: 0px 20px 12px 4px;">
+                <div class="card h-100 shadow">
+                    <div class="cardcontainer11">
+                        <img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top" alt="Error">
+                        <button class="cardcontainer12">
+                            <img src="~/assets/pin.png" alt="Error" style="width:11px;">&nbsp;
+                            <span> @card.country</span>
+                        </button>
+                        @if (card.favouriteMission == 0)
+                        {
+                            <button type="button" onclick="favouriteMission(@card.mission.MissionId,1)" class="cardcontainer13">
+                                <i class="bi bi-heart" style="font-size: 13px; padding-bottom: 6px;color: white;"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" onclick="favouriteMission(@card.mission.MissionId,0)" class="cardcontainer13">
+                                <i class="bi bi-heart-fill text-danger" style="font-size: 13px; padding-bottom: 6px;"></i>
+                            </button>
+                        }
+                       @* <button class="cardcontainer13">
+                <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                </button>*@
+                        <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>
+                        <button class="cardcontainer15">
+                            @card.theme
+                        </button>
+                    </div>
+                    <div class="card-body" style="margin-bottom:-15px;position: relative;">
+                        <p class="card-title">@card.mission.Title</p>
+                        <p class="card-text">
+                            @card.mission.ShortDescription
+                        </p>
+                        <div class="cardcontainer1" style="display:flex;align-items:baseline;">
+                            <p class="cardcontainer2">@card.mission.OrganizationName</p>
+                            <div style="margin-left: auto;">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:0px;margin-bottom: 11px;">
+                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
+                        <button class="cardcontainer16">
+                            From @card.mission.StartDate?.ToString("dd-MM-yyyy") until @card.mission.EndDate?.ToString("dd-MM-yyyy")
+                        </button>
+                    </div>
+                    <ul class="list-group list-group-flush" style="border: 0px; margin-top:-3px;">
+                        <li class="list-group-item">
+                            <div class="cardcontainer4" style="display:flex; height:26px;">
+                                <div class="row" style="width:278px;">
+                                    <div class="col-6">
+                                        <div class="cardcontainer5">
+                                            <img class="cardcontainer3" src="~/assets/Seats-left.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">@card.seatsLeft</p>
+                                                <p class="cardcontainer9">Seats-left</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="cardcontainer6">
+                                            <img class="cardcontainer3" src="~/assets/deadline.png" alt="Error">
+                                            <div class="cardcontainer7">
+                                                <p class="cardcontainer8">@card.mission.Deadline?.ToString("dd-MM-yyyy")</p>
+                                                <p class="cardcontainer9">Deadline</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <hr style="margin-top:0px; margin-bottom:0px;">
+                    <div class="card-body" style="text-align:center;">
+                        <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                        style="width:auto;font-size: 12px;">
+                            Apply <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

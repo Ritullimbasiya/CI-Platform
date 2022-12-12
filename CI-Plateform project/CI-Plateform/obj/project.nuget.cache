@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hr2omvKTFeaYobt3Rjjl/TbcG6bfnrOun369w7lWcZcd0bIeP6Vj6bs7QsHs2SKoCqHtpCJF0FxThfSz3QkUuQ==",
+  "dgSpecHash": "blaJlklLrlZnzgebl1ep6uqzWgEoPbbMxmYbvzLx5TA/YT+tcU589qSibVH+e5DtzbeGZFLF3HHF3d9v/pKZVA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\ddummy\\CI-Plateform project\\CI-Plateform\\CI-Plateform.csproj",
+  "projectFilePath": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\CI-Plateform.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ritul Limbasiya\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Ritul Limbasiya\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
