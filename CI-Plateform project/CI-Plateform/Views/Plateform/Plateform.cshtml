@@ -51,20 +51,68 @@
         Filter();
     }
 
-    function favouriteMission(Missionid,Missionfav){
+    function favouriteMission(Missionid, Missionfav) {
+        $.ajax({
+            url: '/Plateform/FavouriteMission',
+            type: 'POST',
+            dataType: 'json',
+            data: { id: Missionid, fav: Missionfav },
+            success: $(document).ready(function(d) {
+                Filter();
+            }),
+            error: function() {
+                alert('Fevorite event');
+            }
+        });
+    }
+    /*function favouriteMission(MissionId){
          $.ajax({
             url: '/Plateform/FavouriteMission',
             type:'POST',
             dataType:'json',
-            data:{id:Missionid,fav:Missionfav},
+            data:{id:MissionId},
             success:function(d){
                 Filter();
+                alert(d);
             },
             error:function(){
                 alert('Error');
             }
          });
-     }
+     }*/
+
+    function ApplyMission(MissionId) {
+        $.ajax({
+            url: '/Plateform/ApplyMission',
+            type: 'POST',
+            dataType: 'json',
+            data: { id: MissionId },
+            success: function(d) {
+                Filter();
+                alert(d);
+            },
+            error: function() {
+                alert('Error');
+            }
+        });
+    }
+
+
+   /* function ViewDetail(MissionId) {
+        $.ajax({
+            url: 'Plateform/ViewDetail',
+            type: 'POST',
+            dataType: 'json',
+            data: {id:MissionId},
+            success: function(d) {
+                Filter();
+            },
+            error: function() {
+                alert('Error');
+            }
+        });
+    }*/
+
 
     function FilterTag(str) {
         var a = document.querySelector(str).getSelectedOptions();
@@ -82,12 +130,11 @@
         var search = $("#box").val();
         var search2 = $("#box2").val();
         var Sort = $("#ddlShort").val();
-        console.log(country);
         $.ajax({
             url: '/Plateform/Filter',
             type: 'POST',
             dataType: 'html',
-            data: { CountryId: country, CityId: city, ThemeId: theme, SkillId: skill, searchText: search,searchText2: search2, sort: Sort },
+            data: { CountryId: country, CityId: city, ThemeId: theme, SkillId: skill, searchText: search, searchText2: search2, sort: Sort },
             success: function(d) {
                 $("#missionGrid").empty();
                 $("#missionGrid").html(d);

@@ -8,6 +8,7 @@ namespace CI_Plateform.Controllers
     public class PlateformController : Controller
     {
         public ClPlatformContext _db = new ClPlatformContext();
+        private int vacancy;
 
         #region Plateform(Home) Get
         public IActionResult Plateform()
@@ -168,7 +169,7 @@ namespace CI_Plateform.Controllers
             #region Default Mission
             if (CountryId.Count == 0 && CityId.Count == 0 && ThemeId.Count == 0 && SkillId.Count == 0 && searchText == null && searchText2 == null)
             {
-                tempMission = _db.Missions.Where(x => x.DeletedAt == null ).AsEnumerable().ToList();
+                tempMission = _db.Missions.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
             }
             #endregion Default Mission
 
@@ -227,7 +228,6 @@ namespace CI_Plateform.Controllers
             else
             {
                 var favouriteMission = _db.FavouriteMissions.FirstOrDefault(x => x.MissionId == id && x.UserId == UserId && x.DeletedAt == null);
-                favouriteMission.DeletedAt = DateTime.Now;
                 _db.FavouriteMissions.Remove(favouriteMission);
                 _db.SaveChanges();
             }
@@ -236,6 +236,32 @@ namespace CI_Plateform.Controllers
         }
         #endregion Favorite Mission
 
+        /*        #region Favorite Mission version2
+                [HttpPost]
+                public JsonResult FavouriteMission(int id)
+                {
+                    var UserId = Int64.Parse(HttpContext.Session.GetString("UserId"));
+                    if (_db.FavouriteMissions.FirstOrDefault(x => x.MissionId == id)!= null)
+                    {
+                        var favouriteMission = _db.FavouriteMissions.FirstOrDefault(x => x.MissionId == id && x.UserId == UserId && x.DeletedAt == null);
+                        _db.FavouriteMissions.Remove(favouriteMission);
+                        _db.SaveChanges();
+                        return Json("Remove from fevorite");
+
+                    }
+                    else
+                    {
+                        var favouriteMission = new FavouriteMission();
+                        favouriteMission.MissionId = id;
+                        favouriteMission.UserId = UserId;
+                        favouriteMission.CreatedAt = DateTime.Now;
+                        _db.FavouriteMissions.Add(favouriteMission);
+                        _db.SaveChanges();
+                        return Json("Add to fevorite");
+                    }
+                }
+                #endregion Favorite Mission version 2*/
+
 
         #region Myprofile
         public IActionResult Myprofile()
@@ -243,13 +269,6 @@ namespace CI_Plateform.Controllers
             return View();
         }
         #endregion
-
-        /*#region Applymission
-        public IActionResult Applymission()
-        {
-            return View();
-        }
-        #endregion*/
 
         #region Timesheet
         public IActionResult Timesheet()
@@ -260,6 +279,160 @@ namespace CI_Plateform.Controllers
         }
         #endregion
 
+        #region Apply Mission
+        [HttpPost]
+        public JsonResult ApplyMission(int id)
+        {
+            var UId = Int64.Parse(HttpContext.Session.GetString("UserId"));
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
+            {
+                return Json("You have to login first");
+
+            }
+            if (_db.MissionApplications.FirstOrDefault(x => x.MissionId == id && x.UserId == UId && x.ApprovalStatus == 1) != null)
+            {
+                return Json("You are alrady Part of mission");
+
+            }
+            else if (_db.MissionApplications.FirstOrDefault(x => x.MissionId == id && x.UserId == UId) != null)
+            {
+                return Json("You alrady applyed in this mission");
+            }
+            else
+            {
+                var missionApplication = new MissionApplication();
+                missionApplication.MissionId = id;
+                missionApplication.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
+                missionApplication.ApprovalStatus = 0;
+                missionApplication.AppliedAt = DateTime.Now;
+                missionApplication.CreatedAt = DateTime.Now;
+                _db.MissionApplications.Add(missionApplication);
+                _db.SaveChanges();
+                return Json("Applied Sucessfully");
+            }
+        }
+        #endregion Apply Mission
+
+        /*#region ViewDetail
+        public IActionResult ViewDetail(int? id)
+        {
+            ViewDetailModel viewDetailModel = new ViewDetailModel();
+            viewDetailModel.missionCard.mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
+            viewDetailModel.missionCard.goalMission = _db.GoalMissions.FirstOrDefault(x => x.MissionId == id);
+            viewDetailModel.missionCard.missionApplication = _db.MissionApplications.FirstOrDefault(x => x.MissionId == id);
+
+            viewDetailModel.imgs = _db.MissionMedia.ToList();
+            viewDetailModel.volunteers = 
+           return View(viewDetailModel);
+        }
+        #endregion*/
+        #region Mission Detail Page
+        public IActionResult ViewDetail(int id)
+        {
+            var viewDetail = new ViewDetailModel();
+            var item = _db.Missions.FirstOrDefault(x => x.MissionId == id);
+            viewDetail.missionCard = CreateCard(item);
+
+            viewDetail.imgs = _db.MissionMedia.Where(x => x.MissionId == id).AsEnumerable().ToList();
+
+            viewDetail.skills = String.Join(", ", _db.MissionSkills.Where(x => x.MissionId == id && x.DeletedAt == null).Select(x => x.Skill.SkillName).ToList());
+            viewDetail.availability = item.Availability == 1 ? "daily" : item.Availability == 2 ? "weekly" : item.Availability == 3 ? "week-end" : "monthly";
+
+            var temp = _db.MissionApplications.Where(x => x.MissionId == id && x.ApprovalStatus == 1).AsEnumerable().ToList();
+            var listVol = new List<AllVolModel>();
+            foreach (var u in temp)
+            {
+                var vol = new AllVolModel();
+                var user = _db.Users.FirstOrDefault(x => x.UserId == u.UserId);
+                vol.volunteerName = user.FirstName + " " + user.LastName;
+                vol.volunteerImg = user.Avatar != null ? user.Avatar : "~/assets/volunteer1.png";
+                listVol.Add(vol);
+            }
+
+            viewDetail.volunteers = listVol;
+
+            viewDetail.docs = _db.MissionDocuments.Where(x => x.MissionId == id && x.DeletedAt == null).AsEnumerable().ToList();
+            /* viewDetail.relatedMission = relatedMissions((int)item.CityId, (int)item.CountryId, (int)item.ThemeId);
+             var com = _db.Comments.Where(x => x.MissionId == id).AsEnumerable().ToList();
+             var coms = new List<MissionCommentModel>();
+             foreach (var comment in com)
+             {
+                 var temp1 = new MissionCommentModel();
+                 var user = _db.Users.FirstOrDefault(x => x.UserId == comment.UserId);
+                 temp1.commentText = comment.CommentText;
+                 temp1.img = user.Avatar != null ? user.Avatar : "~/assets/volunteer4.png";
+                 temp1.img = user.Avatar != null ? user.Avatar : "~/assets/volunteer4.png";
+                 temp1.name = user.FirstName + " " + user.LastName;
+                 temp1.createdAt = comment.CreatedAt;
+                 coms.Add(temp1);
+             }
+             viewDetail.comments = coms;*/
+
+            return View(viewDetail);
+        }
+        #endregion Mission Detail Page
+
+        #region Related Mission
+        public List<MissionCardModel> relatedMissions(int cityId, int countryId, int themeId)
+        {
+            var cardData = new List<MissionCardModel>();
+            var tempMission = new List<Mission>();
+
+            #region Filter City
+            var missions = _db.Missions.Where(x => x.DeletedAt == null && x.CityId == cityId).AsEnumerable().ToList();
+            foreach (var m in missions)
+            {
+                bool t = tempMission.Any(x => x.MissionId == m.MissionId);
+                if (t == false)
+                {
+                    tempMission.Add(m);
+                }
+            }
+            #endregion Filter City
+
+            #region Filter Country
+            if (tempMission.Count < 3)
+            {
+                missions = _db.Missions.Where(x => x.DeletedAt == null && x.CountryId == countryId).AsEnumerable().ToList();
+                foreach (var m in missions)
+                {
+                    bool t = tempMission.Any(x => x.MissionId == m.MissionId);
+                    if (t == false)
+                    {
+                        tempMission.Add(m);
+                    }
+                }
+            }
+            #endregion Filter Country
+
+            #region Filter Theme
+            if (tempMission.Count < 3)
+            {
+                missions = _db.Missions.Where(x => x.DeletedAt == null  && x.MissionThemeId == themeId).AsEnumerable().ToList();
+
+                foreach (var m in missions)
+                {
+                    bool t = tempMission.Any(x => x.MissionId == m.MissionId);
+                    if (t == false)
+                    {
+                        tempMission.Add(m);
+                    }
+                }
+            }
+            #endregion FIlter Theme
+
+            #region Create Card
+            for (int i = 0; i < 3; i++)
+            {
+                cardData.Add(CreateCard(tempMission[i]));
+            }
+            #endregion Create Card
+
+            return cardData;
+
+
+        }
+        #endregion Related Mission
 
         #region new Card
         public MissionCardModel CreateCard(Mission item)
@@ -267,16 +440,43 @@ namespace CI_Plateform.Controllers
             var card = new MissionCardModel();
             card.mission = item;
             var img = _db.MissionMedia.FirstOrDefault(x => x.MissionId == item.MissionId);
-            card.CardImg = img != null ? img.MediaPath : @"~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png";
-            card.seatsLeft = (int)(item.TotalSheet - (_db.MissionApplications.Where(x => x.MissionId == item.MissionId).Count()));
+            card.CardImg = img.MediaPath;
+            if (item.TotalSheet != 0)
+            {
+                var vacancy = (int)(item.TotalSheet - (_db.MissionApplications.Where(x => x.MissionId == item.MissionId).Count()));
+
+                if (vacancy < 0)
+                {
+                    card.seatsLeft = 0;
+                }
+                else
+                {
+                    card.seatsLeft = vacancy;
+                }
+            }
+            else
+            {
+                card.seatsLeft = 0;
+            }
             card.goalMission = _db.GoalMissions.FirstOrDefault(x => x.MissionId == item.MissionId);
             card.favouriteMission = _db.FavouriteMissions.FirstOrDefault(x => x.MissionId == item.MissionId && x.UserId == Int64.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null) != null ? 1 : 0;
             card.theme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == item.MissionThemeId).Title;
             card.country = _db.Countries.FirstOrDefault(x => x.CountryId == item.CountryId).Name;
+            card.missionApplication = _db.MissionApplications.FirstOrDefault(x => x.MissionId == item.MissionId);
+            //card.FavoMission = _db.FavouriteMissions.FirstOrDefault(x => x.MissionId == item.MissionId && x.UserId == Int64.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null);
 
             return card;
         }
         #endregion new Card
 
+        #region LogOut
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("UserId");
+            HttpContext.Session.Remove("UserName");
+
+            return RedirectToAction("Login", "Login");
+        }
+        #endregion LogOut
     }
 }

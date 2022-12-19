@@ -1,7 +1,7 @@
 ﻿@using CI_Plateform.Models;
 @model List<MissionCardModel>
 
-<script>
+@*<script>
     function() {
         var PlaceHolderElement = $('#PlaceHolderHere');
         $('button[data-toggle="ajax-modal"]').click(function(event) {
@@ -30,7 +30,7 @@
             PlaceHolderElement.find('.modal').modal('hide');
         })
     };
-</script>
+</script>*@
 
 <div class="row">
     @foreach (var card in @Model)
@@ -40,7 +40,15 @@
             <div class="col-sm-12 col-md-6 col-lg-4 mb-4" id="CardMission_@card.mission.MissionId" style="padding: 0px 20px 12px 4px;">
                 <div class="card h-100 shadow">
                     <div class="cardcontainer11">
+                        @* <img src="@Url.Content(@card.CardImg)" class="card-img-top" alt="Error">*@
                         <img src="~/assets/Animal-welfare-&-save-birds-campaign.png" class="card-img-top" alt="Error">
+
+                        @if (card.missionApplication != null)
+                        {
+                            <button class="cardcontainer122">
+                                <span>Applyed</span>
+                            </button>
+                        }
                         <button class="cardcontainer12">
                             <img src="~/assets/pin.png" alt="Error" style="width:11px;">
                             <span>@card.country</span>
@@ -58,10 +66,22 @@
                                 <i class="bi bi-heart-fill text-danger" style="font-size: 13px; padding-bottom: 6px;"></i>
                             </button>
                         }
+                        @* @if (card.FavoMission == null)
+                {
+                <button type="button" onclick="favouriteMission(@card.mission.MissionId)" class="cardcontainer13">
+                <i class="bi bi-heart" style="font-size: 13px; padding-bottom: 6px;color: white;"></i>
+                </button>
+                }
+                else
+                {
+                <button type="button" onclick="favouriteMission(@card.mission.MissionId)" class="cardcontainer13">
+                <i class="bi bi-heart-fill text-danger" style="font-size: 13px; padding-bottom: 6px;"></i>
+                </button>
+                }*@
 
 
 
-                         @*<button class="cardcontainer13">
+                        @*<button class="cardcontainer13">
                 <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
                 </button>*@
                         <button class="cardcontainer14">
@@ -71,6 +91,7 @@
                             @card.theme
                         </button>
                     </div>
+                    <div id="PlaceHolderHere"></div>
                     <div class="card-body" style="margin-bottom:-15px;position: relative;">
                         <p class="card-title">@card.mission.Title</p>
                         <p class="card-text">
@@ -133,13 +154,29 @@
                     </ul>
                     <hr style="margin-top:0px; margin-bottom:0px;">
                     <div class="card-body" style="text-align:center;">
-                        <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                        @if (card.missionApplication == null)
+                        {
+                            <button type="button" onclick="ApplyMission(@card.mission.MissionId)" class="form-control rounded-pill btn btn-outline-warning font"
                         style="width:auto;font-size: 12px;">
-                            Apply <i class="bi bi-arrow-right"></i>
-                        </button>
+                                Apply <i class="bi bi-arrow-right"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" onclick="return location.href=' @Url.Action("ViewDetail","Plateform",new {id=@card.mission.MissionId}) '" class="form-control rounded-pill btn btn-outline-warning font"
+                        style="width:auto;font-size: 12px;">
+                                View Detail <i class="bi bi-arrow-right"></i>
+                            </button>
+                            @*<button type="submit" class="form-control rounded-pill btn btn-outline-warning font adminaddbutton" style="width:auto;font-size: 12px;">
+                                <a asp-controller="Plateform" asp-action="ViewDetail" asp-route-id="@card.mission.MissionId" class="adminaddbutton">
+                                    View Detail <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </button>*@
+                        }
                     </div>
                 </div>
             </div>
+
         }
         else
         {
@@ -147,6 +184,13 @@
                 <div class="card h-100 shadow">
                     <div class="cardcontainer11">
                         <img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top" alt="Error">
+
+                        @if (card.missionApplication != null)
+                        {
+                            <button class="cardcontainer122">
+                                <span>Applyed</span>
+                            </button>
+                        }
                         <button class="cardcontainer12">
                             <img src="~/assets/pin.png" alt="Error" style="width:11px;">&nbsp;
                             <span> @card.country</span>
@@ -163,9 +207,19 @@
                                 <i class="bi bi-heart-fill text-danger" style="font-size: 13px; padding-bottom: 6px;"></i>
                             </button>
                         }
-                       @* <button class="cardcontainer13">
-                <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
-                </button>*@
+                        @* @if (card.FavoMission == null)
+                {
+                <button type="button" onclick="favouriteMission(@card.mission.MissionId)" class="cardcontainer13">
+                <i class="bi bi-heart" style="font-size: 13px; padding-bottom: 6px;color: white;"></i>
+                </button>
+                }
+                else
+                {
+                <button type="button" onclick="favouriteMission(@card.mission.MissionId)" class="cardcontainer13">
+                <i class="bi bi-heart-fill text-danger" style="font-size: 13px; padding-bottom: 6px;"></i>
+                </button>
+                }*@
+
                         <button class="cardcontainer14">
                             <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
                         </button>
@@ -223,10 +277,30 @@
                     </ul>
                     <hr style="margin-top:0px; margin-bottom:0px;">
                     <div class="card-body" style="text-align:center;">
-                        <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                        @if (card.missionApplication == null)
+                        {
+                            <button type="button" onclick="ApplyMission(@card.mission.MissionId)" class="form-control rounded-pill btn btn-outline-warning font"
                         style="width:auto;font-size: 12px;">
-                            Apply <i class="bi bi-arrow-right"></i>
-                        </button>
+                                Apply <i class="bi bi-arrow-right"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            @* <button type="button" onclick="ViewDetail(@card.mission.MissionId)" class="form-control rounded-pill btn btn-outline-warning font"
+                style="width:auto;font-size: 12px;">
+                View Detail <i class="bi bi-arrow-right"></i>
+                </button>*@
+
+                           @* <button type="submit" class="form-control rounded-pill btn btn-outline-warning font adminaddbutton" style="width:auto;font-size: 12px;">
+                                <a asp-controller="Plateform" asp-action="ViewDetail" asp-route-id="@card.mission.MissionId" class="adminaddbutton">
+                                    View Detail <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </button>*@
+                            <button type="button" onclick="return location.href=' @Url.Action("ViewDetail","Plateform",new {id=@card.mission.MissionId}) '" class="form-control rounded-pill btn btn-outline-warning font"
+                        style="width:auto;font-size: 12px;">
+                                View Detail <i class="bi bi-arrow-right"></i>
+                            </button>
+                        }
                     </div>
                 </div>
             </div>

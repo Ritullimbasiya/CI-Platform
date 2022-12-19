@@ -364,3 +364,8 @@ C:\Users\Ritul Limbasiya\Desktop\Tatvasoft code\zeplin Backend new\Dummy 2\CI-Pl
 C:\Users\Ritul Limbasiya\Desktop\Tatvasoft code\zeplin Backend new\Dummy 2\CI-Plateform project\CI-Plateform\obj\Debug\net6.0\CI-Plateform.pdb
 C:\Users\Ritul Limbasiya\Desktop\Tatvasoft code\zeplin Backend new\Dummy 2\CI-Plateform project\CI-Plateform\obj\Debug\net6.0\CI-Plateform.genruntimeconfig.cache
 C:\Users\Ritul Limbasiya\Desktop\Tatvasoft code\zeplin Backend new\Dummy 2\CI-Plateform project\CI-Plateform\obj\Debug\net6.0\ref\CI-Plateform.dll
+C:\Users\Ritul Limbasiya\Desktop\Tatvasoft code\zeplin Backend new\Dummy 2\CI-Plateform project\CI-Plateform\obj\Debug\net6.0\staticwebassets\msbuild.CI-Plateform.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Ritul Limbasiya\Desktop\Tatvasoft code\zeplin Backend new\Dummy 2\CI-Plateform project\CI-Plateform\obj\Debug\net6.0\staticwebassets\msbuild.build.CI-Plateform.props
+C:\Users\Ritul Limbasiya\Desktop\Tatvasoft code\zeplin Backend new\Dummy 2\CI-Plateform project\CI-Plateform\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CI-Plateform.props
+C:\Users\Ritul Limbasiya\Desktop\Tatvasoft code\zeplin Backend new\Dummy 2\CI-Plateform project\CI-Plateform\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.CI-Plateform.props
+C:\Users\Ritul Limbasiya\Desktop\Tatvasoft code\zeplin Backend new\Dummy 2\CI-Plateform project\CI-Plateform\obj\Debug\net6.0\staticwebassets.pack.json

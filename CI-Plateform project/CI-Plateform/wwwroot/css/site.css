@@ -207,6 +207,22 @@
     position: relative;
 }
 
+.cardcontainer122 {
+    position: absolute;
+    height: 17px;
+    width: 49px;
+    top: 15%;
+    margin-left: -261px;
+    transform: translate(-50%, -50%);
+    background-color: #09ab2c;
+    opacity: 0.9;
+    color: white;
+    font-size: 8px;
+    border: none;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
 .cardcontainer12 {
     position: absolute;
     height: 22px;
