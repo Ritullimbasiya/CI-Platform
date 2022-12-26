@@ -1,17 +1,19 @@
 ﻿using CI_Plateform.DbModels;
 using CI_Plateform.Models;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection;
 
 namespace CI_Plateform.Controllers
 {
     public class PlateformController : Controller
     {
         public ClPlatformContext _db = new ClPlatformContext();
-        private int vacancy;
 
         #region Plateform(Home) Get
-        public IActionResult Plateform()
+        public IActionResult Plateform(int pg=1)
         {
             PlateformVM plateformVM = new PlateformVM();
             plateformVM.Missions = _db.Missions.ToList();
@@ -56,10 +58,23 @@ namespace CI_Plateform.Controllers
             {
                 cardData.Add(CreateCard(item));
             }
-            plateformVM.missionsCard = cardData;
+            /*plateformVM.missionsCard = cardData;*/
+            /*return View(plateformVM);*/
 
+            /*--------------------------*/
+            const int pageSize = 1;
+            int recsCount = tempMission.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            
+            var data = cardData.Skip(recSkip).Take(pager.PageSize).ToList();
+            plateformVM.missionsCard = data;
+            this.ViewBag.Pager = pager;
             return View(plateformVM);
+           
+            /*--------------------------*/
         }
+
         #endregion
 
         #region Plateform Filter
@@ -262,7 +277,6 @@ namespace CI_Plateform.Controllers
                 }
                 #endregion Favorite Mission version 2*/
 
-
         #region Myprofile
         public IActionResult Myprofile()
         {
@@ -326,6 +340,7 @@ namespace CI_Plateform.Controllers
            return View(viewDetailModel);
         }
         #endregion*/
+
         #region Mission Detail Page
         public IActionResult ViewDetail(int id)
         {
@@ -352,22 +367,7 @@ namespace CI_Plateform.Controllers
             viewDetail.volunteers = listVol;
 
             viewDetail.docs = _db.MissionDocuments.Where(x => x.MissionId == id && x.DeletedAt == null).AsEnumerable().ToList();
-            /* viewDetail.relatedMission = relatedMissions((int)item.CityId, (int)item.CountryId, (int)item.ThemeId);
-             var com = _db.Comments.Where(x => x.MissionId == id).AsEnumerable().ToList();
-             var coms = new List<MissionCommentModel>();
-             foreach (var comment in com)
-             {
-                 var temp1 = new MissionCommentModel();
-                 var user = _db.Users.FirstOrDefault(x => x.UserId == comment.UserId);
-                 temp1.commentText = comment.CommentText;
-                 temp1.img = user.Avatar != null ? user.Avatar : "~/assets/volunteer4.png";
-                 temp1.img = user.Avatar != null ? user.Avatar : "~/assets/volunteer4.png";
-                 temp1.name = user.FirstName + " " + user.LastName;
-                 temp1.createdAt = comment.CreatedAt;
-                 coms.Add(temp1);
-             }
-             viewDetail.comments = coms;*/
-
+             viewDetail.relatedMission = relatedMissions((int)item.CityId, (int)item.CountryId, (int)item.MissionThemeId);
             return View(viewDetail);
         }
         #endregion Mission Detail Page
@@ -421,6 +421,11 @@ namespace CI_Plateform.Controllers
             }
             #endregion FIlter Theme
 
+            if(tempMission.Count() < 3)
+            {
+                tempMission = _db.Missions.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
+            }
+
             #region Create Card
             for (int i = 0; i < 3; i++)
             {
@@ -434,7 +439,7 @@ namespace CI_Plateform.Controllers
         }
         #endregion Related Mission
 
-        #region new Card
+        #region create new Card
         public MissionCardModel CreateCard(Mission item)
         {
             var card = new MissionCardModel();
@@ -463,11 +468,20 @@ namespace CI_Plateform.Controllers
             card.theme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == item.MissionThemeId).Title;
             card.country = _db.Countries.FirstOrDefault(x => x.CountryId == item.CountryId).Name;
             card.missionApplication = _db.MissionApplications.FirstOrDefault(x => x.MissionId == item.MissionId);
+           
             //card.FavoMission = _db.FavouriteMissions.FirstOrDefault(x => x.MissionId == item.MissionId && x.UserId == Int64.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null);
 
             return card;
         }
         #endregion new Card
+
+        #region StoryDetail
+
+        public IActionResult StoryDetail()
+        {
+            return View();
+        }
+        #endregion Story Detail
 
         #region LogOut
         public IActionResult Logout()

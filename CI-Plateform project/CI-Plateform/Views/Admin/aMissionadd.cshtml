@@ -179,21 +179,7 @@
                     <label asp-for="Mission.OrganizationDetail" style="padding:0px;">Organisation Detail</label><br>
                     <textarea asp-for="Mission.OrganizationDetail" name="Mission.OrganizationDetail" placeholder="Enter organisation description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
                 </div>
-                @*<div class="row" style="margin:0px;font-size: 10px;">
-                <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                <label asp-for="Mission.StartDate">Start Date</label><br>
-                <input asp-for="Mission.StartDate" type="date" id="sDate" name="Mission.StartDate" class="sherescontainer1" required>
-                </div>
-                <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
-                <label asp-for="Mission.EndDate">End Date</label><br>
-                <input asp-for="Mission.EndDate" type="date" id="eDate" name="Mission.EndDate" class="sherescontainer1" required>
-                </div>
-                </div>*@
-                @*<div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
-                <label asp-for="Mission.TotalSheet">Total Sheet</label><br>
-                <input asp-for="Mission.TotalSheet" type="number" id="tSheet" name="Mission.TotalSheet" placeholder="Enter your Organization Name"
-                class="sherescontainer1" required>
-                </div>*@
+                
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="Mission.MissionType">Mission Type</label>
@@ -206,22 +192,26 @@
                     </div>
                 </div>
 
-
                 <span id="timeMission" class="row" style="margin:0px;font-size: 10px;">
-                    <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                    <div class="col-md-3 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="Mission.StartDate">Start Date</label>
                         <input type="date" name="mission.StartDate" asp-for="Mission.StartDate" class="sherescontainer1"
                                placeholder="Select start date" id="">
                     </div>
-                    <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                    <div class="col-md-3 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="Mission.EndDate">End Date</label>
                         <input type="date" name="Mission.EndDate" asp-for="Mission.EndDate" class="sherescontainer1"
                                placeholder="Select end date" id="">
                     </div>
-                    <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                    <div class="col-md-3 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="Mission.Deadline">Mission registration deadline</label>
                         <input type="date" name="Mission.Deadline" asp-for="Mission.Deadline" class="sherescontainer1"
                                placeholder="Enter mission registration deadline" id="">
+                    </div>
+                    <div class="col-md-3 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                        <label asp-for="Mission.TotalSheet">Total Sheets</label>
+                        <input type="number" name="Mission.TotalSheet" asp-for="Mission.TotalSheet" class="sherescontainer1"
+                               placeholder="Enter mission total Sheets.." id="">
                     </div>
                 </span>
 
@@ -268,9 +258,7 @@
                         <input id="" type="file" multiple name="misssionImages">
                     </div>
                     <div class="col-md-4 col-sm-12 mt-3" style="padding:0px 15px 0px 0px;">
-                        @*<label asp-for="MissionDocument.DocumentPath" style="padding:0px;">Misssion Document</label><br>
-                        <input asp-for="MissionDocument.DocumentPath" class="form-control form-control-sm mb-2" multiple name="MissionDocument.DocumentPath" style="font-size:10px;" id="formFileSm"
-                        type="file">*@
+                        
                         <label style="padding:0px;">Mission Document</label>
                         <input id="" type="file" multiple name="missionDoc">
                     </div>

@@ -1,37 +1,6 @@
 ﻿@using CI_Plateform.Models;
 @model List<MissionCardModel>
 
-@*<script>
-    function() {
-        var PlaceHolderElement = $('#PlaceHolderHere');
-        $('button[data-toggle="ajax-modal"]').click(function(event) {
-            var url = $(this).data('url');
-            var decodeUrl = decodeURIComponent(url);
-            $.get(decodeUrl).done(function(data) {
-                PlaceHolderElement.html(data);
-                PlaceHolderElement.find('.modal').modal('show');
-            })
-        })
-        PlaceHolderElement.on('click', '[data-bs-save="modal"]', function(event) {
-            var formData = new FormData($('#modalForm').get(0));
-            var form = $(this).parents('.modal').find('form');
-            var actionUrl = form.attr('action');
-            $.ajax({
-                url: "/Plateform/" + actionUrl,
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                dataType: "json",
-                success: function(data) {
-                    PlaceHolderElement.find('.modal').modal('hide');
-                }
-            })
-            PlaceHolderElement.find('.modal').modal('hide');
-        })
-    };
-</script>*@
-
 <div class="row">
     @foreach (var card in @Model)
     {
@@ -137,8 +106,8 @@
                                                 <div class="progress cardcontainer8"
                                              style="width:auto;height: 8px;">
                                                     <div class="progress-bar bg-warning" role="progressbar"
-                                                 aria-label="Warning example" style="width: 75%"
-                                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                                 aria-label="Warning example" style="width:25%"
+                                                 aria-valuenow="@card.goalMission.GoalValue" aria-valuemin="0" aria-valuemax="10000">
                                                     </div>
                                                 </div>
                                                 @if (@card.mission.MissionId == @card.goalMission.MissionId)
@@ -168,10 +137,10 @@
                                 View Detail <i class="bi bi-arrow-right"></i>
                             </button>
                             @*<button type="submit" class="form-control rounded-pill btn btn-outline-warning font adminaddbutton" style="width:auto;font-size: 12px;">
-                                <a asp-controller="Plateform" asp-action="ViewDetail" asp-route-id="@card.mission.MissionId" class="adminaddbutton">
-                                    View Detail <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </button>*@
+                <a asp-controller="Plateform" asp-action="ViewDetail" asp-route-id="@card.mission.MissionId" class="adminaddbutton">
+                View Detail <i class="bi bi-arrow-right"></i>
+                </a>
+                </button>*@
                         }
                     </div>
                 </div>
@@ -189,6 +158,12 @@
                         {
                             <button class="cardcontainer122">
                                 <span>Applyed</span>
+                            </button>
+                        }
+                        @if (card.mission.Deadline <= DateTime.Now)
+                        {
+                            <button class="cardcontainer1222">
+                                <span>Closed</span>
                             </button>
                         }
                         <button class="cardcontainer12">
@@ -277,28 +252,20 @@
                     </ul>
                     <hr style="margin-top:0px; margin-bottom:0px;">
                     <div class="card-body" style="text-align:center;">
-                        @if (card.missionApplication == null)
+                        
+                        @if (card.missionApplication != null && card.mission.Deadline >= DateTime.Now || card.mission.Deadline <= DateTime.Now || card.mission.TotalSheet == 0)
+                        {
+                            <button type="button" onclick="return location.href=' @Url.Action("ViewDetail","Plateform",new {id=@card.mission.MissionId}) '" class="form-control rounded-pill btn btn-outline-warning font"
+                        style="width:auto;font-size: 12px;">
+                                View Detail <i class="bi bi-arrow-right"></i>
+                            </button>
+                        }
+                        @*@if (card.missionApplication == null)*@
+                        else
                         {
                             <button type="button" onclick="ApplyMission(@card.mission.MissionId)" class="form-control rounded-pill btn btn-outline-warning font"
                         style="width:auto;font-size: 12px;">
                                 Apply <i class="bi bi-arrow-right"></i>
-                            </button>
-                        }
-                        else
-                        {
-                            @* <button type="button" onclick="ViewDetail(@card.mission.MissionId)" class="form-control rounded-pill btn btn-outline-warning font"
-                style="width:auto;font-size: 12px;">
-                View Detail <i class="bi bi-arrow-right"></i>
-                </button>*@
-
-                           @* <button type="submit" class="form-control rounded-pill btn btn-outline-warning font adminaddbutton" style="width:auto;font-size: 12px;">
-                                <a asp-controller="Plateform" asp-action="ViewDetail" asp-route-id="@card.mission.MissionId" class="adminaddbutton">
-                                    View Detail <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </button>*@
-                            <button type="button" onclick="return location.href=' @Url.Action("ViewDetail","Plateform",new {id=@card.mission.MissionId}) '" class="form-control rounded-pill btn btn-outline-warning font"
-                        style="width:auto;font-size: 12px;">
-                                View Detail <i class="bi bi-arrow-right"></i>
                             </button>
                         }
                     </div>

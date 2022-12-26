@@ -29,13 +29,13 @@ namespace CI_Plateform.DbModels
         public string Description { get; set; } = null!;
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public DateTime? Deadline { get; set; }
         public int MissionType { get; set; }
         public int Status { get; set; }
         public string? OrganizationName { get; set; }
         public string? OrganizationDetail { get; set; }
         public decimal? Availability { get; set; }
         public int? TotalSheet { get; set; }
-        public DateTime? Deadline { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }

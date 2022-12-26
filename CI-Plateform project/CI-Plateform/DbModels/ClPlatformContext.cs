@@ -699,9 +699,9 @@ namespace CI_Plateform.DbModels
 
             modelBuilder.Entity<PasswordReset>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("password_reset");
+
+                entity.Property(e => e.PasswordResetId).HasColumnName("password_reset_id");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")

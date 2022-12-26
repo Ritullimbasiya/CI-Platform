@@ -139,9 +139,14 @@
                         <input asp-for="CmsPage.Slug" type="text" id="slug" name="CmsPage.Slug" placeholder="Enter slug" class="sherescontainer1">
                     </div>
                     <div style="margin:18px 0px;padding-left: 0px;">
-                        <label asp-for="CmsPage.Status" class="ps-0">Status</label><br>
-                        <input asp-for="CmsPage.Status" type="number" id="number" name="CmsPage.Status" placeholder="Enter 0 or 1" step="1" min="0"
-                               max="1" class="sherescontainer1">
+                        <label asp-for="CmsPage.Status" class="ps-0" style="display:block;">Status</label>
+                        <select id="cmsStatus" asp-for="CmsPage.Status" aria-label="Default select example">
+                            <option class="sherescontainer1" selected>Open this select menu</option>
+                            <option class="sherescontainer1" value="0">Not Active</option>
+                            <option class="sherescontainer1" value="1">Active</option>
+                        </select>
+                        @*<input asp-for="CmsPage.Status" type="number" id="number" name="CmsPage.Status" placeholder="Enter 0 or 1" step="1" min="0"
+                               max="1" class="sherescontainer1">*@
                     </div>
                 </div>
                 <div class="row mt-2" style="margin:0px;display:block;float: right;">

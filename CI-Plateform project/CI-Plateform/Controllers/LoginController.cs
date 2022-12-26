@@ -1,6 +1,12 @@
 ﻿using CI_Plateform.DbModels;
 using CI_Plateform.Models;
+using DocumentFormat.OpenXml.Vml;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
+using MimeKit.Text;
 using System.Text;
 
 namespace CI_Plateform.Controllers
@@ -21,6 +27,7 @@ namespace CI_Plateform.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
+
             var admin = _db.Admins.FirstOrDefault(u => (u.Email == model.User.Email.ToLower() && u.Password == model.User.Password));
 
             if (admin != null)
@@ -32,11 +39,11 @@ namespace CI_Plateform.Controllers
             var user = _db.Users.FirstOrDefault(u => (u.Email == model.User.Email.ToLower() && u.Password == model.User.Password));
             if (user != null)
             {
-               /* if (user.Status == 0)
-                {
-                    TempData["ErrorMes"] = "This user is deactivated";
-                    return RedirectToAction("Login", "Login");
-                }*/
+                /* if (user.Status == 0)
+                 {
+                     TempData["ErrorMes"] = "This user is deactivated";
+                     return RedirectToAction("Login", "Login");
+                 }*/
                 HttpContext.Session.SetString("UserId", user.UserId.ToString());
                 HttpContext.Session.SetString("UserName", user.FirstName);
 
@@ -46,6 +53,7 @@ namespace CI_Plateform.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
+
         }
         #endregion
 
@@ -77,6 +85,8 @@ namespace CI_Plateform.Controllers
         #endregion
 
         #region Lostpassword
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult LostPassword()
         {
             LoginViewModel loginViewModel = new LoginViewModel();
@@ -101,6 +111,7 @@ namespace CI_Plateform.Controllers
             }
 
         }
+
         #endregion
 
         #region ResetPassword
@@ -122,6 +133,8 @@ namespace CI_Plateform.Controllers
 
             return RedirectToAction("Login", "Login");
         }
+
+
         #endregion
 
         #region Policy

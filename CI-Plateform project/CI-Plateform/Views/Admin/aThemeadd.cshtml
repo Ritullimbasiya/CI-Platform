@@ -126,10 +126,16 @@
                     <input asp-for="MissionTheme.Title" type="text" id="mTitle" name="MissionTheme.Title" placeholder="Enter Mission title"
                            class="sherescontainer1" required>
                 </div>
-                <div class="row" style="margin:18px 0px;padding-left: 0px;font-size:10px;">
-                    <label asp-for="MissionTheme.Status" class="ps-0">Status</label><br>
+                <div style="margin:18px 0px;padding-left: 0px;font-size:10px;">
+                    <label asp-for="MissionTheme.Status" class="ps-0" style="display:block;">Status</label>
+                    <select asp-for="MissionTheme.Status" aria-label="Default select example">
+                        <option class="sherescontainer1" selected>Open this select menu</option>
+                        <option class="sherescontainer1" value="0">Not Active</option>
+                        <option class="sherescontainer1" value="1">Active</option>
+                    </select>
+                    @*<label asp-for="MissionTheme.Status" class="ps-0">Status</label><br>
                     <input asp-for="MissionTheme.Status" type="number" id="number" name="MissionTheme.Status" placeholder="Enter 0 or 1" step="1" min="0"
-                           max="1" class="sherescontainer1">
+                           max="1" class="sherescontainer1">*@
                 </div>
                 <div class="row mt-2" style="margin:0px;display:block;float: right;">
                     <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">

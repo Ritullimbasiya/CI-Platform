@@ -265,7 +265,14 @@ namespace CI_Plateform.Controllers
             if (userVm != null)
             {
                 userVm.Mission.Status = 1;
-                userVm.Mission.TotalSheet = userVm.GoalMission.GoalValue;
+                if (userVm.Mission.MissionType == 2)
+                {
+                    userVm.Mission.TotalSheet = userVm.GoalMission.GoalValue;
+                }
+                else
+                {
+                    userVm.Mission.TotalSheet = userVm.Mission.TotalSheet;
+                }
                 userVm.Mission.CreatedAt = DateTime.Now;
                 _db.Missions.Add(userVm.Mission);
                 _db.SaveChanges();
@@ -580,11 +587,11 @@ namespace CI_Plateform.Controllers
         {
             UserVm userVm = new UserVm();
             userVm.MissionTheme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == id);
-            if (userVm.MissionTheme == null)
+            if (userVm == null)
             {
                 return NotFound();
             }
-            return View(userVm.MissionTheme);
+            return View(userVm);
         }
         [HttpPost]
         public IActionResult aThemeedit(UserVm userVm)

@@ -127,10 +127,16 @@
                         <input asp-for="Skill.SkillName" type="text" id="mSkill" name="Skill.SkillName" placeholder="Enter Mission Skill"
                                class="sherescontainer1" required>
                     </div>
-                    <div class="row" style="margin:18px 0px;padding-left: 0px;font-size:10px;">
-                        <label asp-for="Skill.Status" class="ps-0">Status</label><br>
+                    <div style="margin:18px 0px;padding-left: 0px;font-size:10px;">
+                        <label asp-for="Skill.Status" class="ps-0" style="display:block;">Status</label>
+                        <select asp-for="Skill.Status" aria-label="Default select example">
+                            <option class="sherescontainer1" selected>Open this select menu</option>
+                            <option class="sherescontainer1" value="0">Not Active</option>
+                            <option class="sherescontainer1" value="1">Active</option>
+                        </select>
+                        @*<label asp-for="Skill.Status" class="ps-0">Status</label><br>
                         <input asp-for="Skill.Status" type="number" id="number" name="Skill.Status" placeholder="Enter 0 or 1" step="1" min="0"
-                               max="1" class="sherescontainer1">
+                               max="1" class="sherescontainer1">*@
                     </div>
                 </div>
                 <div class="row mt-2" style="margin:0px;display:block;float: right;">

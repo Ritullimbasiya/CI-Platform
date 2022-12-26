@@ -70,7 +70,7 @@
                             <div class="navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">Stories </a>
+                                        <a class="nav-link"  asp-controller="Plateform" asp-action="StoryDetail">Stories </a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
@@ -649,12 +649,10 @@
 </div>
 <hr>
 <p style="text-align:center;">Related Missions</p>
-<div class="body-2">
-    <div id="missionGrid">
-        @{
-            Html.RenderPartial("_MissionGridPartial", @Model.relatedMission);
-        }
-    </div>
+<div class="body-2" id="missionGrid">
+    @{
+        Html.RenderPartial("_MissionGridPartial", @Model.relatedMission);
+    }
 
     @*<div class="row">
     <div class="col-md-4 col-sm-12" style="padding: 0px 20px 12px 4px;">

@@ -11,7 +11,7 @@ namespace CI_Plateform.Models
         public GoalMission? goalMission { get; set; }
         public string theme { get; set; }
         public string country { get; set; }
-
+        public User? user { get; set; }
        // public FavouriteMission? FavoMission { get; set; } = null;
         public MissionApplication? missionApplication { get; set; } = null;
     }
