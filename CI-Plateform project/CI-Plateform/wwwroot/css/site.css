@@ -74,6 +74,14 @@
     .hover:hover {
         color: blue;
     }
+.hover2 {
+    color: black;
+    text-decoration: none;
+}
+
+    .hover2:hover {
+        color: blue;
+    }
 
 .body-1 {
     width: 100%;

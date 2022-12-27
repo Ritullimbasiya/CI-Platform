@@ -16,9 +16,9 @@
                                  class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
                         </ul>
                     </div>
 
@@ -33,7 +33,7 @@
                             <div class="navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">Stories </a>
+                                        <a class="hover2 nav-link" style="" asp-controller="Plateform" asp-action="StoryListing">Stories </a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
@@ -42,7 +42,7 @@
                                                      style="font-size:12px;"></i></span>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Volunteering</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Plateform">Volunteering</a></li>
                                             <li><a class="dropdown-item" href="#">Sponsored</a></li>
                                         </ul>
                                     </li>
@@ -58,9 +58,9 @@
                                         </span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
-                                        <li><a class="dropdown-item" href="#">My Profile</a></li>
-                                        <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
-                                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile">My Profile</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -221,6 +221,6 @@
     </div>
     <hr style="margin-top:35px;">
     <div class="body-2">
-        <a href="#" class="hover">Privacy Policy</a>
+        <a asp-controller="Login" asp-action="PolicyPage" class="hover">Privacy Policy</a>
     </div>
 </div>

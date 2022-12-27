@@ -13,7 +13,7 @@ namespace CI_Plateform.Controllers
         public ClPlatformContext _db = new ClPlatformContext();
 
         #region Plateform(Home) Get
-        public IActionResult Plateform(int pg=1)
+        public IActionResult Plateform(int pg = 1)
         {
             PlateformVM plateformVM = new PlateformVM();
             plateformVM.Missions = _db.Missions.ToList();
@@ -66,12 +66,12 @@ namespace CI_Plateform.Controllers
             int recsCount = tempMission.Count();
             var pager = new Pager(recsCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
-            
+
             var data = cardData.Skip(recSkip).Take(pager.PageSize).ToList();
             plateformVM.missionsCard = data;
             this.ViewBag.Pager = pager;
             return View(plateformVM);
-           
+
             /*--------------------------*/
         }
 
@@ -367,7 +367,7 @@ namespace CI_Plateform.Controllers
             viewDetail.volunteers = listVol;
 
             viewDetail.docs = _db.MissionDocuments.Where(x => x.MissionId == id && x.DeletedAt == null).AsEnumerable().ToList();
-             viewDetail.relatedMission = relatedMissions((int)item.CityId, (int)item.CountryId, (int)item.MissionThemeId);
+            viewDetail.relatedMission = relatedMissions((int)item.CityId, (int)item.CountryId, (int)item.MissionThemeId);
             return View(viewDetail);
         }
         #endregion Mission Detail Page
@@ -408,7 +408,7 @@ namespace CI_Plateform.Controllers
             #region Filter Theme
             if (tempMission.Count < 3)
             {
-                missions = _db.Missions.Where(x => x.DeletedAt == null  && x.MissionThemeId == themeId).AsEnumerable().ToList();
+                missions = _db.Missions.Where(x => x.DeletedAt == null && x.MissionThemeId == themeId).AsEnumerable().ToList();
 
                 foreach (var m in missions)
                 {
@@ -421,7 +421,7 @@ namespace CI_Plateform.Controllers
             }
             #endregion FIlter Theme
 
-            if(tempMission.Count() < 3)
+            if (tempMission.Count() < 3)
             {
                 tempMission = _db.Missions.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
             }
@@ -439,7 +439,7 @@ namespace CI_Plateform.Controllers
         }
         #endregion Related Mission
 
-        #region create new Card
+        #region create new mission Card
         public MissionCardModel CreateCard(Mission item)
         {
             var card = new MissionCardModel();
@@ -468,20 +468,240 @@ namespace CI_Plateform.Controllers
             card.theme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == item.MissionThemeId).Title;
             card.country = _db.Countries.FirstOrDefault(x => x.CountryId == item.CountryId).Name;
             card.missionApplication = _db.MissionApplications.FirstOrDefault(x => x.MissionId == item.MissionId);
-           
+
             //card.FavoMission = _db.FavouriteMissions.FirstOrDefault(x => x.MissionId == item.MissionId && x.UserId == Int64.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null);
 
             return card;
         }
-        #endregion new Card
+        #endregion new mission Card
 
-        #region StoryDetail
-
-        public IActionResult StoryDetail()
+        #region StoryListing
+        public IActionResult StoryListing(int pg=1)
         {
-            return View();
+            StoryListingVM storyListingVM = new StoryListingVM();
+            storyListingVM.storys = _db.Stories.ToList();
+
+            List<SelectListItem> list1 = new List<SelectListItem>();
+            var temp1 = _db.Skills.ToList();
+            foreach (var item in temp1)
+            {
+                list1.Add(new SelectListItem() { Text = item.SkillName, Value = item.SkillId.ToString() });
+            }
+            storyListingVM.SkillList = list1;
+
+            List<SelectListItem> list2 = new List<SelectListItem>();
+            var temp2 = _db.MissionThemes.ToList();
+            foreach (var item in temp2)
+            {
+                list2.Add(new SelectListItem() { Text = item.Title, Value = item.MissionThemeId.ToString() });
+            }
+            storyListingVM.ThemeList = list2;
+
+            List<SelectListItem> list3 = new List<SelectListItem>();
+            var temp3 = _db.Countries.ToList();
+            foreach (var item in temp3)
+            {
+                list3.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
+            }
+            storyListingVM.CountryList = list3;
+
+            List<SelectListItem> list4 = new List<SelectListItem>();
+            var temp4 = _db.Cities.ToList();
+            foreach (var item in temp4)
+            {
+                list4.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });
+            }
+            storyListingVM.CityList = list4;
+
+            var cardData = new List<StoryCardModel>();
+
+            var tempMission = _db.Stories.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
+
+            foreach (var item in tempMission)
+            {
+                cardData.Add(StoryCard(item));
+            }
+            /*storyListingVM.storyCardModels = cardData;
+            return View(storyListingVM);*/
+            /*--------------------------*/
+            const int pageSize = 1;
+            int recsCount = tempMission.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = cardData.Skip(recSkip).Take(pager.PageSize).ToList();
+            storyListingVM.storyCardModels = data;
+            this.ViewBag.Pager = pager;
+            return View(storyListingVM);
+
+            /*--------------------------*/
         }
         #endregion Story Detail
+
+        #region StoryFilter
+        [HttpPost]
+        public PartialViewResult StoryFilter(List<int>? CountryId, List<int>? CityId, List<int>? ThemeId, List<int>? SkillId, string? searchText, string? searchText2)
+        {
+            var cardData = new List<StoryCardModel>();
+            var tempMission = new List<Story>();
+
+            #region Search
+            if (searchText != null)
+            {
+                var story = _db.Stories.Where(x => x.DeletedAt == null && x.Title.Contains(searchText)).AsEnumerable().ToList();
+                foreach (var m in story)
+                {
+                    bool t = tempMission.Any(x => x.MissionId == m.MissionId);
+                    if (t == false)
+                    {
+                        tempMission.Add(m);
+                    }
+                }
+            }
+            if (searchText2 != null)
+            {
+                var story = _db.Stories.Where(x => x.DeletedAt == null && x.Title.Contains(searchText2)).AsEnumerable().ToList();
+                foreach (var m in story)
+                {
+                    bool t = tempMission.Any(x => x.MissionId == m.MissionId);
+                    if (t == false)
+                    {
+                        tempMission.Add(m);
+                    }
+                }
+            }
+            #endregion Search
+
+            if (CountryId.Count != 0)
+            {
+                foreach (var n in CountryId)
+                {
+                    var mission = _db.Missions.Where(x => x.DeletedAt == null && x.CountryId == n).AsEnumerable().ToList();
+                    foreach (var p in mission)
+                    {
+                        var story = _db.Stories.Where(x => x.DeletedAt == null && x.MissionId == p.MissionId).AsEnumerable().ToList();
+                        foreach (var m in story)
+                        {
+                            bool t = tempMission.Any(x => x.StoryId == m.StoryId);
+                            if (t == false)
+                            {
+                                tempMission.Add(m);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (CityId.Count != 0)
+            {
+                foreach (var n in CityId)
+                {
+                    var mission = _db.Missions.Where(x => x.DeletedAt == null && x.CityId == n).AsEnumerable().ToList();
+                    foreach (var p in mission)
+                    {
+                        var story = _db.Stories.Where(x => x.DeletedAt == null && x.MissionId == p.MissionId).AsEnumerable().ToList();
+                        foreach (var m in story)
+                        {
+                            bool t = tempMission.Any(x => x.StoryId == m.StoryId);
+                            if (t == false)
+                            {
+                                tempMission.Add(m);
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*if (CityId.Count != 0)
+            {
+                foreach (var n in CityId)
+                {
+                    var story = _db.Stories.Where(x => x.DeletedAt == null && x.CityId == n).AsEnumerable().ToList();
+                    foreach (var m in story)
+                    {
+                        bool t = tempMission.Any(x => x.MissionId == m.MissionId);
+                        if (t == false)
+                        {
+                            tempMission.Add(m);
+                        }
+                    }
+                }
+            }*/
+
+            if (ThemeId.Count != 0)
+            {
+                foreach (var n in ThemeId)
+                {
+                    var mission = _db.Missions.Where(x => x.Deadline == null && x.MissionThemeId == n).AsEnumerable().ToList();
+                    foreach (var p in mission)
+                    {
+                        var story = _db.Stories.Where(x => x.DeletedAt == null && x.MissionId == p.MissionId).AsEnumerable().ToList();
+
+                        foreach (var m in story)
+                        {
+                            bool t = tempMission.Any(x => x.StoryId == m.StoryId);
+                            if (t == false)
+                            {
+                                tempMission.Add(m);
+                            }
+                        }
+                    }
+                }
+            } 
+
+            if (SkillId.Count != 0)
+            {
+                foreach (var n in SkillId)
+                {
+                    var missions = new List<Mission>();
+                    var missionSkillList = _db.MissionSkills.Where(x => x.SkillId == n).AsEnumerable().ToList();
+                    foreach (var p in missionSkillList)
+                    {
+                        var story = _db.Stories.Where(x => x.DeletedAt == null && x.MissionId == p.MissionId).AsEnumerable().ToList();
+
+                        foreach (var m in story)
+                        {
+                            bool t = tempMission.Any(x => x.StoryId == m.StoryId);
+                            if (t == false)
+                            {
+                                tempMission.Add(m);
+                            }
+                        }
+                    }
+                }
+            }
+
+            #region Default Mission
+            if (CountryId.Count == 0 && CityId.Count == 0 && ThemeId.Count == 0 && SkillId.Count == 0 && searchText == null && searchText2 == null)
+            {
+                tempMission = _db.Stories.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
+            }
+            #endregion Default Mission
+
+            #region Create Card
+            foreach (var item in tempMission)
+            {
+                cardData.Add(StoryCard(item));
+            }
+            #endregion Create Card
+
+            return PartialView("_StoryGridPartial", cardData);
+        }
+
+
+        #endregion StoryFilter
+
+        #region StoryCard
+        public StoryCardModel StoryCard(Story item)
+        {
+            var card = new StoryCardModel();
+            card.story = item;
+            card.mission = _db.Missions.FirstOrDefault(x => x.MissionId == item.MissionId);
+            card.user = _db.Users.FirstOrDefault(x => x.UserId == item.UserId);
+            card.theme = _db.Missions.FirstOrDefault(x => x.MissionId == item.MissionId).Title;
+            return card;
+        }
+        #endregion StoryCard
 
         #region LogOut
         public IActionResult Logout()

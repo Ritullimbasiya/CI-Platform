@@ -22,9 +22,6 @@ namespace CI_Plateform.Models
 
         #endregion Plateform
 
-        #region Pagenation
-
-        #endregion Pagenation
     }
 
 }

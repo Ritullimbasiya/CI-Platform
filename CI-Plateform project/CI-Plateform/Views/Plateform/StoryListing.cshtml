@@ -1,0 +1,313 @@
+﻿@using CI_Plateform.Models;
+@model StoryListingVM
+
+@{
+    ViewData["Title"] = "StoryListing";
+    Pager pager = new Pager();
+
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<link href="https://cdn.jsdelivr.net/npm/virtual-select-plugin@1.0.33/dist/virtual-select.min.js" />
+<script src="https://cdn.jsdelivr.net/npm/virtual-select-plugin@1.0.33/dist/virtual-select.min.js"></script>
+<link rel="stylesheet" href="~/css/Virtual-Select-for-Plateform.css" />
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+
+<script>
+    setTimeout(alertFunc, 1000);
+    function alertFunc() {
+        VirtualSelect.init({
+            ele: '#ddlskill'
+        });
+        VirtualSelect.init({
+            ele: '#ddltheme'
+        });
+        VirtualSelect.init({
+            ele: '#ddlcity',
+            dropboxWidth: '170px'
+        });
+        VirtualSelect.init({
+            ele: '#ddlcountry'
+        });
+    }
+    $(document).ready(function () {
+        $("#countryDiv").change(function () {
+            FilterTag("#ddlcountry");
+            Filter();
+        });
+        $("#cityDiv").change(function () {
+            FilterTag("#ddlcity");
+            Filter();
+        });
+        $("#themeDiv").change(function () {
+            FilterTag("#ddltheme");
+            Filter();
+        });
+        $("#skillDiv").change(function () {
+            FilterTag("#ddlskill");
+            Filter();
+        });
+        $("#ddlShort").change(function () {
+            Filter();
+        });
+    });
+
+    function Search() {
+        Filter();
+    }
+
+
+    function FilterTag(str) {
+        var a = document.querySelector(str).getSelectedOptions();
+        $(str + "Div").empty();
+        $.each(a, function (i, text) {
+            $(str + "Div").append('<button type="button" class="form-control rounded-pill btn btn-outline-secondary font" style="width:auto;font-size: 12px; padding: 3px 7px;margin-right: 5px;"><span class="text-wrap">' + text.label + '</span><i class="bi bi-x"></i></button>');
+        });
+    }
+
+    function Filter() {
+        var country = $("#ddlcountry").val();
+        var city = $("#ddlcity").val();
+        var theme = $("#ddltheme").val();
+        var skill = $("#ddlskill").val();
+        var search = $("#box").val();
+        var search2 = $("#box2").val();
+        var Sort = $("#ddlShort").val();
+        $.ajax({
+            url: '/Plateform/StoryFilter',
+            type: 'POST',
+            dataType: 'html',
+            data: { CountryId: country, CityId: city, ThemeId: theme, SkillId: skill, searchText: search, searchText2: search2, sort: Sort },
+            success: function (d) {
+                $("#storyGrid").empty();
+                $("#storyGrid").html(d);
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+    }
+
+</script>
+
+<div class="body-1">
+    <div class="body-2">
+        <div class="nevbar-1" style="height:43px;">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid" style="padding:0px;justify-content:initial;">
+                    <button class="navbar-toggler pad1" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="dropdown navbar-toggler border-0">
+                        <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                           id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                 class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                        </ul>
+                    </div>
+                    <span class="navbar-toggler pad1 pad01" style="margin-left:4px;">
+                        <form class="form-horizontal">
+                            <input type="search" class="form-control pad0" id="box2" onkeyup="Search()" placeholder=" &#xF002; Search Mission"
+                                   aria-label="Search" />
+                        </form>
+                    </span>
+                    <button class="navbar-toggler pad4" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <i class="bi bi-sliders2-vertical"></i>
+                    </button>
+
+                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
+                         id="navbarSupportedContent" aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                       <a class="hover2 nav-link" style="" asp-controller="Plateform" asp-action="StoryListing">Stories </a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            Policy <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Plateform">Volunteering</a></li>
+                                            <li><a class="dropdown-item" href="#">Sponsored</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                                <div class="dropdown">
+                                    <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                                       id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                             class="rounded-circle">
+                                        <span class="d-none d-sm-inline mx-1">
+                                            Ritul <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                                        <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile">My Profile</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid border">
+            <div class="body-2" style="display:flex;">
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="navbarScroll"
+                     aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="navbar-collapse" id="navbarScroll">
+                            <form class="form-horizontal me-auto mb-2 mb-lg-0 d-none d-lg-block  ">
+                                <input type="search" id="box" onkeyup="Search()" class="form-control"
+                                       style="width:auto; border: 0px; font-family:Arial, FontAwesome;"
+                                       placeholder="&#128269; Search Mission" aria-label="Search" />
+                            </form>
+                            <div class="col">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
+                                    style="float: right;border-left:1px solid #b3aeae;border-right:1px solid #b3aeae;;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <div id="skillDiv">
+                                            <select asp-for="addSkill" multiple asp-items="@Model.SkillList" id="ddlskill"
+                                                    placeholder="Skills"
+                                                    data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
+                                            </select>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
+                                    style="float: right;border-left:1px solid #b3aeae;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <div id="themeDiv">
+                                            <select asp-for="addTheme" multiple asp-items="@Model.ThemeList" id="ddltheme"
+                                                    placeholder="Theme"
+                                                    data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
+                                            </select>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
+                                    style="float: right;border-left:1px solid #b3aeae;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <div id="cityDiv">
+                                            <select asp-for="addCity" multiple asp-items="@Model.CityList" id="ddlcity"
+                                                    placeholder="City"
+                                                    data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
+                                            </select>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
+                                    style="float: right;border-left:1px solid #b3aeae;">
+                                    <li class="nav-item dropdown me-md-4">
+                                        <div id="countryDiv">
+                                            <select asp-for="addCountry" multiple asp-items="@Model.CountryList" id="ddlcountry"
+                                                    placeholder="Country"
+                                                    data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
+                                            </select>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row Banner">
+        <img style="padding:0px;"
+             src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability-listingpage.png" alt="Error">
+        <div class="listcontainer1">
+            <div class="listcontainer2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui corporis facilis, non laborum optio
+                temporibus laboriosam quas iste odio? Dicta, sunt. Assumenda?
+            </div>
+            <div class="card-body " style="text-align:center;">
+                <button class="listcontainer3" type="submit">
+                    Share your
+                    story <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="body-2" id="storyGrid">
+        @{
+            Html.RenderPartial("_StoryGridPartial", @Model.storyCardModels);
+        }
+    </div>
+    <div class="body-2" style="margin-top:35px;">
+        <div class="container">
+            @if (pager.TotalPages > 0)
+            {
+                <ul class="pagination justify-content-center">
+
+                    @if (pager.CurrentPage > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-controller="Plateform" asp-action="StoryListing" asp-route-pg="1">First</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" asp-controller="Plateform" asp-action="StoryListing" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+                        </li>
+                    }
+
+                    @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                    {
+                        <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-controller="Plateform" asp-action="StoryListing" asp-route-pg="@pge">@pge</a>
+                        </li>
+                    }
+
+                    @if (pager.CurrentPage < pager.TotalPages)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-controller="Plateform" asp-action="StoryListing" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" asp-controller="Plateform" asp-action="StoryListing" asp-route-pg="@(pager.TotalPages)">Last</a>
+                        </li>
+                    }
+                </ul>
+            }
+
+        </div>
+    </div>
+    <hr style="margin-top:35px;">
+    <div class="body-2">
+        <a asp-controller="Login" asp-action="PolicyPage" class="hover">Privacy Policy</a>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+﻿using CI_Plateform.DbModels;
+
+namespace CI_Plateform.Models
+{
+    public class StoryCardModel
+    {
+        public Story? story { get; set; } = null;
+        public Mission? mission { get; set; }
+        public User? user { get; set; }
+        public string theme { get; set; }
+    }
+}
