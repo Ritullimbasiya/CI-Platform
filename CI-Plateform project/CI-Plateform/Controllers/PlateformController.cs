@@ -1,22 +1,38 @@
 ﻿using CI_Plateform.DbModels;
 using CI_Plateform.Models;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using System.Runtime.Intrinsics.Arm;
+using System.Text;
 
 namespace CI_Plateform.Controllers
 {
     public class PlateformController : Controller
     {
         public ClPlatformContext _db = new ClPlatformContext();
+        private readonly IWebHostEnvironment _hostEnvironment;
+
+        public PlateformController(IWebHostEnvironment _environment)
+        {
+            _hostEnvironment = _environment;
+        }
 
         #region Plateform(Home) Get
         public IActionResult Plateform(int pg = 1)
         {
             PlateformVM plateformVM = new PlateformVM();
             plateformVM.Missions = _db.Missions.ToList();
+
+
+            /*var user = _db.Users.FirstOrDefault(u => u.UserId == id);
+            plateformVM.User = user;*/
+
+
 
             List<SelectListItem> list1 = new List<SelectListItem>();
             var temp1 = _db.Skills.ToList();
@@ -63,6 +79,7 @@ namespace CI_Plateform.Controllers
 
             /*--------------------------*/
             const int pageSize = 1;
+
             int recsCount = tempMission.Count();
             var pager = new Pager(recsCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
@@ -79,7 +96,7 @@ namespace CI_Plateform.Controllers
 
         #region Plateform Filter
         [HttpPost]
-        public PartialViewResult Filter(List<int>? CountryId, List<int>? CityId, List<int>? ThemeId, List<int>? SkillId, string? searchText, string? searchText2, int? sort)
+        public PartialViewResult Filter(List<int>? CountryId, List<int>? CityId, List<int>? ThemeId, List<int>? SkillId, string? searchText, string? searchText2, int? sort, int pg = 1)
         {
             var cardData = new List<MissionCardModel>();
             var tempMission = new List<Mission>();
@@ -222,7 +239,20 @@ namespace CI_Plateform.Controllers
             }
             #endregion Sort Data
 
-            return PartialView("_MissionGridPartial", cardData);
+
+            PlateformVM plateformVM = new PlateformVM();
+            const int pageSize = 1;
+
+            int recsCount = tempMission.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = cardData.Skip(recSkip).Take(pager.PageSize).ToList();
+            plateformVM.missionsCard = data;
+            this.ViewBag.Pager = pager;
+            /*return View(plateformVM);*/
+
+            return PartialView("_MissionGridPartial", data);
         }
         #endregion Mission Filter
 
@@ -278,9 +308,48 @@ namespace CI_Plateform.Controllers
                 #endregion Favorite Mission version 2*/
 
         #region Myprofile
-        public IActionResult Myprofile()
+        /*public IActionResult Myprofile()
         {
             return View();
+        }*/
+        [HttpGet]
+        public IActionResult Myprofile(int? id)
+        {
+            UserVm userVM = new UserVm();
+            userVM.User = _db.Users.FirstOrDefault(x => x.UserId == id);
+
+            List<SelectListItem> list = new List<SelectListItem>();
+            var temp = _db.Countries.ToList();
+            foreach (var item in temp)
+            {
+                list.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
+            }
+            userVM.CountryList = list;
+
+            List<SelectListItem> list3 = new List<SelectListItem>();
+            var temp3 = _db.Cities.ToList();
+            foreach (var item in temp3)
+            {
+                list3.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
+            }
+            userVM.CityList = list3;
+            return View(userVM);
+        }
+        [HttpPost]
+        public IActionResult Myprofile(Int64 id, UserVm userVM)
+        {
+            if (userVM.User != null)
+            {
+                var user = _db.Users.FirstOrDefault(x => x.UserId == userVM.User.UserId);
+                userVM.User.Password = user.Password;
+                userVM.User.UpdatedAt = DateTime.Now;
+                userVM.User.Status = 1;
+                _db.Users.Update(userVM.User);
+                _db.SaveChanges();
+                return RedirectToAction("Plateform", "Plateform");
+            }
+            else
+                return NotFound();
         }
         #endregion
 
@@ -289,6 +358,7 @@ namespace CI_Plateform.Controllers
         {
             PlateformVM plateformVM = new PlateformVM();
             plateformVM.Missions = _db.Missions.ToList();
+            plateformVM.Timesheets = _db.Timesheets.ToList();
             return View(plateformVM);
         }
         #endregion
@@ -341,10 +411,16 @@ namespace CI_Plateform.Controllers
         }
         #endregion*/
 
-        #region Mission Detail Page
+        #region ViewDetail Page
         public IActionResult ViewDetail(int id)
         {
             var viewDetail = new ViewDetailModel();
+
+
+            /*var miss = _db.Missions.ToList();
+            viewDetail.Missions = miss;*/
+
+
             var item = _db.Missions.FirstOrDefault(x => x.MissionId == id);
             viewDetail.missionCard = CreateCard(item);
 
@@ -370,7 +446,7 @@ namespace CI_Plateform.Controllers
             viewDetail.relatedMission = relatedMissions((int)item.CityId, (int)item.CountryId, (int)item.MissionThemeId);
             return View(viewDetail);
         }
-        #endregion Mission Detail Page
+        #endregion ViewDetail Page
 
         #region Related Mission
         public List<MissionCardModel> relatedMissions(int cityId, int countryId, int themeId)
@@ -476,7 +552,7 @@ namespace CI_Plateform.Controllers
         #endregion new mission Card
 
         #region StoryListing
-        public IActionResult StoryListing(int pg=1)
+        public IActionResult StoryListing(int pg = 1)
         {
             StoryListingVM storyListingVM = new StoryListingVM();
             storyListingVM.storys = _db.Stories.ToList();
@@ -540,7 +616,7 @@ namespace CI_Plateform.Controllers
 
         #region StoryFilter
         [HttpPost]
-        public PartialViewResult StoryFilter(List<int>? CountryId, List<int>? CityId, List<int>? ThemeId, List<int>? SkillId, string? searchText, string? searchText2)
+        public PartialViewResult StoryFilter(List<int>? CountryId, List<int>? CityId, List<int>? ThemeId, List<int>? SkillId, string? searchText, string? searchText2, int pg = 1)
         {
             var cardData = new List<StoryCardModel>();
             var tempMission = new List<Story>();
@@ -647,7 +723,7 @@ namespace CI_Plateform.Controllers
                         }
                     }
                 }
-            } 
+            }
 
             if (SkillId.Count != 0)
             {
@@ -685,7 +761,18 @@ namespace CI_Plateform.Controllers
             }
             #endregion Create Card
 
-            return PartialView("_StoryGridPartial", cardData);
+            StoryListingVM storyListingVM = new StoryListingVM();
+            const int pageSize = 1;
+
+            int recsCount = tempMission.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = cardData.Skip(recSkip).Take(pager.PageSize).ToList();
+            storyListingVM.storyCardModels = data;
+            this.ViewBag.Pager = pager;
+
+            return PartialView("_StoryGridPartial", data);
         }
 
 
@@ -703,6 +790,66 @@ namespace CI_Plateform.Controllers
         }
         #endregion StoryCard
 
+        #region StoryDetail
+        public IActionResult StoryDetail(int id)
+        {
+            StoryCardModel storyCardModel = new StoryCardModel();
+            storyCardModel.story = _db.Stories.FirstOrDefault(x => x.StoryId == id);
+            var user = _db.Users.FirstOrDefault(x => x.UserId == storyCardModel.story.UserId);
+            storyCardModel.user = user;
+            storyCardModel.Missions = _db.Missions.ToList();
+
+            return View(storyCardModel);
+        }
+        #endregion StoryDetail
+
+        #region ShareStory
+        public IActionResult ShareStory()
+        {
+            ShareStory shareStory = new ShareStory();
+            List<SelectListItem> list = new List<SelectListItem>();
+            var temp = _db.Missions.ToList();
+            foreach (var item in temp)
+            {
+                list.Add(new SelectListItem() { Text = item.Title, Value = item.MissionId.ToString() });
+            }
+            shareStory.MissionList = list;
+            return View(shareStory);
+        }
+        [HttpPost]
+        public IActionResult ShareStory(ShareStory model, List<IFormFile> storyMedia)
+        {
+            if (model != null)
+            {
+                model.Story.UserId = 14;
+                model.Story.CreatedAt = DateTime.Now;
+                model.Story.Status = 1;
+                _db.Stories.Add(model.Story);
+                _db.SaveChanges();
+
+                if (storyMedia != null)
+                {
+                    foreach (var img in storyMedia)
+                    {
+                        var storyMedium = new StoryMedium();
+                        storyMedium.StoryId = model.Story.StoryId;
+                        storyMedium.Type = Path.GetExtension(img.FileName);
+                        storyMedium.Path = saveImg(img, "StoryMedia");
+                        storyMedium.CreatedAt = DateTime.Now;
+                        _db.StoryMedia.Add(storyMedium);
+                        _db.SaveChanges();
+                    }
+                }
+
+
+                return RedirectToAction("Plateform", "Plateform");
+            }
+            else
+                return NotFound();
+        }
+
+        #endregion ShareStory
+
         #region LogOut
         public IActionResult Logout()
         {
@@ -712,5 +859,23 @@ namespace CI_Plateform.Controllers
             return RedirectToAction("Login", "Login");
         }
         #endregion LogOut
+
+        #region saveImg
+        public string saveImg(IFormFile img, string folder)
+        {
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+
+            string fileName = Guid.NewGuid().ToString();
+            var uploads = Path.Combine(wwwRootPath, @"Images\" + folder);
+            var extension = Path.GetExtension(img.FileName);
+
+            using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+            {
+                img.CopyTo(fileStreams);
+            }
+            return @"~/Images/" + folder + "/" + fileName + extension;
+
+        }
+        #endregion saveImg
     }
 }

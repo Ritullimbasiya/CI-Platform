@@ -14,6 +14,7 @@ namespace CI_Plateform.Models
         public IEnumerable<SelectListItem> CountryList { get; set; }
         public List<string>? addCountry { get; set; }
         public List<Story> storys { get; set; }
+        public Story? story { get; set; }
         public List<StoryCardModel> storyCardModels { get; set; }
     }
 }

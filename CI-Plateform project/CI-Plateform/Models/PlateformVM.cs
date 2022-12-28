@@ -9,6 +9,7 @@ namespace CI_Plateform.Models
     {
 
         #region Plateform
+        public List<Timesheet> Timesheets { get; set; }
         public List<Mission>? Missions { get; set; } = null!;
         public IEnumerable<SelectListItem> SkillList { get; set; }
         public List<string>? addSkill { get; set; }

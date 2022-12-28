@@ -11,7 +11,7 @@
                      class="card-img-top" alt="Error">
                     <div class="listcontaier5">
                         <div class="card-body" style="text-align:center;padding:18%;">
-                            <button class="listcontainer3" type="submit">
+                            <button class="listcontainer3" type="button" onclick="return location.href=' @Url.Action("StoryDetail","Plateform",new {id=@card.story.StoryId}) '">
                                 View details
                                 <i class="bi bi-arrow-right"></i>
                             </button>

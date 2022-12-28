@@ -18,9 +18,9 @@
                                  class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
                         </ul>
                     </div>
                     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
@@ -59,9 +59,9 @@
                                         </span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
-                                        <li><a class="dropdown-item" href="#">My Profile</a></li>
-                                        <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
-                                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile">My Profile</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -76,7 +76,14 @@
         <h5>Volunteering Timesheet</h5>
         <div class="row">
             <div class="col mt-4 me-1" style="border:1px solid #757575;">
-                <h4 class="mt-2" style="font-size:12px;">Volunteering Hours</h4>
+                <h4 class="mt-2 mb-0" style="font-size:12px;">Volunteering Hours</h4>
+                <button type="submit"
+                        class="form-control rounded-pill btn btn-outline-warning font sherescontainer11 mb-2" style="font-size:9px;">
+                    <i class="bi bi-plus" style="width: 12px;"></i>
+                    <a asp-controller="Plateform" asp-action="aUseradd" class="adminaddbutton">
+                        Add
+                    </a>
+                </button>
                 <div class="container fluide">
                     <table class="table table-borderless" style="font-size:10px;">
                         <thead class="table-light text-primary">
@@ -89,53 +96,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var obj in @Model.Missions)
+                            @foreach (var obj in @Model.Timesheets)
                             {
-                                <tr>
-                                    <td>@obj.Title</td>
-                                    <td>02-02-2022</td>
-                                    <td>1h.</td>
-                                    <td>10 min.</td>
-                                    <td class="text-center d-flex">
-                                        <button class="btn btn-light">
-                                            <i class="bi bi-pencil-square text-secondary"></i>
-                                        </button>
-                                        <button class="btn btn-light"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
+                                @foreach(var sub in @Model.Missions)
+                                {
+                                    @if (sub.MissionType == 1)
+                                    {
+                                        @if (sub.MissionId == obj.MissionId)
+                                        {
+                                            <tr>
+                                                <td>@sub.Title</td>
+                                                <td>@obj.DateVolunteered</td>
+                                                <td>@obj.Time</td>
+                                                <td>@obj.Time</td>
+                                                <td class="text-center d-flex">
+                                                    <button class="btn btn-light">
+                                                        <i class="bi bi-pencil-square text-secondary"></i>
+                                                    </button>
+                                                    <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#deleteuser_@obj.MissionId" aria-controls="deleteuser">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
                             }
-                            @*
-                            <tr>
-                            <td>Environment Conservation</td>
-                            <td>03-02-2022</td>
-                            <td>2h.</td>
-                            <td>20 min.</td>
-                            <td class="text-center d-flex">
-                            <button class="btn btn-light">
-                            <i class="bi bi-pencil-square text-secondary"></i>
-                            </button>
-                            <button class="btn btn-light"><i class="bi bi-trash"></i></button>
-                            </td>
-                            </tr>
-                            <tr>
-                            <td>Environment Conservation</td>
-                            <td>04-02-2022</td>
-                            <td>3h.</td>
-                            <td>30 min.</td>
-                            <td class="text-center d-flex">
-                            <button class="btn btn-light">
-                            <i class="bi bi-pencil-square text-secondary"></i>
-                            </button>
-                            <button class="btn btn-light"><i class="bi bi-trash"></i></button>
-                            </td>
-                            </tr>
-                            *@
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="col mt-4 ms-1" style="border:1px solid #757575;">
-                <h4 class="mt-2 mb-3" style="font-size:12px;">Volunteering Goals</h4>
+                <h4 class="mt-2 mb-0" style="font-size:12px;">Volunteering Goals</h4>
+                <button type="submit"
+                        class="form-control rounded-pill btn btn-outline-warning font sherescontainer11 mb-2" style="font-size:9px;">
+                    <i class="bi bi-plus" style="width: 12px;"></i>
+                    <a asp-controller="Plateform" asp-action="aUseradd" class="adminaddbutton">
+                        Add
+                    </a>
+                </button>
                 <div class="container fluide">
                     <table class="table table-borderless" style="font-size:10px;">
                         <thead class="table-light text-primary">
@@ -147,51 +147,93 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Plantation Programme</td>
-                                <td>02-02-2022</td>
-                                <td>1</td>
-                                <td class="text-center d-flex">
-                                    <button class="btn btn-light">
-                                        <i class="bi bi-pencil-square text-secondary"></i>
-                                    </button>
-                                    <button class="btn btn-light"><i class="bi bi-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Plantation Programme</td>
-                                <td>03-02-2022</td>
-                                <td>0</td>
-                                <td class="text-center d-flex">
-                                    <button class="btn btn-light">
-                                        <i class="bi bi-pencil-square text-secondary"></i>
-                                    </button>
-                                    <button class="btn btn-light"><i class="bi bi-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Plantation Programme</td>
-                                <td>04-02-2022</td>
-                                <td>0</td>
-                                <td class="text-center d-flex">
-                                    <button class="btn btn-light">
-                                        <i class="bi bi-pencil-square text-secondary"></i>
-                                    </button>
-                                    <button class="btn btn-light"><i class="bi bi-trash"></i></button>
-                                </td>
-                            </tr>
-
+                            @foreach (var obj in @Model.Timesheets)
+                            {
+                                @foreach (var sub in @Model.Missions)
+                                {
+                                    @if (sub.MissionType == 2)
+                                    {
+                                        @if (sub.MissionId == obj.MissionId)
+                                        {
+                                            <tr>
+                                                <td>@sub.Title</td>
+                                                <td>@obj.DateVolunteered</td>
+                                                <td>@obj.Action</td>
+                                                <td class="text-center d-flex">
+                                                    <button class="btn btn-light">
+                                                        <i class="bi bi-pencil-square text-secondary"></i>
+                                                    </button>
+                                                    <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#deleteuser_@obj.MissionId" aria-controls="deleteuser">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            }
+                            @*@foreach (var obj in @Model.Missions)
+                            {
+                                @if (obj.MissionType == 2)
+                                {
+                                    <tr>
+                                        <td>@obj.Title</td>
+                                        <td>02-02-2022</td>
+                                        <td>1</td>
+                                        <td class="text-center d-flex">
+                                            <button class="btn btn-light">
+                                                <i class="bi bi-pencil-square text-secondary"></i>
+                                            </button>
+                                            <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#deleteuser_@obj.MissionId" aria-controls="deleteuser">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            }*@
                         </tbody>
                     </table>
                 </div>
             </div>
+            @foreach (var obj in @Model.Missions)
+            {
+                <div class="deleteuser offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="deleteuser_@obj.MissionId"
+                 aria-labelledby="staticBackdropLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="staticBackdropLabel">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div>
+                            <h6>Are you sure you want to delete this item?</h6>
+                        </div>
+                        <form method="post" action="aUserdelete">
+                            <div class="row" style="margin:18px 0px;display:block;text-align: center;">
+                                <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                                    <a asp-controller="Plateform" asp-action="TimeSheet" class="cancelbutton">
+                                        cancel
+                                    </a>
+                                </button>
+                                @* <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                            style="width:auto;font-size: 12px;">
+                            Delete
+                            </button>*@
+                                <button type="submit" asp-controller="Plateform" asp-action="missiondelete" asp-route-id="@obj.MissionId"
+                                    class="form-control rounded-pill btn btn-outline-warning font adminaddbutton" style="width:auto;font-size: 12px;">
+                                    Delete
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+            <!-- *********************** -->
         </div>
     </div>
     <hr style="margin-top:172px;">
     <div class="body-2">
-        <a class="page-link" style="font-size: 10px;color: blue;position: fixed; bottom: 0;" href="#">
-            Privacy
-            Policy
-        </a>
+        <a asp-controller="Login" asp-action="PolicyPage" class="hover">Privacy Policy</a>
     </div>
 </div>

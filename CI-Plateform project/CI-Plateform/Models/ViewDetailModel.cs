@@ -12,5 +12,6 @@ namespace CI_Plateform.Models
         public List<MissionDocument>? docs { get; set; }
         public List<MissionCardModel>? relatedMission { get; set; }
         public List<MissionCommentModel>? comments { get; set; }
+        public List<Mission>? Missions { get; set; } = null!;
     }
 }

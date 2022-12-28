@@ -181,9 +181,9 @@
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
                                  class="rounded-circle">
-                        </a>
+                        </a>                                                                        @*         asp-route-id="@Model.User.UserId"*@
                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
-                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile" >My Profile</a></li>
                             <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Timesheet">Volunteering Timesheet</a></li>
                             <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
                         </ul>
@@ -227,7 +227,7 @@
                                         </span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
-                                        <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile">My Profile</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Myprofile" >My Profile</a></li>
                                         <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Timesheet">Volunteering Timesheet</a></li>
                                         <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
                                     </ul>

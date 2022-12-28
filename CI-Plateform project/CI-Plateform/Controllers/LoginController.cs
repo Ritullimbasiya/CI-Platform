@@ -47,6 +47,8 @@ namespace CI_Plateform.Controllers
                 HttpContext.Session.SetString("UserId", user.UserId.ToString());
                 HttpContext.Session.SetString("UserName", user.FirstName);
 
+                /*var id = user.UserId;*/
+
                 return RedirectToAction("Plateform", "Plateform");
             }
             else

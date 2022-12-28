@@ -23,6 +23,7 @@
     <Folder Include="wwwroot\Images\Banner\" />
     <Folder Include="wwwroot\Images\Missionmedia\" />
     <Folder Include="wwwroot\Images\MissionDocument\" />
+    <Folder Include="wwwroot\Images\StoryMedia\" />
     <Folder Include="wwwroot\Images\UserAvatar\" />
   </ItemGroup>
 
