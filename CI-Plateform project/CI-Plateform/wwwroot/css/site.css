@@ -1151,3 +1151,10 @@
     border-color: #2b64b1 !important;
 }
 */
+
+.timesheetedit {
+    left: 30%;
+    width: 490px;
+    top: 15%;
+    bottom: 15%;
+}

@@ -27,4 +27,15 @@
     <Folder Include="wwwroot\Images\UserAvatar\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\MyProfile\Myprofile.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\TimeSheet\Timesheet.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

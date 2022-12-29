@@ -1,0 +1,176 @@
+﻿@using CI_Plateform.Models
+@model ShareStory
+
+<div class="body-1">
+    <div class="body-2">
+        <div class="nevbar-1" style="height:43px;">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid" style="padding:0px;justify-content:initial;">
+                    <button class="navbar-toggler pad1" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="dropdown navbar-toggler border-0">
+                        <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                           id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                 class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                            <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
+                         id="navbarSupportedContent" aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="hover2 nav-link" style="" asp-controller="StoryListing" asp-action="StoryListing">Stories </a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            Policy <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" asp-controller="Plateform" asp-action="Plateform">Volunteering</a></li>
+                                            <li><a class="dropdown-item" href="#">Sponsored</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                                <div class="dropdown">
+                                    <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                                       id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                             class="rounded-circle">
+                                        <span class="d-none d-sm-inline mx-1">
+                                            Ritul <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                                        <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <hr>
+    <div class="body-2">
+        <h3>Share your story</h3>
+        <form class="pt-3" method="post" action="ShareStory" enctype="multipart/form-data">
+        <div class="row" style="margin:18px 0px;">
+            <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                <label for="">Select Mission</label><br>
+                <select id="ddlmissions" class="sherescontainer1" asp-for="Story.MissionId" asp-items="@Model.MissionList" aria-label="Default select example">
+                    <option class="sherescontainer1" selected>Select Mission</option>
+                </select>
+                <span asp-validation-for="Story.MissionId" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                <label asp-for="Story.Title">My Story Title</label><br>
+                <input asp-for="Story.Title" type="text" id="name" name="Story.Title" placeholder="Enter story title" class="sherescontainer1">
+            </div>
+            <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
+                <label asp-for="Story.PublishedAt">Date</label><br>
+                <input asp-for="Story.PublishedAt" type="date" id="date" name="Story.PublishedAt" class="sherescontainer1">
+            </div>
+
+            <div class="row" style="margin:18px 0px;padding-left: 0px;">
+                <label asp-for="Story.Description" style="padding:0px;">Why i volunteer??</label><br>
+                <textarea asp-for="Story.Description" name="Story.Description" placeholder="Enter description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
+            </div>
+
+            @*<div class="row" style="margin:18px 0px;padding-left: 0px;">
+                <label asp-for="Story." style="padding:0px;">Enter Video URL</label><br>
+                <input type="text" id="url" name="url" placeholder="Enter your url">
+            </div>*@
+            <div class="row" style="margin:18px 0px;padding-left: 0px;">
+                <label for="uploadpic" style="padding:0px;">Upload Story photos</label><br>
+                <div class="sherescontainer5">
+                    <div class="sherescontainer6">
+                        <div>
+                            <input class="form-control form-control-sm mb-2" id="" type="file" style="width: auto;
+                                font-size: xx-small;margin-left: auto;margin-right: auto;" multiple name="storyMedia">
+                        </div>
+                        <p style="font-size:8px; color: #757575;">Drag and Drop Picture and Video hear</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin:18px 0px; display: flex;padding-left: 0px;">
+                <div class="sherescontainer7">
+                    <img src="~/assets/img11.png" alt="Error" style="width:75px; height:75px;">
+                    <button class="sherescontainer8">
+                        <img src="~/assets/cancel.png" alt="Error"
+                             class="sherescontainer9">
+                    </button>
+                </div>
+                <div style="position:relative;width: auto;padding-left:0px;padding-bottom: 12px;">
+                    <img src="~/assets/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" alt="Error"
+                         style="width:75px; height:75px;">
+                    <button class="sherescontainer8">
+                        <img src="~/assets/cancel.png" alt="Error"
+                             class="sherescontainer9">
+                    </button>
+                </div>
+                
+                <div style="position:relative;width: auto;padding-left:0px;padding-bottom: 12px;">
+                    <img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability-login.png" alt="Error"
+                         style="width:75px; height:75px;">
+                    <button class="sherescontainer8">
+                        <img src="~/assets/cancel.png" alt="Error"
+                             class="sherescontainer9">
+                    </button>
+                </div>
+                <div style="position:relative;width: auto;padding-left:0px;padding-bottom: 12px;">
+                    <img src="~/assets/image1.png" alt="Error" style="width:75px; height:75px;">
+                    <button class="sherescontainer8">
+                        <img src="~/assets/cancel.png" alt="Error"
+                             class="sherescontainer9">
+                    </button>
+                </div>
+                <div style="position:relative;width: auto;padding-left:0px;padding-bottom: 12px;">
+                    <img src="~/assets/img11.png" alt="Error" style="width:75px; height:75px;">
+                    <button class="sherescontainer8">
+                        <img src="~/assets/cancel.png" alt="Error"
+                             class="sherescontainer9">
+                    </button>
+                </div>
+            </div>
+            <div class="row" style="margin:18px 0px;display:block;padding-left: 0px;">
+                    <button type="submit" asp-controller="StoryListing" asp-action="StoryListing"
+                        class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10">
+                    Cancle
+                </button>
+                    <button type="submit" asp-controller="StoryListing" asp-action="ShareStory"
+                        class="form-control rounded-pill btn btn-outline-warning font sherescontainer11 ms-2">
+                    Submit
+                </button>
+                @*<button type="submit"
+                        class="form-control rounded-pill btn btn-outline-warning font sherescontainer11">
+                    Save
+                </button>*@
+            </div>
+        </div>
+        </form>
+    </div>
+    <hr style="margin-top:35px;">
+    <div class="body-2">
+        <a asp-controller="Login" asp-action="PolicyPage" class="hover">Privacy Policy</a>
+    </div>
+</div>

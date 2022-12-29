@@ -21,6 +21,12 @@ namespace CI_Plateform.Models
         public List<string>? addCountry { get; set; }
         public List<MissionCardModel> missionsCard { get; set; }
 
+
+
+        public Mission? mission { get; set; }
+        public IEnumerable<SelectListItem> MissionList { get; set; }
+        public Timesheet? timesheet { get; set; }
+
         #endregion Plateform
 
     }

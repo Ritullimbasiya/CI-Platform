@@ -307,147 +307,6 @@ namespace CI_Plateform.Controllers
                 }
                 #endregion Favorite Mission version 2*/
 
-        #region Myprofile
-        /*public IActionResult Myprofile()
-        {
-            return View();
-        }*/
-        [HttpGet]
-        public IActionResult Myprofile(int? id)
-        {
-            UserVm userVM = new UserVm();
-            userVM.User = _db.Users.FirstOrDefault(x => x.UserId == id);
-
-            List<SelectListItem> list = new List<SelectListItem>();
-            var temp = _db.Countries.ToList();
-            foreach (var item in temp)
-            {
-                list.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
-            }
-            userVM.CountryList = list;
-
-            List<SelectListItem> list3 = new List<SelectListItem>();
-            var temp3 = _db.Cities.ToList();
-            foreach (var item in temp3)
-            {
-                list3.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
-            }
-            userVM.CityList = list3;
-            return View(userVM);
-        }
-        [HttpPost]
-        public IActionResult Myprofile(Int64 id, UserVm userVM)
-        {
-            if (userVM.User != null)
-            {
-                var user = _db.Users.FirstOrDefault(x => x.UserId == userVM.User.UserId);
-                userVM.User.Password = user.Password;
-                userVM.User.UpdatedAt = DateTime.Now;
-                userVM.User.Status = 1;
-                _db.Users.Update(userVM.User);
-                _db.SaveChanges();
-                return RedirectToAction("Plateform", "Plateform");
-            }
-            else
-                return NotFound();
-        }
-        #endregion
-
-        #region Timesheet
-        public IActionResult Timesheet()
-        {
-            PlateformVM plateformVM = new PlateformVM();
-            plateformVM.Missions = _db.Missions.ToList();
-            plateformVM.Timesheets = _db.Timesheets.ToList();
-            return View(plateformVM);
-        }
-        #endregion
-
-        #region Apply Mission
-        [HttpPost]
-        public JsonResult ApplyMission(int id)
-        {
-            var UId = Int64.Parse(HttpContext.Session.GetString("UserId"));
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
-            {
-                return Json("You have to login first");
-
-            }
-            if (_db.MissionApplications.FirstOrDefault(x => x.MissionId == id && x.UserId == UId && x.ApprovalStatus == 1) != null)
-            {
-                return Json("You are alrady Part of mission");
-
-            }
-            else if (_db.MissionApplications.FirstOrDefault(x => x.MissionId == id && x.UserId == UId) != null)
-            {
-                return Json("You alrady applyed in this mission");
-            }
-            else
-            {
-                var missionApplication = new MissionApplication();
-                missionApplication.MissionId = id;
-                missionApplication.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
-                missionApplication.ApprovalStatus = 0;
-                missionApplication.AppliedAt = DateTime.Now;
-                missionApplication.CreatedAt = DateTime.Now;
-                _db.MissionApplications.Add(missionApplication);
-                _db.SaveChanges();
-                return Json("Applied Sucessfully");
-            }
-        }
-        #endregion Apply Mission
-
-        /*#region ViewDetail
-        public IActionResult ViewDetail(int? id)
-        {
-            ViewDetailModel viewDetailModel = new ViewDetailModel();
-            viewDetailModel.missionCard.mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
-            viewDetailModel.missionCard.goalMission = _db.GoalMissions.FirstOrDefault(x => x.MissionId == id);
-            viewDetailModel.missionCard.missionApplication = _db.MissionApplications.FirstOrDefault(x => x.MissionId == id);
-
-            viewDetailModel.imgs = _db.MissionMedia.ToList();
-            viewDetailModel.volunteers = 
-           return View(viewDetailModel);
-        }
-        #endregion*/
-
-        #region ViewDetail Page
-        public IActionResult ViewDetail(int id)
-        {
-            var viewDetail = new ViewDetailModel();
-
-
-            /*var miss = _db.Missions.ToList();
-            viewDetail.Missions = miss;*/
-
-
-            var item = _db.Missions.FirstOrDefault(x => x.MissionId == id);
-            viewDetail.missionCard = CreateCard(item);
-
-            viewDetail.imgs = _db.MissionMedia.Where(x => x.MissionId == id).AsEnumerable().ToList();
-
-            viewDetail.skills = String.Join(", ", _db.MissionSkills.Where(x => x.MissionId == id && x.DeletedAt == null).Select(x => x.Skill.SkillName).ToList());
-            viewDetail.availability = item.Availability == 1 ? "daily" : item.Availability == 2 ? "weekly" : item.Availability == 3 ? "week-end" : "monthly";
-
-            var temp = _db.MissionApplications.Where(x => x.MissionId == id && x.ApprovalStatus == 1).AsEnumerable().ToList();
-            var listVol = new List<AllVolModel>();
-            foreach (var u in temp)
-            {
-                var vol = new AllVolModel();
-                var user = _db.Users.FirstOrDefault(x => x.UserId == u.UserId);
-                vol.volunteerName = user.FirstName + " " + user.LastName;
-                vol.volunteerImg = user.Avatar != null ? user.Avatar : "~/assets/volunteer1.png";
-                listVol.Add(vol);
-            }
-
-            viewDetail.volunteers = listVol;
-
-            viewDetail.docs = _db.MissionDocuments.Where(x => x.MissionId == id && x.DeletedAt == null).AsEnumerable().ToList();
-            viewDetail.relatedMission = relatedMissions((int)item.CityId, (int)item.CountryId, (int)item.MissionThemeId);
-            return View(viewDetail);
-        }
-        #endregion ViewDetail Page
-
         #region Related Mission
         public List<MissionCardModel> relatedMissions(int cityId, int countryId, int themeId)
         {
@@ -551,305 +410,97 @@ namespace CI_Plateform.Controllers
         }
         #endregion new mission Card
 
-        #region StoryListing
-        public IActionResult StoryListing(int pg = 1)
-        {
-            StoryListingVM storyListingVM = new StoryListingVM();
-            storyListingVM.storys = _db.Stories.ToList();
 
-            List<SelectListItem> list1 = new List<SelectListItem>();
-            var temp1 = _db.Skills.ToList();
-            foreach (var item in temp1)
-            {
-                list1.Add(new SelectListItem() { Text = item.SkillName, Value = item.SkillId.ToString() });
-            }
-            storyListingVM.SkillList = list1;
+        
 
-            List<SelectListItem> list2 = new List<SelectListItem>();
-            var temp2 = _db.MissionThemes.ToList();
-            foreach (var item in temp2)
-            {
-                list2.Add(new SelectListItem() { Text = item.Title, Value = item.MissionThemeId.ToString() });
-            }
-            storyListingVM.ThemeList = list2;
 
-            List<SelectListItem> list3 = new List<SelectListItem>();
-            var temp3 = _db.Countries.ToList();
-            foreach (var item in temp3)
-            {
-                list3.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
-            }
-            storyListingVM.CountryList = list3;
-
-            List<SelectListItem> list4 = new List<SelectListItem>();
-            var temp4 = _db.Cities.ToList();
-            foreach (var item in temp4)
-            {
-                list4.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });
-            }
-            storyListingVM.CityList = list4;
-
-            var cardData = new List<StoryCardModel>();
-
-            var tempMission = _db.Stories.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
-
-            foreach (var item in tempMission)
-            {
-                cardData.Add(StoryCard(item));
-            }
-            /*storyListingVM.storyCardModels = cardData;
-            return View(storyListingVM);*/
-            /*--------------------------*/
-            const int pageSize = 1;
-            int recsCount = tempMission.Count();
-            var pager = new Pager(recsCount, pg, pageSize);
-            int recSkip = (pg - 1) * pageSize;
-
-            var data = cardData.Skip(recSkip).Take(pager.PageSize).ToList();
-            storyListingVM.storyCardModels = data;
-            this.ViewBag.Pager = pager;
-            return View(storyListingVM);
-
-            /*--------------------------*/
-        }
-        #endregion Story Detail
-
-        #region StoryFilter
+        #region Apply Mission
         [HttpPost]
-        public PartialViewResult StoryFilter(List<int>? CountryId, List<int>? CityId, List<int>? ThemeId, List<int>? SkillId, string? searchText, string? searchText2, int pg = 1)
+        public JsonResult ApplyMission(int id)
         {
-            var cardData = new List<StoryCardModel>();
-            var tempMission = new List<Story>();
-
-            #region Search
-            if (searchText != null)
+            var UId = Int64.Parse(HttpContext.Session.GetString("UserId"));
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
             {
-                var story = _db.Stories.Where(x => x.DeletedAt == null && x.Title.Contains(searchText)).AsEnumerable().ToList();
-                foreach (var m in story)
-                {
-                    bool t = tempMission.Any(x => x.MissionId == m.MissionId);
-                    if (t == false)
-                    {
-                        tempMission.Add(m);
-                    }
-                }
+                return Json("You have to login first");
+
             }
-            if (searchText2 != null)
+            if (_db.MissionApplications.FirstOrDefault(x => x.MissionId == id && x.UserId == UId && x.ApprovalStatus == 1) != null)
             {
-                var story = _db.Stories.Where(x => x.DeletedAt == null && x.Title.Contains(searchText2)).AsEnumerable().ToList();
-                foreach (var m in story)
-                {
-                    bool t = tempMission.Any(x => x.MissionId == m.MissionId);
-                    if (t == false)
-                    {
-                        tempMission.Add(m);
-                    }
-                }
+                return Json("You are alrady Part of mission");
+
             }
-            #endregion Search
-
-            if (CountryId.Count != 0)
+            else if (_db.MissionApplications.FirstOrDefault(x => x.MissionId == id && x.UserId == UId) != null)
             {
-                foreach (var n in CountryId)
-                {
-                    var mission = _db.Missions.Where(x => x.DeletedAt == null && x.CountryId == n).AsEnumerable().ToList();
-                    foreach (var p in mission)
-                    {
-                        var story = _db.Stories.Where(x => x.DeletedAt == null && x.MissionId == p.MissionId).AsEnumerable().ToList();
-                        foreach (var m in story)
-                        {
-                            bool t = tempMission.Any(x => x.StoryId == m.StoryId);
-                            if (t == false)
-                            {
-                                tempMission.Add(m);
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (CityId.Count != 0)
-            {
-                foreach (var n in CityId)
-                {
-                    var mission = _db.Missions.Where(x => x.DeletedAt == null && x.CityId == n).AsEnumerable().ToList();
-                    foreach (var p in mission)
-                    {
-                        var story = _db.Stories.Where(x => x.DeletedAt == null && x.MissionId == p.MissionId).AsEnumerable().ToList();
-                        foreach (var m in story)
-                        {
-                            bool t = tempMission.Any(x => x.StoryId == m.StoryId);
-                            if (t == false)
-                            {
-                                tempMission.Add(m);
-                            }
-                        }
-                    }
-                }
-            }
-
-            /*if (CityId.Count != 0)
-            {
-                foreach (var n in CityId)
-                {
-                    var story = _db.Stories.Where(x => x.DeletedAt == null && x.CityId == n).AsEnumerable().ToList();
-                    foreach (var m in story)
-                    {
-                        bool t = tempMission.Any(x => x.MissionId == m.MissionId);
-                        if (t == false)
-                        {
-                            tempMission.Add(m);
-                        }
-                    }
-                }
-            }*/
-
-            if (ThemeId.Count != 0)
-            {
-                foreach (var n in ThemeId)
-                {
-                    var mission = _db.Missions.Where(x => x.Deadline == null && x.MissionThemeId == n).AsEnumerable().ToList();
-                    foreach (var p in mission)
-                    {
-                        var story = _db.Stories.Where(x => x.DeletedAt == null && x.MissionId == p.MissionId).AsEnumerable().ToList();
-
-                        foreach (var m in story)
-                        {
-                            bool t = tempMission.Any(x => x.StoryId == m.StoryId);
-                            if (t == false)
-                            {
-                                tempMission.Add(m);
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (SkillId.Count != 0)
-            {
-                foreach (var n in SkillId)
-                {
-                    var missions = new List<Mission>();
-                    var missionSkillList = _db.MissionSkills.Where(x => x.SkillId == n).AsEnumerable().ToList();
-                    foreach (var p in missionSkillList)
-                    {
-                        var story = _db.Stories.Where(x => x.DeletedAt == null && x.MissionId == p.MissionId).AsEnumerable().ToList();
-
-                        foreach (var m in story)
-                        {
-                            bool t = tempMission.Any(x => x.StoryId == m.StoryId);
-                            if (t == false)
-                            {
-                                tempMission.Add(m);
-                            }
-                        }
-                    }
-                }
-            }
-
-            #region Default Mission
-            if (CountryId.Count == 0 && CityId.Count == 0 && ThemeId.Count == 0 && SkillId.Count == 0 && searchText == null && searchText2 == null)
-            {
-                tempMission = _db.Stories.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
-            }
-            #endregion Default Mission
-
-            #region Create Card
-            foreach (var item in tempMission)
-            {
-                cardData.Add(StoryCard(item));
-            }
-            #endregion Create Card
-
-            StoryListingVM storyListingVM = new StoryListingVM();
-            const int pageSize = 1;
-
-            int recsCount = tempMission.Count();
-            var pager = new Pager(recsCount, pg, pageSize);
-            int recSkip = (pg - 1) * pageSize;
-
-            var data = cardData.Skip(recSkip).Take(pager.PageSize).ToList();
-            storyListingVM.storyCardModels = data;
-            this.ViewBag.Pager = pager;
-
-            return PartialView("_StoryGridPartial", data);
-        }
-
-
-        #endregion StoryFilter
-
-        #region StoryCard
-        public StoryCardModel StoryCard(Story item)
-        {
-            var card = new StoryCardModel();
-            card.story = item;
-            card.mission = _db.Missions.FirstOrDefault(x => x.MissionId == item.MissionId);
-            card.user = _db.Users.FirstOrDefault(x => x.UserId == item.UserId);
-            card.theme = _db.Missions.FirstOrDefault(x => x.MissionId == item.MissionId).Title;
-            return card;
-        }
-        #endregion StoryCard
-
-        #region StoryDetail
-        public IActionResult StoryDetail(int id)
-        {
-            StoryCardModel storyCardModel = new StoryCardModel();
-            storyCardModel.story = _db.Stories.FirstOrDefault(x => x.StoryId == id);
-            var user = _db.Users.FirstOrDefault(x => x.UserId == storyCardModel.story.UserId);
-            storyCardModel.user = user;
-            storyCardModel.Missions = _db.Missions.ToList();
-
-            return View(storyCardModel);
-        }
-        #endregion StoryDetail
-
-        #region ShareStory
-        public IActionResult ShareStory()
-        {
-            ShareStory shareStory = new ShareStory();
-            List<SelectListItem> list = new List<SelectListItem>();
-            var temp = _db.Missions.ToList();
-            foreach (var item in temp)
-            {
-                list.Add(new SelectListItem() { Text = item.Title, Value = item.MissionId.ToString() });
-            }
-            shareStory.MissionList = list;
-            return View(shareStory);
-        }
-        [HttpPost]
-        public IActionResult ShareStory(ShareStory model, List<IFormFile> storyMedia)
-        {
-            if (model != null)
-            {
-                model.Story.UserId = 14;
-                model.Story.CreatedAt = DateTime.Now;
-                model.Story.Status = 1;
-                _db.Stories.Add(model.Story);
-                _db.SaveChanges();
-
-                if (storyMedia != null)
-                {
-                    foreach (var img in storyMedia)
-                    {
-                        var storyMedium = new StoryMedium();
-                        storyMedium.StoryId = model.Story.StoryId;
-                        storyMedium.Type = Path.GetExtension(img.FileName);
-                        storyMedium.Path = saveImg(img, "StoryMedia");
-                        storyMedium.CreatedAt = DateTime.Now;
-                        _db.StoryMedia.Add(storyMedium);
-                        _db.SaveChanges();
-                    }
-                }
-
-
-                return RedirectToAction("Plateform", "Plateform");
+                return Json("You alrady applyed in this mission");
             }
             else
-                return NotFound();
+            {
+                var missionApplication = new MissionApplication();
+                missionApplication.MissionId = id;
+                missionApplication.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
+                missionApplication.ApprovalStatus = 0;
+                missionApplication.AppliedAt = DateTime.Now;
+                missionApplication.CreatedAt = DateTime.Now;
+                _db.MissionApplications.Add(missionApplication);
+                _db.SaveChanges();
+                return Json("Applied Sucessfully");
+            }
         }
+        #endregion Apply Mission
 
-        #endregion ShareStory
 
+        /*#region ViewDetail
+        public IActionResult ViewDetail(int? id)
+        {
+            ViewDetailModel viewDetailModel = new ViewDetailModel();
+            viewDetailModel.missionCard.mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
+            viewDetailModel.missionCard.goalMission = _db.GoalMissions.FirstOrDefault(x => x.MissionId == id);
+            viewDetailModel.missionCard.missionApplication = _db.MissionApplications.FirstOrDefault(x => x.MissionId == id);
+
+            viewDetailModel.imgs = _db.MissionMedia.ToList();
+            viewDetailModel.volunteers = 
+           return View(viewDetailModel);
+        }
+        #endregion*/
+
+        #region ViewDetail Page
+        public IActionResult ViewDetail(int id)
+        {
+            var viewDetail = new ViewDetailModel();
+
+
+            /*var miss = _db.Missions.ToList();
+            viewDetail.Missions = miss;*/
+
+
+            var item = _db.Missions.FirstOrDefault(x => x.MissionId == id);
+            viewDetail.missionCard = CreateCard(item);
+
+            viewDetail.imgs = _db.MissionMedia.Where(x => x.MissionId == id).AsEnumerable().ToList();
+
+            viewDetail.skills = String.Join(", ", _db.MissionSkills.Where(x => x.MissionId == id && x.DeletedAt == null).Select(x => x.Skill.SkillName).ToList());
+            viewDetail.availability = item.Availability == 1 ? "daily" : item.Availability == 2 ? "weekly" : item.Availability == 3 ? "week-end" : "monthly";
+
+            var temp = _db.MissionApplications.Where(x => x.MissionId == id && x.ApprovalStatus == 1).AsEnumerable().ToList();
+            var listVol = new List<AllVolModel>();
+            foreach (var u in temp)
+            {
+                var vol = new AllVolModel();
+                var user = _db.Users.FirstOrDefault(x => x.UserId == u.UserId);
+                vol.volunteerName = user.FirstName + " " + user.LastName;
+                vol.volunteerImg = user.Avatar != null ? user.Avatar : "~/assets/volunteer1.png";
+                listVol.Add(vol);
+            }
+
+            viewDetail.volunteers = listVol;
+
+            viewDetail.docs = _db.MissionDocuments.Where(x => x.MissionId == id && x.DeletedAt == null).AsEnumerable().ToList();
+            viewDetail.relatedMission = relatedMissions((int)item.CityId, (int)item.CountryId, (int)item.MissionThemeId);
+            return View(viewDetail);
+        }
+        #endregion ViewDetail Page
+
+        
         #region LogOut
         public IActionResult Logout()
         {

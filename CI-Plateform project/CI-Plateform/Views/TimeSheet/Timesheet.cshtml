@@ -1,0 +1,518 @@
+﻿@using CI_Plateform.Models
+@model PlateformVM
+
+<div class="body-1">
+    <div class="body-2">
+        <div class="nevbar-1" style="height:43px;">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid" style="padding:0px;justify-content:initial;">
+                    <button class="navbar-toggler pad1 pe-2" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="dropdown navbar-toggler border-0">
+                        <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                           id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                 class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                            <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="TimeSheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
+                         id="navbarSupportedContent" aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="hover2 nav-link" style="" asp-controller="StoryListing" asp-action="StoryListing">Stories </a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            Policy <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" asp-controller="TimeSheet" asp-action="TimeSheet">Volunteering</a></li>
+                                            <li><a class="dropdown-item" href="#">Sponsored</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                                <div class="dropdown">
+                                    <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+                                       id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false"
+                                       style="float:right;">
+                                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                             class="rounded-circle">
+                                        <span class="d-none d-sm-inline mx-1">
+                                            Ritul <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-white text-small shadow">
+                                        <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
+                                        <li><a class="dropdown-item" asp-controller="TimeSheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <hr class="mt-2 mb-3">
+    <div class="body-2">
+        <h5>Volunteering Timesheet</h5>
+        <div class="row">
+            <div class="col mt-4 me-1" style="border:1px solid #757575;">
+                <h4 class="mt-2 mb-0" style="font-size:12px;">Volunteering Hours</h4>
+
+                @*<button type="submit"
+                class="form-control rounded-pill btn btn-outline-warning font sherescontainer11 mb-2" style="font-size:9px;">
+                <i class="bi bi-plus" style="width: 12px;"></i>
+                <a asp-controller="TimeSheet" asp-action="aUseradd" class="adminaddbutton">
+                Add
+                </a>
+                </button>*@
+                <button class="form-control rounded-pill btn btn-outline-warning font sherescontainer11 mb-2" style="font-size:9px;" data-bs-toggle="offcanvas"
+                        @*onclick="{ return location.href=' @Url.Action("timeHouradd", "TimeSheet" )' } "*@ data-bs-target="#timehouradd" aria-controls="timegoaledit">
+                    Add
+                </button>
+
+
+                <div class="container fluide">
+                    <table class="table table-borderless" style="font-size:10px;">
+                        <thead class="table-light text-primary">
+                            <tr>
+                                <th>Mission</th>
+                                <th>Date</th>
+                                <th>Hours</th>
+                                <th>Minutes</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var obj in @Model.Timesheets)
+                            {
+                                @foreach (var sub in @Model.Missions)
+                                {
+                                    @if (sub.MissionType == 1)
+                                    {
+                                        @if (sub.MissionId == obj.MissionId)
+                                        {
+                                            <tr>
+                                                <td>@sub.Title</td>
+                                                <td>@obj.DateVolunteered</td>
+                                                <td>@obj.Time</td>
+                                                <td>@obj.Time</td>
+                                                <td class="text-center d-flex">
+                                                    <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            onclick="{ return location.href=' @Url.Action("timeHourEdit", "TimeSheet" ,new {id = @obj.TimesheetId})' } " data-bs-target="#timehouredit_@obj.TimesheetId" aria-controls="timegoaledit">
+                                                        <i class="bi bi-pencil-square text-secondary"></i>
+                                                    </button>
+                                                    <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#timehourdelete_@obj.TimesheetId" aria-controls="deleteuser">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="col mt-4 ms-1" style="border:1px solid #757575;">
+                <h4 class="mt-2 mb-0" style="font-size:12px;">Volunteering Goals</h4>
+                <button class="form-control rounded-pill btn btn-outline-warning font sherescontainer11 mb-2" style="font-size:9px;" data-bs-toggle="offcanvas"
+                        asp-action="timeGoaladd" asp-controller="TimeSheet" data-bs-target="#timegoaladd" aria-controls="timegoaledit">
+                    Add
+                </button>
+                <div class="container fluide">
+                    <table class="table table-borderless" style="font-size:10px;">
+                        <thead class="table-light text-primary">
+                            <tr>
+                                <th>Mission</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var obj in @Model.Timesheets)
+                            {
+                                @foreach (var sub in @Model.Missions)
+                                {
+                                    @if (sub.MissionType == 2)
+                                    {
+                                        @if (sub.MissionId == obj.MissionId)
+                                        {
+                                            <tr>
+                                                <td>@sub.Title</td>
+                                                <td>@obj.DateVolunteered</td>
+                                                <td>@obj.Action</td>
+                                                <td class="text-center d-flex">
+                                                    <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#timegoaledit_@obj.TimesheetId" aria-controls="timegoaledit">
+                                                        <i class="bi bi-pencil-square text-secondary"></i>
+                                                    </button>
+                                                    <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#timeGoalDelete_@obj.TimesheetId" aria-controls="deleteuser">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            }
+                            @*@foreach (var obj in @Model.Missions)
+                            {
+                            @if (obj.MissionType == 2)
+                            {
+                            <tr>
+                            <td>@obj.Title</td>
+                            <td>02-02-2022</td>
+                            <td>1</td>
+                            <td class="text-center d-flex">
+                            <button class="btn btn-light">
+                            <i class="bi bi-pencil-square text-secondary"></i>
+                            </button>
+                            <button class="btn btn-light" data-bs-toggle="offcanvas"
+                            data-bs-target="#deleteuser_@obj.MissionId" aria-controls="deleteuser">
+                            <i class="bi bi-trash"></i>
+                            </button>
+                            </td>
+                            </tr>
+                            }
+                            }*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ********   timehourdelete  *********** -->
+            @foreach (var obj in @Model.Timesheets)
+            {
+                <div class="deleteuser offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="timehourdelete_@obj.TimesheetId"
+                 aria-labelledby="staticBackdropLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="staticBackdropLabel">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div>
+                            <h6>Are you sure you want to delete this item?</h6>
+                        </div>
+                        <form method="post" action="timeHourDelete">
+                            <div class="row" style="margin:18px 0px;display:block;text-align: center;">
+                                <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                                    <a asp-controller="TimeSheet" asp-action="TimeSheet" class="cancelbutton">
+                                        cancel
+                                    </a>
+                                </button>
+                                @* <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                            style="width:auto;font-size: 12px;">
+                            Delete
+                            </button>*@
+                                <button type="submit" asp-controller="TimeSheet" asp-action="timeHourDelete" asp-route-id="@obj.TimesheetId"
+                                    class="form-control rounded-pill btn btn-outline-warning font adminaddbutton" style="width:auto;font-size: 12px;">
+                                    Delete
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+            <!-- *********************** -->
+            <!-- ********   timeGoalDelete  *********** -->
+            @foreach (var obj in @Model.Timesheets)
+            {
+                <div class="deleteuser offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="timeGoalDelete_@obj.TimesheetId"
+                 aria-labelledby="staticBackdropLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="staticBackdropLabel">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div>
+                            <h6>Are you sure you want to delete this item?</h6>
+                        </div>
+                        <form method="post" action="timeHourDelete">
+                            <div class="row" style="margin:18px 0px;display:block;text-align: center;">
+                                <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                                    <a asp-controller="TimeSheet" asp-action="TimeSheet" class="cancelbutton">
+                                        cancel
+                                    </a>
+                                </button>
+                                @* <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                            style="width:auto;font-size: 12px;">
+                            Delete
+                            </button>*@
+                                <button type="submit" asp-controller="TimeSheet" asp-action="timeGoalDelete" asp-route-id="@obj.TimesheetId"
+                                    class="form-control rounded-pill btn btn-outline-warning font adminaddbutton" style="width:auto;font-size: 12px;">
+                                    Delete
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+            <!-- *********************** -->
+            <!-- timehouradd -->
+            @foreach (var obj in @Model.Timesheets)
+            {
+            <div class="timesheetedit offcanvas offcanvas" data-bs-backdrop="static" tabindex="-1" id="timehouradd"
+            aria-labelledby="staticBackdropLabel">
+            <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="staticBackdropLabel">Add Timesheet Hour</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body pt-0">
+            <form method="post" action="timeHouradd">
+            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+
+            <label for="" class="ps-0">Mission Title</label><br>
+            <select id="ddlmissions" class="sherescontainer1" asp-for="mission.MissionId" asp-items="@Model.MissionList" aria-label="Default select example" style="height: 30px;border: 1px solid #e0d8d8;color: #757575;">
+            <option class="sherescontainer1" selected>Select Mission</option>
+            </select>
+            <span asp-validation-for="mission.MissionId" class="text-danger"></span>
+            </div>
+            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+            <label class="ps-0" asp-for="timesheet.Time">Hours</label><br>
+            <input asp-for="timesheet.Time" type="time" id="ab" name="timesheet.Time" class="sherescontainer1" required>
+            </div>
+            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+            <label class="ps-0" asp-for="timesheet.DateVolunteered">Date</label><br>
+            <input asp-for="timesheet.DateVolunteered" type="date" id="date" name="timesheet.DateVolunteered" class="sherescontainer1" required>
+            </div>
+            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+            <label class="ps-0" asp-for="timesheet.Notes">Notes</label><br>
+            <input asp-for="timesheet.Notes" type="text" id="m" name="timesheet.Notes" placeholder="Enter your note" class="sherescontainer1" required>
+            </div>
+            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+            <label asp-for="timesheet.Status" class="ps-0" style="display:block;">Status</label>
+            <select id="cmsStatus" asp-for="timesheet.Status" aria-label="Default select example" style="height: 30px;border: 1px solid #e0d8d8;color: #757575;">
+            <option class="sherescontainer1" selected>Open this select menu</option>
+            <option class="sherescontainer1" value="0">Not Active</option>
+            <option class="sherescontainer1" value="1">Active</option>
+            </select>
+            </div>
+            <div class="row mt-2" style="margin:0px;display:block;float: right;">
+            <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+            <a asp-controller="TimeSheet" asp-action="Timesheet" class="cancelbutton">
+            cancel
+            </a>
+            </button>
+            <button type="submit" asp-controller="TimeSheet" asp-action="timeHouradd" class="form-control rounded-pill btn btn-outline-warning font"
+            style="width:auto;font-size: 12px;">
+            Submit
+            </button>
+            </div>
+            </form>
+            </div>
+            </div>
+            }
+            <!-- *********************** -->
+
+
+            <!-- timegoaladd -->
+            @foreach (var obj in @Model.Timesheets)
+            {
+                <div class="timesheetedit offcanvas offcanvas" data-bs-backdrop="static" tabindex="-1" id="timegoaladd"
+                 aria-labelledby="staticBackdropLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="staticBackdropLabel">Add Timesheet Goal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body pt-0">
+                        <form method="post" action="timeGoaladd">
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+
+                                <label for="" class="ps-0">Mission Title</label><br>
+                                <select id="ddlmissions" class="sherescontainer1" asp-for="mission.MissionId" asp-items="@Model.MissionList" aria-label="Default select example" style="height: 30px;border: 1px solid #e0d8d8;color: #757575;">
+                                    <option class="sherescontainer1" selected>Select Mission</option>
+                                </select>
+                                <span asp-validation-for="mission.MissionId" class="text-danger"></span>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label class="ps-0" asp-for="timesheet.Action">Action</label><br>
+                                <input asp-for="timesheet.Action" type="number" name="timesheet.Action" class="sherescontainer1" required>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label class="ps-0" asp-for="timesheet.DateVolunteered">Date</label><br>
+                                <input asp-for="timesheet.DateVolunteered" type="date" name="timesheet.DateVolunteered" class="sherescontainer1" required>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label class="ps-0" asp-for="timesheet.Notes">Notes</label><br>
+                                <input asp-for="timesheet.Notes" type="text" name="timesheet.Notes" placeholder="Enter your note" class="sherescontainer1" required>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label asp-for="timesheet.Status" class="ps-0" style="display:block;">Status</label>
+                                <select id="cmsStatus" asp-for="timesheet.Status" aria-label="Default select example" style="height: 30px;border: 1px solid #e0d8d8;color: #757575;">
+                                    <option class="sherescontainer1" selected>Open this select menu</option>
+                                    <option class="sherescontainer1" value="0">Not Active</option>
+                                    <option class="sherescontainer1" value="1">Active</option>
+                                </select>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;display:block;float: right;">
+                                <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                                    <a asp-controller="TimeSheet" asp-action="Timesheet" class="cancelbutton">
+                                        cancel
+                                    </a>
+                                </button>
+                                <button type="submit" asp-controller="TimeSheet" asp-action="timeGoaladd" class="form-control rounded-pill btn btn-outline-warning font"
+                                    style="width:auto;font-size: 12px;">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+            <!-- *********************** -->
+            <!-- timehouredit -->
+            @foreach (var obj in @Model.Timesheets)
+            {
+                <div class="timesheetedit offcanvas offcanvas" data-bs-backdrop="static" tabindex="-1" id="timehouredit_@obj.TimesheetId"
+                 aria-labelledby="staticBackdropLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="staticBackdropLabel">Edit Timesheet Hour</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body pt-0">
+                        <form method="post" action="timeHourEdit">
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+
+                                <label for="" class="ps-0">Mission Title</label><br>
+                                <select id="ddlmissions" class="sherescontainer1" asp-for="mission.MissionId" asp-items="@Model.MissionList" aria-label="Default select example" style="height: 30px;border: 1px solid #e0d8d8;color: #757575;">
+                                    <option class="sherescontainer1" selected>Select Mission</option>
+                                </select>
+                                <span asp-validation-for="mission.MissionId" class="text-danger"></span>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label class="ps-0" asp-for="timesheet.Time">Hours</label><br>
+                                <input asp-for="timesheet.Time" type="time" id="ab" name="timesheet.Time" class="sherescontainer1" required>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label class="ps-0" asp-for="timesheet.DateVolunteered">Date</label><br>
+                                <input asp-for="timesheet.DateVolunteered" type="date" id="date" name="timesheet.DateVolunteered" class="sherescontainer1" required>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label class="ps-0" asp-for="timesheet.Notes">Notes</label><br>
+                                <input asp-for="timesheet.Notes" type="text" id="m" name="timesheet.Notes" placeholder="Enter your note" class="sherescontainer1" required>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label asp-for="timesheet.Status" class="ps-0" style="display:block;">Status</label>
+                                <select id="cmsStatus" asp-for="timesheet.Status" aria-label="Default select example" style="height: 30px;border: 1px solid #e0d8d8;color: #757575;">
+                                    <option class="sherescontainer1" selected>Open this select menu</option>
+                                    <option class="sherescontainer1" value="0">Not Active</option>
+                                    <option class="sherescontainer1" value="1">Active</option>
+                                </select>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;display:block;float: right;">
+                                <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                                    <a asp-controller="TimeSheet" asp-action="Timesheet" class="cancelbutton">
+                                        cancel
+                                    </a>
+                                </button>
+                                <button type="submit" asp-controller="TimeSheet" asp-action="timeHourEdit" class="form-control rounded-pill btn btn-outline-warning font"
+                                    style="width:auto;font-size: 12px;">
+                                    Save
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+            <!-- *********************** -->
+            <!-- timegoaledit -->
+            @foreach (var obj in @Model.Timesheets)
+            {
+                <div class="timesheetedit offcanvas offcanvas" data-bs-backdrop="static" tabindex="-1" id="timegoaledit_@obj.TimesheetId"
+                 aria-labelledby="staticBackdropLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="staticBackdropLabel">Edit Timesheet Goal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body pt-0">
+                        <form method="post" action="timeGoalEdit">
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+
+                                <label for="" class="ps-0">Mission Title</label><br>
+                                <select id="ddlmissions" class="sherescontainer1" asp-for="mission.MissionId" asp-items="@Model.MissionList" aria-label="Default select example" style="height: 30px;border: 1px solid #e0d8d8;color: #757575;">
+                                    <option class="sherescontainer1" selected>Select Mission</option>
+                                </select>
+                                <span asp-validation-for="mission.MissionId" class="text-danger"></span>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label class="ps-0" asp-for="timesheet.Action">Action</label><br>
+                                <input asp-for="timesheet.Action" type="number" id="ab" name="timesheet.Action" class="sherescontainer1" required>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label class="ps-0" asp-for="timesheet.DateVolunteered">Date</label><br>
+                                <input asp-for="timesheet.DateVolunteered" type="date" id="date" name="timesheet.DateVolunteered" class="sherescontainer1" required>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label class="ps-0" asp-for="timesheet.Notes">Notes</label><br>
+                                <input asp-for="timesheet.Notes" type="text" id="m" name="timesheet.Notes" placeholder="Enter your note" class="sherescontainer1" required>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
+                                <label asp-for="timesheet.Status" class="ps-0" style="display:block;">Status</label>
+                                <select id="cmsStatus" asp-for="timesheet.Status" aria-label="Default select example" style="height: 30px;border: 1px solid #e0d8d8;color: #757575;">
+                                    <option class="sherescontainer1" selected>Open this select menu</option>
+                                    <option class="sherescontainer1" value="0">Not Active</option>
+                                    <option class="sherescontainer1" value="1">Active</option>
+                                </select>
+                            </div>
+                            <div class="row mt-2" style="margin:0px;display:block;float: right;">
+                                <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                                    <a asp-controller="TimeSheet" asp-action="Timesheet" class="cancelbutton">
+                                        cancel
+                                    </a>
+                                </button>
+                                <button type="submit" asp-controller="TimeSheet" asp-action="timeGoalEdit" class="form-control rounded-pill btn btn-outline-warning font"
+                                    style="width:auto;font-size: 12px;">
+                                    Save
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+            <!-- *********************** -->
+        </div>
+    </div>
+    <hr style="margin-top:172px;">
+    <div class="body-2">
+        <a asp-controller="Login" asp-action="PolicyPage" class="hover">Privacy Policy</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+@*<button class="form-control rounded-pill btn btn-outline-warning font sherescontainer11 mb-2" style="font-size:9px;" data-toggle="ajax-modal"
+                        data-target="#timehouradd" data-url="@Url.Action("timeHouradd")">
+                    Add
+                </button>*@
