@@ -26,6 +26,7 @@ namespace CI_Plateform.Models
         public Mission? mission { get; set; }
         public IEnumerable<SelectListItem> MissionList { get; set; }
         public Timesheet? timesheet { get; set; }
+        public User? user { get; set; }
 
         #endregion Plateform
 

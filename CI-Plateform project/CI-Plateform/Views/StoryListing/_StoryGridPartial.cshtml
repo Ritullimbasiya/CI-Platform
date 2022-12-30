@@ -7,8 +7,9 @@
         <div class="col-md-4 col-sm-12 imghover" style="padding: 0px 20px 12px 4px; margin-top:12px;">
             <div class="card h-100 shadow">
                 <div class="cardcontainer11">
-                    <img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png"
-                     class="card-img-top" alt="Error">
+                    @*<img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png"
+                     class="card-img-top" alt="Error">*@
+                    <img src="@Url.Content(@card.CardImg)" class="card-img-top" alt="Error" style="width: 286px;height: 161px;">
                     <div class="listcontaier5">
                         <div class="card-body" style="text-align:center;padding:18%;">
                             <button class="listcontainer3" type="button" onclick="return location.href=' @Url.Action("StoryDetail","StoryListing",new {id=@card.story.StoryId}) '">
@@ -27,10 +28,13 @@
                         @card.story.Description
                     </p>
                 </div>
+                
                 <div class="card-body" style="display: flex;">
-                    <img class="listcontainer4" src="~/assets/volunteer1.png" alt="Error">
+                    @*<img class="listcontainer4" src="~/assets/volunteer1.png" alt="Error">*@
+                    <img class="listcontainer4" src="@Url.Content(card.Userimg)" alt="Error">
                     <p style="font-size: 11px;padding-top: 12px;margin-left:6px;">@card.user.FirstName</p>
                 </div>
+                
             </div>
         </div>
     }

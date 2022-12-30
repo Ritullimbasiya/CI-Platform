@@ -21,12 +21,28 @@
       "PackagePath": "staticwebassets\\Images\\MissionDocument\\074cd365-d42e-40d5-b94d-617dff3924a6.jpg"
     },
     {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDocument\\0b73e720-7c92-43ce-b703-3a22b5f40361.jpg",
+      "PackagePath": "staticwebassets\\Images\\MissionDocument\\0b73e720-7c92-43ce-b703-3a22b5f40361.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDocument\\368650d7-ff51-493d-aa29-02b922c516e3.jpg",
+      "PackagePath": "staticwebassets\\Images\\MissionDocument\\368650d7-ff51-493d-aa29-02b922c516e3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDocument\\36f74fb8-214a-4a3b-b8e7-3f335a004cee.jpg",
+      "PackagePath": "staticwebassets\\Images\\MissionDocument\\36f74fb8-214a-4a3b-b8e7-3f335a004cee.jpg"
+    },
+    {
       "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDocument\\488e4e1a-a00e-4a5a-b991-e8e1de95d4ed.jpg",
       "PackagePath": "staticwebassets\\Images\\MissionDocument\\488e4e1a-a00e-4a5a-b991-e8e1de95d4ed.jpg"
     },
     {
       "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDocument\\54060ad1-aff0-468f-9a50-0f3e2c429eb7.jpg",
       "PackagePath": "staticwebassets\\Images\\MissionDocument\\54060ad1-aff0-468f-9a50-0f3e2c429eb7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDocument\\57464001-edbe-41d8-83c5-9d77518bf55f.jpg",
+      "PackagePath": "staticwebassets\\Images\\MissionDocument\\57464001-edbe-41d8-83c5-9d77518bf55f.jpg"
     },
     {
       "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\MissionDocument\\70052b0b-ee65-4b10-a8eb-589721ed9af7.jpg",
@@ -45,8 +61,16 @@
       "PackagePath": "staticwebassets\\Images\\MissionDocument\\d578304c-02d7-442c-b50e-516bd7c5111c.jpg"
     },
     {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\017635e7-fa69-4fb5-bdfe-becb80efebd9.jpg",
+      "PackagePath": "staticwebassets\\Images\\Missionmedia\\017635e7-fa69-4fb5-bdfe-becb80efebd9.jpg"
+    },
+    {
       "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\1d6a8ff3-7bb8-4598-a2fd-53246cc8f3a4.jpg",
       "PackagePath": "staticwebassets\\Images\\Missionmedia\\1d6a8ff3-7bb8-4598-a2fd-53246cc8f3a4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\310a002a-e333-4e88-8ed7-ed995f044f70.jpg",
+      "PackagePath": "staticwebassets\\Images\\Missionmedia\\310a002a-e333-4e88-8ed7-ed995f044f70.jpg"
     },
     {
       "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\5c7bdaee-f09e-4769-9931-194f10f00356.jpg",
@@ -65,8 +89,16 @@
       "PackagePath": "staticwebassets\\Images\\Missionmedia\\8563d2d2-f2c0-4f41-a461-4b4702899328.jpg"
     },
     {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\b1391cd1-68cb-4fd6-8a37-ed5519330c71.jpg",
+      "PackagePath": "staticwebassets\\Images\\Missionmedia\\b1391cd1-68cb-4fd6-8a37-ed5519330c71.jpg"
+    },
+    {
       "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\d4345bcc-2483-4388-9897-24375c7a62d4.jpg",
       "PackagePath": "staticwebassets\\Images\\Missionmedia\\d4345bcc-2483-4388-9897-24375c7a62d4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\de3eb385-53cb-47e5-8584-03be4bfcb424.jpg",
+      "PackagePath": "staticwebassets\\Images\\Missionmedia\\de3eb385-53cb-47e5-8584-03be4bfcb424.jpg"
     },
     {
       "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\Missionmedia\\e7d029b8-ee47-4d9e-a80a-610b472fb4d5.jpg",
@@ -77,8 +109,24 @@
       "PackagePath": "staticwebassets\\Images\\StoryMedia\\1b768c50-fd16-47e8-b37c-5790e05d1d1c.jpg"
     },
     {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\StoryMedia\\75c8064c-15eb-495a-bce7-e4bf3ebacb9e.jpg",
+      "PackagePath": "staticwebassets\\Images\\StoryMedia\\75c8064c-15eb-495a-bce7-e4bf3ebacb9e.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\StoryMedia\\8c4cebbc-7325-46e9-a83e-8a8cc855ddf3.jpg",
+      "PackagePath": "staticwebassets\\Images\\StoryMedia\\8c4cebbc-7325-46e9-a83e-8a8cc855ddf3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\StoryMedia\\ce96d9e9-4bdd-4746-b863-9f9c341261b2.jpg",
+      "PackagePath": "staticwebassets\\Images\\StoryMedia\\ce96d9e9-4bdd-4746-b863-9f9c341261b2.jpg"
+    },
+    {
       "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\StoryMedia\\dc48c52c-e0a9-46e5-9e7c-36e51884ad02.jpg",
       "PackagePath": "staticwebassets\\Images\\StoryMedia\\dc48c52c-e0a9-46e5-9e7c-36e51884ad02.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\StoryMedia\\e1c4fcba-d5fc-4d61-8685-ea0c7af5030e.jpg",
+      "PackagePath": "staticwebassets\\Images\\StoryMedia\\e1c4fcba-d5fc-4d61-8685-ea0c7af5030e.jpg"
     },
     {
       "Id": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\Images\\UserAvatar\\0c1b84ac-8082-4540-951c-7888d23c4758.jpg",

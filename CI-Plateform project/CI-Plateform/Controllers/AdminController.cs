@@ -476,6 +476,11 @@ namespace CI_Plateform.Controllers
             {
                 if (mission.MissionType == 2)
                 {
+                    _db.MissionSkills.RemoveRange(_db.MissionSkills.Where(x => x.MissionId == id));
+                    _db.MissionDocuments.RemoveRange(_db.MissionDocuments.Where(x => x.MissionId == id));
+                    _db.MissionMedia.RemoveRange(_db.MissionMedia.Where(x => x.MissionId == id));
+                    _db.Timesheets.RemoveRange(_db.Timesheets.Where(x => x.MissionId == id));
+
                     var temp = _db.GoalMissions.FirstOrDefault(x => x.MissionId == id);
                     _db.GoalMissions.Remove(temp);
                     _db.SaveChanges();
@@ -483,6 +488,7 @@ namespace CI_Plateform.Controllers
                 _db.MissionSkills.RemoveRange(_db.MissionSkills.Where(x => x.MissionId == id));
                 _db.MissionDocuments.RemoveRange(_db.MissionDocuments.Where(x => x.MissionId == id));
                 _db.MissionMedia.RemoveRange(_db.MissionMedia.Where(x => x.MissionId == id));
+                _db.Timesheets.RemoveRange(_db.Timesheets.Where(x => x.MissionId == id));
 
                 mission.DeletedAt = DateTime.Now;
                 _db.Missions.Remove(mission);

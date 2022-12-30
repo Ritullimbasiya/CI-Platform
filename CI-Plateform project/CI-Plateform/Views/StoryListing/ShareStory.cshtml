@@ -96,24 +96,24 @@
                 <textarea asp-for="Story.Description" name="Story.Description" placeholder="Enter description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
             </div>
 
-            @*<div class="row" style="margin:18px 0px;padding-left: 0px;">
-                <label asp-for="Story." style="padding:0px;">Enter Video URL</label><br>
+            <div class="row" style="margin:18px 0px;padding-left: 0px;">
+                <label for="url" style="padding:0px;">Enter Video URL</label><br>
                 <input type="text" id="url" name="url" placeholder="Enter your url">
-            </div>*@
+            </div>
             <div class="row" style="margin:18px 0px;padding-left: 0px;">
                 <label for="uploadpic" style="padding:0px;">Upload Story photos</label><br>
                 <div class="sherescontainer5">
                     <div class="sherescontainer6">
                         <div>
-                            <input class="form-control form-control-sm mb-2" id="" type="file" style="width: auto;
+                            <input class="form-control form-control-sm mb-2" id="storyImg" type="file" style="width: auto;
                                 font-size: xx-small;margin-left: auto;margin-right: auto;" multiple name="storyMedia">
                         </div>
                         <p style="font-size:8px; color: #757575;">Drag and Drop Picture and Video hear</p>
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin:18px 0px; display: flex;padding-left: 0px;">
-                <div class="sherescontainer7">
+                <div class="row" style="margin:18px 0px; display: flex;padding-left: 0px;" >
+                <div class="sherescontainer7" >
                     <img src="~/assets/img11.png" alt="Error" style="width:75px; height:75px;">
                     <button class="sherescontainer8">
                         <img src="~/assets/cancel.png" alt="Error"

@@ -65,7 +65,7 @@ namespace CI_Plateform.Controllers
             /*storyListingVM.storyCardModels = cardData;
             return View(storyListingVM);*/
             /*--------------------------*/
-            const int pageSize = 1;
+            const int pageSize = 3;
             int recsCount = tempMission.Count();
             var pager = new Pager(recsCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
@@ -227,7 +227,7 @@ namespace CI_Plateform.Controllers
             #endregion Create Card
 
             StoryListingVM storyListingVM = new StoryListingVM();
-            const int pageSize = 1;
+            const int pageSize = 3;
 
             int recsCount = tempMission.Count();
             var pager = new Pager(recsCount, pg, pageSize);
@@ -248,6 +248,19 @@ namespace CI_Plateform.Controllers
         {
             var card = new StoryCardModel();
             card.story = item;
+            var img = _db.StoryMedia.FirstOrDefault(x => x.StoryId == item.StoryId);
+            if (img == null)
+            {
+                card.CardImg = "~/assets/Animal-welfare-&-save-birds-campaign.png";
+            }
+            else
+            {
+                card.CardImg = img.Path;
+            }
+
+            var img2 = _db.Users.FirstOrDefault(x => x.UserId == item.UserId);
+            card.Userimg = img2.Avatar;
+
             card.mission = _db.Missions.FirstOrDefault(x => x.MissionId == item.MissionId);
             card.user = _db.Users.FirstOrDefault(x => x.UserId == item.UserId);
             card.theme = _db.Missions.FirstOrDefault(x => x.MissionId == item.MissionId).Title;
@@ -309,7 +322,7 @@ namespace CI_Plateform.Controllers
                 }
 
 
-                return RedirectToAction("Plateform", "Plateform");
+                return RedirectToAction("StoryListing", "StoryListing");
             }
             else
                 return NotFound();

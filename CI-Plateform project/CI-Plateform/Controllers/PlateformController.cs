@@ -28,13 +28,14 @@ namespace CI_Plateform.Controllers
             PlateformVM plateformVM = new PlateformVM();
             plateformVM.Missions = _db.Missions.ToList();
 
-
+            plateformVM.user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
+           
             /*var user = _db.Users.FirstOrDefault(u => u.UserId == id);
             plateformVM.User = user;*/
 
 
 
-            List<SelectListItem> list1 = new List<SelectListItem>();
+            List <SelectListItem> list1 = new List<SelectListItem>();
             var temp1 = _db.Skills.ToList();
             foreach (var item in temp1)
             {
@@ -78,7 +79,7 @@ namespace CI_Plateform.Controllers
             /*return View(plateformVM);*/
 
             /*--------------------------*/
-            const int pageSize = 1;
+            const int pageSize = 3;
 
             int recsCount = tempMission.Count();
             var pager = new Pager(recsCount, pg, pageSize);
@@ -241,7 +242,7 @@ namespace CI_Plateform.Controllers
 
 
             PlateformVM plateformVM = new PlateformVM();
-            const int pageSize = 1;
+            const int pageSize = 3;
 
             int recsCount = tempMission.Count();
             var pager = new Pager(recsCount, pg, pageSize);

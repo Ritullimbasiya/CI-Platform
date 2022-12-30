@@ -21,8 +21,7 @@
                     <div class="dropdown navbar-toggler">
                         <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
-                            <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
-                                 class="rounded-circle">
+                            <img src="@Url.Content(Model.User.Avatar)" alt="hugenerd" width="30" height="30" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                             <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
@@ -64,8 +63,7 @@
                                 <div class="dropdown">
                                     <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
-                                             class="rounded-circle">
+                                        <img src="@Url.Content(Model.User.Avatar)" alt="hugenerd" width="30" height="30" class="rounded-circle">
                                         <span class="d-none d-sm-inline mx-1">
                                             Ritul <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
                                         </span>
@@ -89,9 +87,10 @@
 
 
             <div class="col-md-3 col-sm-12 ueditcontainer1">
-                <img src="~/assets/user-img.png" alt="Error"
-                     style="width: 70px;height: 70px;border-radius: 100%;margin-top: 18px;">
-                <p style="font-size:10px;">@*@Model.User.FirstName*@ Ritul</p>
+               @* <img src="~/assets/user-img.png" alt="Error"
+                     style="width: 70px;height: 70px;border-radius: 100%;margin-top: 18px;">*@
+                <img src="@Url.Content(Model.User.Avatar)" alt="Error" style="width: 70px;height: 70px;border-radius: 100%;margin-top: 18px;">
+                <p style="font-size:10px;">@Model.User.FirstName   @Model.User.LastName </p>
             </div>
             <div class="col-md-9 col-sm-12">
                 <form class="pt-3" method="post" action="Myprofile">

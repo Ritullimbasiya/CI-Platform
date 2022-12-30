@@ -13,7 +13,7 @@
         {
 
         }
-        public Pager(int totalItems, int page, int pagesize = 1)
+        public Pager(int totalItems, int page, int pagesize = 3)
         {
             int totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pagesize);
             int currentPage = page;
