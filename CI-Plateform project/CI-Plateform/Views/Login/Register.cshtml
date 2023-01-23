@@ -81,7 +81,7 @@
 
                     <div class="form-group mb-1 gap">
                         <label class="label font" asp-for="User.Email">Email Address</label>
-                        <input type="text" class="form-control font" asp-for="User.Email"
+                        <input type="email" class="form-control font" asp-for="User.Email"
                                style="display: inline;box-shadow: none;" placeholder="ritul@gmail.com">
                         <span asp-validation-for="User.Email" class="text-danger"></span>
                     </div>
@@ -118,3 +118,6 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

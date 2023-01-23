@@ -550,6 +550,7 @@ namespace CI_Plateform.Controllers
                 missionRating.MisssionId = missionId;
                 missionRating.Rating = rate;
                 missionRating.UserId = userId;
+                missionRating.CreatedAt = DateTime.Now;
                 _db.MissionRatings.Add(missionRating);
             }
             else
