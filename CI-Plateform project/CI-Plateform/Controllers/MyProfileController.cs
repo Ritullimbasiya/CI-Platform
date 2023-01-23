@@ -21,6 +21,7 @@ namespace CI_Plateform.Controllers
         {
             UserVm userVM = new UserVm();
             userVM.User = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
+          
 
             List<SelectListItem> list = new List<SelectListItem>();
             var temp = _db.Countries.ToList();
@@ -42,20 +43,44 @@ namespace CI_Plateform.Controllers
         [HttpPost]
         public IActionResult Myprofile(UserVm userVM)
         {
-            if (userVM.User != null)
+            if (userVM == null)
             {
-                var user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
-                userVM.User.Password = user.Password;
+                return NotFound();
+            }
+            else
+            {
+                /*var user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
+ 
+                userVM.User.Password = user.Password;*/
                 userVM.User.UpdatedAt = DateTime.Now;
                 userVM.User.Status = 1;
                 _db.Users.Update(userVM.User);
                 _db.SaveChanges();
                 return RedirectToAction("Plateform", "Plateform");
             }
-            else
-                return NotFound();
         }
 
-        #endregion
+        #region Change Password
+      
+        [HttpPost]
+        public IActionResult ChangePassword(UserVm model)
+        {
+            var user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
+            if (model.Password == user.Password)
+            {
+                user.Password = model.newPassword;
+                _db.Users.Update(user);
+                _db.SaveChanges();
+            }
+            else
+            {
+                TempData["ErrorMes"] = "Old Password is wrong";
+            }
+            return RedirectToAction("MyProfile", "MyProfile");
+        }
+        #endregion Change Password
+
+
+        #endregion Myprofile
     }
 }

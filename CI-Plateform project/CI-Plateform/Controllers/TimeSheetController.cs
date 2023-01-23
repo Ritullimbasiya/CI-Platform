@@ -15,7 +15,60 @@ namespace CI_Plateform.Controllers
             PlateformVM plateformVM = new PlateformVM();
             plateformVM.Missions = _db.Missions.ToList();
             plateformVM.Timesheets = _db.Timesheets.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId"))).ToList();
+            plateformVM.user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
+
+
+            List<SelectListItem> list = new List<SelectListItem>();
+            var temp = _db.MissionApplications.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null && x.Mission.MissionType == 1).Select(x => x.MissionId).ToList();
+            foreach (var item in temp)
+            {
+                var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
+                list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
+            }
+            plateformVM.MissionHourList = list;
+
+            List<SelectListItem> list1 = new List<SelectListItem>();
+            var temp1 = _db.MissionApplications.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null && x.Mission.MissionType == 2).Select(x => x.MissionId).ToList();
+            foreach (var item in temp1)
+            {
+                var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
+                list1.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
+            }
+            plateformVM.MissionGoalList = list1;
+
             return View(plateformVM);
+        }
+        
+        /*[HttpGet]
+        public IActionResult timeHouradd()
+        {
+            PlateformVM plateformVM = new PlateformVM();
+
+            List<SelectListItem> list = new List<SelectListItem>();
+            var temp = _db.MissionApplications.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null && x.Mission.MissionType == 1).Select(x => x.MissionId).ToList();
+            foreach (var item in temp)
+            {
+                var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
+                list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
+            }
+            plateformVM.MissionList = list;
+            return View(plateformVM);
+        }*/
+
+        [HttpPost]
+        public IActionResult timeHouradd(PlateformVM model)
+        {
+            if (model.timesheet != null)
+            {
+                model.timesheet.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
+                model.timesheet.MissionId = model.mission.MissionId;
+                model.timesheet.CreatedAt = DateTime.Now;
+                _db.Timesheets.Add(model.timesheet);
+                _db.SaveChanges();
+                return RedirectToAction("Timesheet", "Timesheet");
+            }
+            else
+                return NotFound();
         }
         [HttpGet]
         public IActionResult timeHourEdit(int? id)
@@ -30,7 +83,7 @@ namespace CI_Plateform.Controllers
                 var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
                 list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
             }
-            plateformVM.MissionList = list;
+            plateformVM.MissionHourList = list;
             return View(plateformVM);
         }
         [HttpPost]
@@ -40,7 +93,7 @@ namespace CI_Plateform.Controllers
             {
                 model.timesheet.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
 
-                model.timesheet.MissionId = 1;
+                model.timesheet.MissionId = model.mission.MissionId;
 
                 model.timesheet.UpdatedAt = DateTime.Now;
                 _db.Timesheets.Update(model.timesheet);
@@ -50,40 +103,6 @@ namespace CI_Plateform.Controllers
             else
                 return NotFound();
         }
-        [HttpGet]
-        public IActionResult timeHouradd()
-        {
-            PlateformVM plateformVM = new PlateformVM();
-
-            /*var timeSheet = _db.Timesheets.ToList();
-            plateformVM.Timesheets = timeSheet;*/
-
-            List<SelectListItem> list = new List<SelectListItem>();
-            var temp = _db.MissionApplications.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null && x.Mission.MissionType == 1).Select(x => x.MissionId).ToList();
-            foreach (var item in temp)
-            {
-                var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
-                list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
-            }
-            plateformVM.MissionList = list;
-            return View(plateformVM);
-        }
-        [HttpPost]
-        public IActionResult timeHouradd(PlateformVM model)
-        {
-            if (model.timesheet != null)
-            {
-                model.timesheet.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
-                model.timesheet.MissionId = 1;
-                model.timesheet.CreatedAt = DateTime.Now;
-                _db.Timesheets.Add(model.timesheet);
-                _db.SaveChanges();
-                return RedirectToAction("Timesheet", "Timesheet");
-            }
-            else
-                return NotFound();
-        }
-
         public IActionResult timeHourDelete(int? id)
         {
             var timesheet = _db.Timesheets.FirstOrDefault(x => x.TimesheetId == id);
@@ -96,58 +115,60 @@ namespace CI_Plateform.Controllers
             _db.SaveChanges();
             return RedirectToAction("Timesheet", "Timesheet");
         }
-        [HttpGet]
-        public IActionResult timeGoalEdit(int? id)
-        {
-            PlateformVM plateformVM = new PlateformVM();
-            plateformVM.timesheet = _db.Timesheets.FirstOrDefault(x => x.TimesheetId == id);
 
-            List<SelectListItem> list = new List<SelectListItem>();
-            var temp = _db.MissionApplications.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null && x.Mission.MissionType == 2).Select(x => x.MissionId).ToList();
-            foreach (var item in temp)
-            {
-                var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
-                list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
-            }
-            plateformVM.MissionList = list;
-            return View(plateformVM);
-        }
-        [HttpPost]
-        public IActionResult timeGoalEdit(PlateformVM model)
-        {
-            if (model.timesheet != null)
-            {
-                model.timesheet.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
-                model.timesheet.MissionId = 37;
-                model.timesheet.UpdatedAt = DateTime.Now;
-                _db.Timesheets.Update(model.timesheet);
-                _db.SaveChanges();
-                return RedirectToAction("Timesheet", "Timesheet");
-            }
-            else
-                return NotFound();
-        }
-        [HttpGet]
-        public IActionResult timeGoaladd()
-        {
-            PlateformVM plateformVM = new PlateformVM();
-            List<SelectListItem> list = new List<SelectListItem>();
-            var temp = _db.MissionApplications.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null && x.Mission.MissionType == 2).Select(x => x.MissionId).ToList();
-            foreach (var item in temp)
-            {
-                var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
-                list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
-            }
-            plateformVM.MissionList = list;
-            return View(plateformVM);
-        }
+        /*[HttpGet]
+       public IActionResult timeGoaladd()
+       {
+           PlateformVM plateformVM = new PlateformVM();
+           List<SelectListItem> list = new List<SelectListItem>();
+           var temp = _db.MissionApplications.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null && x.Mission.MissionType == 2).Select(x => x.MissionId).ToList();
+           foreach (var item in temp)
+           {
+               var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
+               list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
+           }
+           plateformVM.MissionList = list;
+           return View(plateformVM);
+       }*/
+
         [HttpPost]
         public IActionResult timeGoaladd(PlateformVM model)
         {
             if (model.timesheet != null)
             {
                 model.timesheet.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
-                model.timesheet.MissionId = 37;
+                model.timesheet.MissionId = model.mission.MissionId;
+                model.timesheet.CreatedAt = DateTime.Now;
+                _db.Timesheets.Add(model.timesheet);
+                _db.SaveChanges();
+                return RedirectToAction("Timesheet", "Timesheet");
+            }
+            else
+                return NotFound();
+        }
+
+        /*[HttpGet]
+       public IActionResult timeGoalEdit()
+       {
+           PlateformVM plateformVM = new PlateformVM();
+           List<SelectListItem> list = new List<SelectListItem>();
+           var temp = _db.MissionApplications.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null && x.Mission.MissionType == 2).Select(x => x.MissionId).ToList();
+           foreach (var item in temp)
+           {
+               var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
+               list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
+           }
+           plateformVM.MissionList = list;
+           return View(plateformVM);
+       }*/
+
+        [HttpPost]
+        public IActionResult timeGoalEdit(PlateformVM model)
+        {
+            if (model.timesheet != null)
+            {
+                model.timesheet.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
+                model.timesheet.MissionId = model.mission.MissionId;
                 model.timesheet.CreatedAt = DateTime.Now;
                 _db.Timesheets.Add(model.timesheet);
                 _db.SaveChanges();

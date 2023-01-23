@@ -22,6 +22,7 @@ namespace CI_Plateform.Controllers
         {
             var user = new DatabaseUserViewModel();
             user.users = _db.Users.ToList();
+            user.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(user);
         }
         [HttpGet]
@@ -35,6 +36,7 @@ namespace CI_Plateform.Controllers
                 list.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
             }
             userVM.CountryList = list;
+            userVM.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(userVM);
         }
         [HttpPost]
@@ -101,6 +103,7 @@ namespace CI_Plateform.Controllers
                 list3.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
             }
             userVM.CityList = list3;
+            userVM.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(userVM);
         }
         [HttpPost]
@@ -144,12 +147,14 @@ namespace CI_Plateform.Controllers
         {
             var cmsPage = new DatabaseUserViewModel();
             cmsPage.CmsPages = _db.CmsPages.ToList();
+            cmsPage.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(cmsPage);
         }
         [HttpGet]
         public IActionResult aCMSadd()
         {
             UserVm userVm = new UserVm();
+            userVm.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(userVm);
         }
         [HttpPost]
@@ -169,6 +174,7 @@ namespace CI_Plateform.Controllers
         {
             UserVm userVm = new UserVm();
             userVm.CmsPage = _db.CmsPages.FirstOrDefault(x => x.CmPageId == id);
+            userVm.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(userVm);
         }
         [HttpPost]
@@ -202,6 +208,7 @@ namespace CI_Plateform.Controllers
         {
             var mission = new DatabaseUserViewModel();
             mission.Missions = _db.Missions.ToList();
+            mission.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(mission);
         }
         [HttpGet]
@@ -222,6 +229,7 @@ namespace CI_Plateform.Controllers
                 }),
                 Missionss = _db.Missions.ToList(),*/
             };
+            userVM.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             List<SelectListItem> list = new List<SelectListItem>();
             var temp = _db.Countries.ToList();
             foreach (var item in temp)
@@ -342,10 +350,9 @@ namespace CI_Plateform.Controllers
             UserVm userVm = new UserVm();
 
             userVm.Mission = _db.Missions.FirstOrDefault(x => x.MissionId == id);
-
             userVm.GoalMission = _db.GoalMissions.FirstOrDefault(x => x.MissionId == userVm.Mission.MissionId);
-
             userVm.addSkill = _db.MissionSkills.Where(s => s.MissionId == userVm.Mission.MissionId).Select(x => x.SkillId.ToString()).ToList();
+            userVm.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
 
             List<SelectListItem> list = new List<SelectListItem>();
             var temp = _db.Countries.ToList();
@@ -503,12 +510,14 @@ namespace CI_Plateform.Controllers
         {
             var skill = new DatabaseUserViewModel();
             skill.Skills = _db.Skills.ToList();
+            skill.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(skill);
         }
         [HttpGet]
         public IActionResult aSkilladd()
         {
             UserVm userVm = new UserVm();
+            userVm.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(userVm);
         }
         [HttpPost]
@@ -531,6 +540,7 @@ namespace CI_Plateform.Controllers
         {
             UserVm userVm = new UserVm();
             userVm.Skill = _db.Skills.FirstOrDefault(x => x.SkillId == id);
+            userVm.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             if (userVm == null)
             {
                 return NotFound();
@@ -565,12 +575,14 @@ namespace CI_Plateform.Controllers
         {
             var theme = new DatabaseUserViewModel();
             theme.missionThemes = _db.MissionThemes.ToList();
+            theme.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(theme);
         }
         [HttpGet]
         public IActionResult aThemeadd()
         {
             UserVm userVm = new UserVm();
+            userVm.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(userVm);
         }
         [HttpPost]
@@ -593,6 +605,7 @@ namespace CI_Plateform.Controllers
         {
             UserVm userVm = new UserVm();
             userVm.MissionTheme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == id);
+            userVm.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             if (userVm == null)
             {
                 return NotFound();
@@ -627,6 +640,7 @@ namespace CI_Plateform.Controllers
         public IActionResult aApplication()
         {
             var application = new DatabaseUserViewModel();
+            application.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
 
             application.MissionApplications = _db.MissionApplications.ToList();
             application.Missions = _db.Missions.ToList();
@@ -660,6 +674,7 @@ namespace CI_Plateform.Controllers
             storylisting.Missions = _db.Missions.ToList();
             storylisting.users = _db.Users.ToList();
             storylisting.Storys = _db.Stories.ToList();
+            storylisting.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(storylisting);
         }
         public IActionResult aStorylistingdecline(int? id)
@@ -681,6 +696,7 @@ namespace CI_Plateform.Controllers
             storydetail.Storys = _db.Stories.ToList();
             storydetail.Missions = _db.Missions.ToList();
             storydetail.users = _db.Users.ToList();
+            storydetail.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(storydetail);
         }
         public IActionResult aStorydetailpublish(int? id)
@@ -706,12 +722,15 @@ namespace CI_Plateform.Controllers
         {
             var banner = new DatabaseUserViewModel();
             banner.Banners = _db.Banners.ToList();
+            banner.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
+
             return View(banner);
         }
         [HttpGet]
         public IActionResult aBanneradd()
         {
             UserVm userVm = new UserVm();
+            userVm.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(userVm);
         }
         [HttpPost]
@@ -739,6 +758,7 @@ namespace CI_Plateform.Controllers
         {
             UserVm userVm = new UserVm();
             userVm.Banner = _db.Banners.FirstOrDefault(x => x.BannerId == id);
+            userVm.admin = _db.Admins.FirstOrDefault(x => x.AdminId == int.Parse(HttpContext.Session.GetString("AdminId")));
             return View(userVm);
         }
         [HttpPost]

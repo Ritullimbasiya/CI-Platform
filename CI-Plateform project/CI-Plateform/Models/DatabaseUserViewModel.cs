@@ -13,7 +13,7 @@ namespace CI_Plateform.Models
         public List<MissionTheme>? missionThemes { get; set; } = null!;
         public List<MissionApplication> MissionApplications { get; set; } = null!;
         public List<Banner> Banners { get; set; } = null!;
-
+        public Admin? admin { get; set; }
         [Display(Name = "Date Created")]
         public DateTime dateCreated
         {

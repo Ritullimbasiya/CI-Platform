@@ -16,5 +16,6 @@ namespace CI_Plateform.Models
         public List<Story> storys { get; set; }
         public Story? story { get; set; }
         public List<StoryCardModel> storyCardModels { get; set; }
+        public User? user { get; set; }
     }
 }

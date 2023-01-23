@@ -9,7 +9,7 @@
             <div class="col-sm-12 col-md-6 col-lg-4 mb-4" id="CardMission_@card.mission.MissionId" style="padding: 0px 20px 12px 4px;">
                 <div class="card h-100 shadow">
                     <div class="cardcontainer11">
-                        <img src="@Url.Content(@card.CardImg)" class="card-img-top" alt="Error" style="width: 286px;height: 161px;">
+                        <img src="@Url.Content(@card.CardImg)" class="card-img-top" alt="Error" style="height: 161px;">
                         @*<img src="~/assets/Animal-welfare-&-save-birds-campaign.png" class="card-img-top" alt="Error">
 *@
                         @if (card.missionApplication != null)
@@ -69,11 +69,12 @@
                         <div class="cardcontainer1" style="display:flex;align-items:baseline;">
                             <p class="cardcontainer2">@card.mission.OrganizationName</p>
                             <div style="margin-left: auto;">
-                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                @*<img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
                                 <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
                                 <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
                                 <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
-                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">*@
+                                <div class="Stars" style="--rating: @card.avgRating;"></div>
                             </div>
                         </div>
                     </div>
@@ -152,7 +153,7 @@
             <div class="col-sm-12 col-md-6 col-lg-4 mb-4" id="CardMission_@card.mission.MissionId" style="padding: 0px 20px 12px 4px;">
                 <div class="card h-100 shadow">
                     <div class="cardcontainer11">
-                        <img src="@Url.Content(@card.CardImg)" class="card-img-top" alt="Error" style="width: 286px;height: 161px;">
+                        <img src="@Url.Content(@card.CardImg)" class="card-img-top" alt="Error" style="height: 161px;">
 
                         @*<img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top" alt="Error">*@
                         @if (card.missionApplication != null)
@@ -211,11 +212,12 @@
                         <div class="cardcontainer1" style="display:flex;align-items:baseline;">
                             <p class="cardcontainer2">@card.mission.OrganizationName</p>
                             <div style="margin-left: auto;">
-                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
+                                @*<img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
                                 <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
                                 <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
                                 <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
-                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
+                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">*@
+                                <div class="Stars" style="--rating: @card.avgRating;"></div>
                             </div>
                         </div>
                     </div>

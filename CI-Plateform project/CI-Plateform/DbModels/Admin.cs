@@ -10,6 +10,7 @@ namespace CI_Plateform.DbModels
         public string? LastName { get; set; }
         public string Email { get; set; } = null!;
         public string Password { get; set; } = null!;
+        public string? AdminAvatar { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }

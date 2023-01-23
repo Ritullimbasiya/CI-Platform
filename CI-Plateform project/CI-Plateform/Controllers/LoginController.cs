@@ -32,7 +32,7 @@ namespace CI_Plateform.Controllers
 
             if (admin != null)
             {
-                HttpContext.Session.SetString("UserId", admin.AdminId.ToString());
+                HttpContext.Session.SetString("AdminId", admin.AdminId.ToString());
                 HttpContext.Session.SetString("UserName", admin.FirstName);
                 return RedirectToAction("aUser", "Admin");
             }
@@ -142,7 +142,9 @@ namespace CI_Plateform.Controllers
         #region Policy
         public IActionResult PolicyPage()
         {
-            return View();
+            UserVm userVm = new UserVm();
+            userVm.User = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
+            return View(userVm);
         }
         #endregion
 

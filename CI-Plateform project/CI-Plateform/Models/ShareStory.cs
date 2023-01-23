@@ -9,5 +9,6 @@ namespace CI_Plateform.Models
         public IEnumerable<SelectListItem> MissionList { get; set; }
         public StoryMedium? storyMedium { get; set; }
         public Story? Story { get; set; }
+        public User? user { get; set; }
     }
 }

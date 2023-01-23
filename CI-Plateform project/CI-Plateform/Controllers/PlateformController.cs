@@ -1,5 +1,6 @@
 ﻿using CI_Plateform.DbModels;
 using CI_Plateform.Models;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -282,7 +283,7 @@ namespace CI_Plateform.Controllers
         }
         #endregion Favorite Mission
 
-        /*        #region Favorite Mission version2
+        /*       #region Favorite Mission version2
                 [HttpPost]
                 public JsonResult FavouriteMission(int id)
                 {
@@ -405,15 +406,34 @@ namespace CI_Plateform.Controllers
             card.country = _db.Countries.FirstOrDefault(x => x.CountryId == item.CountryId).Name;
             card.missionApplication = _db.MissionApplications.FirstOrDefault(x => x.MissionId == item.MissionId);
 
+            /*float totalRate = 0;
+            float RateCount = 0;
+            var rateRecord = _db.MissionRatings.Where(x => x.MisssionId == item.MissionId).ToList();
+            foreach (var i in rateRecord)
+            {
+                RateCount = RateCount + 1;
+                totalRate = totalRate + i.Rating;
+            }
+            card.avgRating = totalRate > 0 ? totalRate / RateCount : 0;
+            card.reatin = (int)RateCount;*/
+
+            float totalRate = 0;
+            float user = 0;
+            var rate = _db.MissionRatings.Where(x => x.MisssionId == item.MissionId).ToList();
+            foreach (var i in rate)
+            {
+                user = user + 1;
+                totalRate = totalRate + i.Rating;
+            }
+
+            card.avgRating = totalRate > 0 ? totalRate / user : 0;
+
             //card.FavoMission = _db.FavouriteMissions.FirstOrDefault(x => x.MissionId == item.MissionId && x.UserId == Int64.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null);
 
             return card;
         }
         #endregion new mission Card
-
-
         
-
 
         #region Apply Mission
         [HttpPost]
@@ -473,12 +493,10 @@ namespace CI_Plateform.Controllers
             /*var miss = _db.Missions.ToList();
             viewDetail.Missions = miss;*/
 
-
+            viewDetail.user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
             var item = _db.Missions.FirstOrDefault(x => x.MissionId == id);
             viewDetail.missionCard = CreateCard(item);
-
             viewDetail.imgs = _db.MissionMedia.Where(x => x.MissionId == id).AsEnumerable().ToList();
-
             viewDetail.skills = String.Join(", ", _db.MissionSkills.Where(x => x.MissionId == id && x.DeletedAt == null).Select(x => x.Skill.SkillName).ToList());
             viewDetail.availability = item.Availability == 1 ? "daily" : item.Availability == 2 ? "weekly" : item.Availability == 3 ? "week-end" : "monthly";
 
@@ -492,16 +510,61 @@ namespace CI_Plateform.Controllers
                 vol.volunteerImg = user.Avatar != null ? user.Avatar : "~/assets/volunteer1.png";
                 listVol.Add(vol);
             }
-
             viewDetail.volunteers = listVol;
+
+            viewDetail.imgs = _db.MissionMedia.Where(x => x.MissionId == id).AsEnumerable().ToList();
 
             viewDetail.docs = _db.MissionDocuments.Where(x => x.MissionId == id && x.DeletedAt == null).AsEnumerable().ToList();
             viewDetail.relatedMission = relatedMissions((int)item.CityId, (int)item.CountryId, (int)item.MissionThemeId);
+
+
+            viewDetail.missionId = id;
+            var rate = _db.MissionRatings.FirstOrDefault(x => x.UserId == viewDetail.user.UserId && x.MisssionId == id);
+            viewDetail.myRating = rate != null ? rate.Rating : 0;
+
+            float totalRate = 0;
+            float RateCount = 0;
+            var rateRecord = _db.MissionRatings.Where(x => x.MisssionId == id).ToList();
+            foreach (var i in rateRecord)
+            {
+                RateCount = RateCount + 1;
+                totalRate = totalRate + i.Rating;
+            }
+            viewDetail.avgRating = totalRate > 0 ? totalRate / RateCount : 0;
+            viewDetail.ratingUserCount = (int)RateCount;
+
             return View(viewDetail);
         }
         #endregion ViewDetail Page
 
-        
+        #region Rate Mission
+        [HttpPost]
+        public JsonResult RateMission(int missionId, int rate)
+        {
+            var userId = int.Parse(HttpContext.Session.GetString("UserId"));
+            var missionRating = new MissionRating();
+            var alradyRate = _db.MissionRatings.Where(x => x.MisssionId == missionId && x.UserId == userId).Count();
+
+            if (alradyRate == 0)
+            {
+                missionRating.MisssionId = missionId;
+                missionRating.Rating = rate;
+                missionRating.UserId = userId;
+                _db.MissionRatings.Add(missionRating);
+            }
+            else
+            {
+                missionRating = (MissionRating)_db.MissionRatings.FirstOrDefault(x => x.MisssionId == missionId && x.UserId == userId);
+                missionRating.Rating = rate;
+                missionRating.UpdatedAt = DateTime.Now;
+                _db.MissionRatings.Update(missionRating);
+            }
+            _db.SaveChanges();
+
+            return Json("True");
+        }
+        #endregion Rate Mission
+
         #region LogOut
         public IActionResult Logout()
         {

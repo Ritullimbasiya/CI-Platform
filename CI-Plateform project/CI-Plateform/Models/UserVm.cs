@@ -20,6 +20,17 @@ namespace CI_Plateform.Models
         public MissionMedium? missionMedium { get; set; } = null!;
         public MissionDocument? missionDocument { get; set; } = null!;
         public List<string>? addSkill { get; set; }
+        public Admin? admin { get; set; }
+
+        public int UserId { get; set; }
+        public string Password { get; set; }
+        public string newPassword { get; set; }
+
+        public List<SelectListItem> skills { get; set; }
+        public List<SelectListItem>? userOldSkill { get; set; }
+        public List<string>? userNewSkill { get; set; }
+
+
         [Display(Name = "Date Created")]
         public DateTime dateCreated
         {

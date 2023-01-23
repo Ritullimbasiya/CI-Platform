@@ -11,14 +11,14 @@
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addmission"
-                            aria-controls="addmission"
-                            class="form-control rounded-pill btn btn-outline-warning font navbar-toggler"
-                            style="width:auto;font-size: 12px;margin-right: 16px;">
-                        Submit New Mission
-                        <i class="bi bi-arrow-right ps-1"></i>
-                    </button>
-                    <div class="dropdown navbar-toggler">
+                    @*<button type="button" data-bs-toggle="offcanvas" data-bs-target="#addmission"
+                    aria-controls="addmission"
+                    class="form-control rounded-pill btn btn-outline-warning font navbar-toggler"
+                    style="width:auto;font-size: 12px;margin-right: 16px;">
+                    Submit New Mission
+                    <i class="bi bi-arrow-right ps-1"></i>
+                    </button>*@
+                    <div class="dropdown navbar-toggler" style="border:none;">
                         <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
                             <img src="@Url.Content(Model.User.Avatar)" alt="hugenerd" width="30" height="30" class="rounded-circle">
@@ -53,19 +53,19 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addmission"
-                                        aria-controls="addmission"
-                                        class="form-control rounded-pill btn btn-outline-warning font"
-                                        style="width:auto;font-size: 12px;margin-right: 16px;">
-                                    Submit New Mission
-                                    <i class="bi bi-arrow-right ps-1"></i>
-                                </button>
+                                @*<button type="button" data-bs-toggle="offcanvas" data-bs-target="#addmission"
+                                aria-controls="addmission"
+                                class="form-control rounded-pill btn btn-outline-warning font"
+                                style="width:auto;font-size: 12px;margin-right: 16px;">
+                                Submit New Mission
+                                <i class="bi bi-arrow-right ps-1"></i>
+                                </button>*@
                                 <div class="dropdown">
                                     <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                         <img src="@Url.Content(Model.User.Avatar)" alt="hugenerd" width="30" height="30" class="rounded-circle">
                                         <span class="d-none d-sm-inline mx-1">
-                                            Ritul <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                            @Model.User.FirstName <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
                                         </span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
@@ -87,22 +87,20 @@
 
 
             <div class="col-md-3 col-sm-12 ueditcontainer1">
-               @* <img src="~/assets/user-img.png" alt="Error"
-                     style="width: 70px;height: 70px;border-radius: 100%;margin-top: 18px;">*@
+                @* <img src="~/assets/user-img.png" alt="Error"
+                style="width: 70px;height: 70px;border-radius: 100%;margin-top: 18px;">*@
                 <img src="@Url.Content(Model.User.Avatar)" alt="Error" style="width: 70px;height: 70px;border-radius: 100%;margin-top: 18px;">
                 <p style="font-size:10px;">@Model.User.FirstName   @Model.User.LastName </p>
             </div>
             <div class="col-md-9 col-sm-12">
                 <form class="pt-3" method="post" action="Myprofile">
-                    @*<input asp-for="User.UserId" hidden />*@
-                    @*<input asp-for="User.Email" hidden />*@
+                    <input asp-for="User.UserId" hidden />
                     <input asp-for="User.Avatar" hidden />
-                    @*<input asp-for="User.Password" hidden />*@
-
+                    <input asp-for="User.Password" hidden />
                     <input asp-for="User.Status" hidden />
                     <input asp-for="User.CreatedAt" hidden />
-                   @* <input asp-for="User.UpdatedAt" hidden />*@
-                    @*<input asp-for="User.PhoneNumber" hidden />*@
+
+
                     <h6 style="font-size:14px;">Basic Information </h6>
                     <hr>
                     <div class="row" style="margin:18px 0px;font-size: 10px;">
@@ -205,18 +203,17 @@
                         </textarea>
                     </div>
                     <div class="row" style="margin:18px 0px;display:block;">
-                        <button type="submit" data-bs-toggle="offcanvas" data-bs-target="#addskills"
+                        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addskills"
                                 class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10">
                             Add
                             Skills
                         </button>
-                        <button type="submit" data-bs-toggle="offcanvas" data-bs-target="#changepassword"
+                        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#changepassword"
                                 aria-controls="changepassword"
                                 class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10">
                             Change
                             Password
                         </button>
-
                     </div>
                     <div class="row" style="margin:18px 0px;display:block;">
                         <button type="submit"
@@ -242,6 +239,8 @@
 
 <!-- *********************************************************** -->
 <!-- Add Skills -->
+
+
 <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="addskills"
      aria-labelledby="staticBackdropLabel">
     <div class="offcanvas-header">
@@ -303,7 +302,7 @@
             </div>
         </div>
         <div class="row" style="margin:18px 0px;display:block;">
-            <button type="submit"
+            <button type="button"
                     class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
                 cancel
             </button>
@@ -324,29 +323,46 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <div>
-            <div class="row" style="margin:18px 0px;font-size: 12px;">
-                <input type="password" name="name" placeholder="Enter old password" required />
+        <form method="post" action="ChangePassword">
+            <div>
+                <div class="row" style="margin:18px 0px;font-size: 12px;">
+                    <input type="password" asp-for="Password" placeholder="Enter old password" required />
+                </div>
+                <div class="row" style="margin:18px 0px;font-size: 12px;">
+                    <input type="password" id="txtPassword" asp-for="newPassword" placeholder="Enter new password" required />
+                </div>
+                <div class="row" style="margin:18px 0px;font-size: 12px;">
+                    <input type="password" id="txtConfirmPassword" placeholder="Enter confrim password" required />
+                </div>
             </div>
-            <div class="row" style="margin:18px 0px;font-size: 12px;">
-                <input type="password" name="name" placeholder="Enter new password" required />
+            <div class="row" style="margin:18px 0px;display:block;text-align: end;">
+                <button type="submit"
+                        class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
+                    cancel
+                </button>
+                <button type="submit" class="form-control rounded-pill btn btn-outline-warning font" onclick="return Validate()"
+                        style="width:auto;font-size: 12px;">
+                    Change Password
+                </button>
             </div>
-            <div class="row" style="margin:18px 0px;font-size: 12px;">
-                <input type="password" name="name" placeholder="Enter confrim password" required />
-            </div>
-        </div>
-        <div class="row" style="margin:18px 0px;display:block;text-align: end;">
-            <button type="submit"
-                    class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
-                cancel
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                    style="width:auto;font-size: 12px;">
-                Change Password
-            </button>
-        </div>
+        </form>
     </div>
 </div>
+
+@section Scripts {
+<script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("txtPassword").value;
+        var confirmPassword = document.getElementById("txtConfirmPassword").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>
+}
+
 
 <!-- ******************************************************************** -->
 <!-- Contect Us -->

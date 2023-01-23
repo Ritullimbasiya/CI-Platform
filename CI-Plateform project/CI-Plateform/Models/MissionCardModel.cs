@@ -14,5 +14,7 @@ namespace CI_Plateform.Models
         public User? user { get; set; }
        // public FavouriteMission? FavoMission { get; set; } = null;
         public MissionApplication? missionApplication { get; set; } = null;
+        public float? avgRating { get; set; }
+
     }
 }

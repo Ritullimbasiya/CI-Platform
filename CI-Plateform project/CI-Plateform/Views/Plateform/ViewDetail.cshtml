@@ -2,6 +2,49 @@
 @model ViewDetailModel
 
 <script>
+    $(document).ready(function () {
+        $("#rt_1").click(function () {
+            $(".rtcolor").removeClass("text-warning");
+            $("#rt_1").addClass("text-warning");
+            RateMission(1);
+        });
+        $("#rt_2").click(function () {
+            $(".rtcolor").removeClass("text-warning");
+            $("#rt_1, #rt_2").addClass("text-warning");
+            RateMission(2);
+        });
+        $("#rt_3").click(function () {
+            console.log("ittttttttttt")
+            $(".rtcolor").removeClass("text-warning");
+            $("#rt_1, #rt_2, #rt_3").addClass("text-warning");
+            RateMission(3);
+        });
+        $("#rt_4").click(function () {
+            $(".rtcolor").removeClass("text-warning");
+            $("#rt_1, #rt_2, #rt_3, #rt_4").addClass("text-warning");
+            RateMission(4);
+        });
+        $("#rt_5").click(function () {
+            $(".rtcolor").removeClass("text-warning");
+            $("#rt_1, #rt_2, #rt_3, #rt_4, #rt_5").addClass("text-warning");
+            RateMission(5);
+        });
+    });
+    function RateMission(Rate) {
+        $.ajax({
+            url: '/Plateform/RateMission',
+            type: 'POST',
+            dataType: 'json',
+            data: { missionId: @Model.missionId , rate: Rate },
+            success: function (d) {
+                location.reload();
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+    }
+
     function favouriteMission(Missionid, Missionfav) {
         $.ajax({
             url: '/Plateform/FavouriteMission',
@@ -11,8 +54,8 @@
             success: function (d) {
                 location.reload();
             },
-            error: function () {
-                alert('Fav Event');
+            error: function (d) {
+                location.reload();
             }
         });
     }
@@ -36,6 +79,43 @@
 
 
 
+<script>
+    $(document).ready(function () {
+        const slides = document.querySelectorAll(".slide")
+        const vid = document.querySelectorAll("video.slide")
+        const totalImgInSlider = 4;
+        const totalImg = @Model.imgs.Count();
+        var counter = 0;
+
+        slides.forEach(
+            (slider, index) => {
+                slider.style.left = `${index * 100 / totalImgInSlider}%`
+            }
+        )
+        slideImg = () => {
+            slides.forEach((slider) => {
+                slider.style.transform = `translateX(-${counter * 100}%)`
+            })
+        }
+        goPrev = () => {
+            if (counter != 0)
+                counter--;
+            slideImg();
+        }
+        goNext = () => {
+            if (counter < totalImg - totalImgInSlider)
+                counter++;
+            slideImg();
+        }
+        setImage = () => {
+            document.getElementById("demo").src = document.querySelector(".slide.active").src;
+        }
+    });
+</script>
+
+
+
+
 <div class="body-1">
     <div class="body-2">
         <div class="nevbar-1" style="height:43px;">
@@ -49,7 +129,7 @@
                     <div class="dropdown navbar-toggler border-0">
                         <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                            <img src="@Url.Content(Model.user.Avatar)" alt="hugenerd" width="30" height="30"
                                  class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
@@ -86,10 +166,10 @@
                                 <div class="dropdown">
                                     <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
+                                        <img src="@Url.Content(Model.user.Avatar)" alt="hugenerd" width="30" height="30"
                                              class="rounded-circle">
                                         <span class="d-none d-sm-inline mx-1">
-                                            Ritul <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                            @Model.user.FirstName <i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
                                         </span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
@@ -109,123 +189,85 @@
     <!-- <div class="body-2"> -->
     <div class="row  container25" style="margin:0px;">
         <div class="col-6 container26" style="padding:0px;">
-            <img src="~/assets/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png" alt="Error"
-                 style="width:100%;">
+            @* <img src="~/assets/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png" alt="Error"
+            style="width:100%;">*@
+            <display>
+                <img style="width: 100%;object-fit: cover;" id="demo" src="@Url.Content(Model.imgs[0].MediaPath)" alt="error">
+            </display>
 
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row" style="margin:0px;">
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (2).png"
-                                     alt="First slide">
+                    <div class="row sliderNav" style="margin:0px;">
+
+                        @foreach (var item in Model.imgs)
+                        {
+                            <div class="col-2 container20">
+                                <img class="slide d-block w-100" src="@Url.Content(item.MediaPath)" alt="error">
                             </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (4).png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (5).png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy.png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png"
-                                     alt="First slide">
-                            </div>
+                        }
+
+                        @* <div class="col container20">
+                        <img class="d-block w-100"
+                        src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (2).png"
+                        alt="First slide">
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row" style="margin:0px;">
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (2).png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (3).png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (4).png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (5).png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy.png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png"
-                                     alt="First slide">
-                            </div>
+                        <div class="col container20">
+                        <img class="d-block w-100"
+                        src="~/assets/slide img/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
+                        alt="First slide">
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row" style="margin:0px;">
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (2).png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (3).png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (4).png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (5).png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy.png"
-                                     alt="First slide">
-                            </div>
-                            <div class="col container20">
-                                <img class="d-block w-100"
-                                     src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png"
-                                     alt="First slide">
-                            </div>
+                        <div class="col container20">
+                        <img class="d-block w-100"
+                        src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (4).png"
+                        alt="First slide">
                         </div>
+                        <div class="col container20">
+                        <img class="d-block w-100"
+                        src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (5).png"
+                        alt="First slide">
+                        </div>
+                        <div class="col container20">
+                        <img class="d-block w-100"
+                        src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy.png"
+                        alt="First slide">
+                        </div>
+                        <div class="col container20">
+                        <img class="d-block w-100"
+                        src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png"
+                        alt="First slide">
+                        </div>*@
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"
-                   style="background-color: black; width: 10px;">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                @*<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"
+                style="background-color: black; width: 10px;">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 </a>
                 <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
-                   style="background-color: black; width: 10px;">
+                style="background-color: black; width: 10px;">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </a>*@
+
+                <button onclick="goPrev()" class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"
+                        style="background-color: black; width: 10px;">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button onclick="goNext()" class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
+                        style="background-color: black; width: 10px;">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </a>
+                </button>
+                <script>
+                    $("img.slide").on('click', function (event) {
+                        $('.slide.active').removeClass('active');
+                        $(this).addClass("active");
+                        setImage();
+                    });
+                </script>
             </div>
+
+
+
+
+
         </div>
         <div class="col-6 container27">
             <div class="body-3">
@@ -352,11 +394,22 @@
                     <hr style="margin-top: 20px;margin-bottom: 11px;">
                     <div class="cardcontainer18" style="position:relative;bottom:13px;">
                         <button class="cardcontainer16" style="border:none;width:96px;">
+                            @*<img src="~/assets/star-empty.png" alt="Error" style="width:15px;">
                             <img src="~/assets/star-empty.png" alt="Error" style="width:15px;">
                             <img src="~/assets/star-empty.png" alt="Error" style="width:15px;">
                             <img src="~/assets/star-empty.png" alt="Error" style="width:15px;">
-                            <img src="~/assets/star-empty.png" alt="Error" style="width:15px;">
-                            <img src="~/assets/star-empty.png" alt="Error" style="width:15px;">
+                            <img src="~/assets/star-empty.png" alt="Error" style="width:15px;">*@
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                if (Model.myRating >= i)
+                                {
+                                    <i class="bi bi-star-fill rtcolor text-warning" style="font-size:15px;" id="rt_@i"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-star rtcolor" style="font-size:15px;color: #757575;" id="rt_@i"></i>
+                                }
+                            }
                         </button>
                     </div>
                     <div class="row" style="display:flex;">
@@ -452,31 +505,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="Mission-tab-pane" role="tabpanel" aria-labelledby="-tab"
                      tabindex="0">
-                    @* <p>Introduction</p>
-                    <p style="font-size:12px;">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                    veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat
-                    nulla
-                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt
-                    mollit anim id est laborum.
-                    </p>
-                    <p>Challenge</p>
-                    <p style="font-size:12px;">
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse
-                    cillum dolore eu fugiat
-                    nulla
-                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt
-                    mollit anim id est laborum.
-                    </p>*@
-                    <p style="font-size:12px;">@Model.missionCard.mission.Description</p>
+                    <span style="font-size:12px;">@Model.missionCard.mission.Description</span>
                     <p class="mt-2">Documents</p>
                     @foreach (var item in Model.docs)
                     {
@@ -485,20 +514,6 @@
                             <span class="text-wrap">@item.DocumentName</span>
                         </a>
                     }
-                    @*<div class="container37" style="margin-top: 12px;margin-bottom: 12px;">
-                    <button class="container21 mt-2">
-                    <img src="~/assets/pdf.png" alt="Error" class="container41">
-                    <span class="container42">lorem-ipsum.pdf</span>
-                    </button>
-                    <button class="container21 mt-2">
-                    <img src="~/assets/pdf.png" alt="Error" class="container41">
-                    <span class="container42">at_vero_eos_accusamus.doc</span>
-                    </button>
-                    <button class="container21 mt-2">
-                    <img src="~/assets/pdf.png" alt="Error" class="container41">
-                    <span class="container42">important_doc.xls</span>
-                    </button>
-                    </div>*@
                 </div>
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
                      tabindex="0">
@@ -564,12 +579,14 @@
                     <div style="display:flex;">
                         <p style="font-size:10px;margin-right: 28px;">Rating</p>
                         <p style="font-size:8px;color: #757575;">
+                            @* <img src="~/assets/selected-star.png" alt="Error" style="width:9px;">
                             <img src="~/assets/selected-star.png" alt="Error" style="width:9px;">
                             <img src="~/assets/selected-star.png" alt="Error" style="width:9px;">
                             <img src="~/assets/selected-star.png" alt="Error" style="width:9px;">
                             <img src="~/assets/selected-star.png" alt="Error" style="width:9px;">
-                            <img src="~/assets/selected-star.png" alt="Error" style="width:9px;">
-                            (by 125 volunteers)
+                            (by 125 volunteers)*@
+                            <div class="Stars" style="--rating: @Model.avgRating;" aria-label="Rating of this product is @Model.avgRating out of 5."></div>
+                        <p style="font-size:8px;">(by @Model.ratingUserCount volunteers)</p>
                         </p>
                     </div>
                 </div>

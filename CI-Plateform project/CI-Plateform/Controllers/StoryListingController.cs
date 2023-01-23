@@ -21,6 +21,7 @@ namespace CI_Plateform.Controllers
         {
             StoryListingVM storyListingVM = new StoryListingVM();
             storyListingVM.storys = _db.Stories.ToList();
+            storyListingVM.user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
 
             List<SelectListItem> list1 = new List<SelectListItem>();
             var temp1 = _db.Skills.ToList();
@@ -277,6 +278,8 @@ namespace CI_Plateform.Controllers
             var user = _db.Users.FirstOrDefault(x => x.UserId == storyCardModel.story.UserId);
             storyCardModel.user = user;
             storyCardModel.Missions = _db.Missions.ToList();
+            storyCardModel.imgs = _db.StoryMedia.Where(x => x.StoryId == id).AsEnumerable().ToList();
+
 
             return View(storyCardModel);
         }
@@ -287,6 +290,8 @@ namespace CI_Plateform.Controllers
         public IActionResult ShareStory()
         {
             ShareStory shareStory = new ShareStory();
+            shareStory.user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
+
             List<SelectListItem> list = new List<SelectListItem>();
             var temp = _db.Missions.ToList();
             foreach (var item in temp)

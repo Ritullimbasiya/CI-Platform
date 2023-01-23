@@ -104,13 +104,13 @@
                 <div class="dropdown" style="bottom:19px;">
                     <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
-                        <img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                        <span class="d-none d-sm-inline mx-1">Ritul</span>
+                        <img src="@Url.Content(Model.admin.AdminAvatar)" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">@Model.admin.FirstName</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
-                        <li><a class="dropdown-item" href="#">My Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        @*<li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
+                        <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>*@
+                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -119,12 +119,8 @@
                 <span class="border-bottom border-dark border-2 pb-2" style="font-size: 22px;">User</span>
                 <div class="row">
                     <div class="col mb-3">
-                        <button type="submit"
-                                class="form-control rounded-pill btn btn-outline-warning font sherescontainer11">
-                            <i class="bi bi-plus" style="width: 12px;"></i>
-                            <a asp-controller="Admin" asp-action="aUseradd" class="adminaddbutton">
-                                Add
-                            </a>
+                        <button class="form-control rounded-pill btn btn-outline-warning font sherescontainer11" type="button" onclick="return location.href=' @Url.Action("aUseradd","Admin") '">
+                            <i class="bi bi-plus" style="width: 12px;"></i> Add
                         </button>
                     </div>
                 </div>
@@ -187,10 +183,8 @@
                         </div>
                         <form method="post" action="aUserdelete">
                             <div class="row" style="margin:18px 0px;display:block;text-align: center;">
-                                <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
-                                    <a asp-controller="Admin" asp-action="aUser" class="cancelbutton">
-                                        cancel
-                                    </a>
+                                <button class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10" type="button" onclick="return location.href=' @Url.Action("aUser","Admin") '">
+                                    cancel
                                 </button>
                                 @* <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
                             style="width:auto;font-size: 12px;">

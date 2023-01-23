@@ -4,6 +4,7 @@ namespace CI_Plateform.Models
 {
     public class StoryCardModel
     {
+        public List<StoryMedium> imgs { get; set; }
         public List<Mission>? Missions { get; set; } = null!;
         public Story? story { get; set; } = null;
         public string? CardImg { get; set; }

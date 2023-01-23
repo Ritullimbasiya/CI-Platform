@@ -36,7 +36,6 @@ namespace CI_Plateform.DbModels
         public virtual DbSet<Story> Stories { get; set; } = null!;
         public virtual DbSet<StoryInvite> StoryInvites { get; set; } = null!;
         public virtual DbSet<StoryMedium> StoryMedia { get; set; } = null!;
-        public virtual DbSet<TblUser> TblUsers { get; set; } = null!;
         public virtual DbSet<Timesheet> Timesheets { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserSkill> UserSkills { get; set; } = null!;
@@ -59,6 +58,8 @@ namespace CI_Plateform.DbModels
                 entity.ToTable("admin");
 
                 entity.Property(e => e.AdminId).HasColumnName("admin_id");
+
+                entity.Property(e => e.AdminAvatar).HasMaxLength(2048);
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")
@@ -877,23 +878,6 @@ namespace CI_Plateform.DbModels
                     .HasForeignKey(d => d.StoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_story_media_story");
-            });
-
-            modelBuilder.Entity<TblUser>(entity =>
-            {
-                entity.ToTable("tblUser");
-
-                entity.Property(e => e.Email).HasMaxLength(50);
-
-                entity.Property(e => e.FirstName).HasMaxLength(50);
-
-                entity.Property(e => e.LastName).HasMaxLength(50);
-
-                entity.Property(e => e.Password).HasMaxLength(50);
-
-                entity.Property(e => e.PhoneNo)
-                    .HasMaxLength(50)
-                    .HasColumnName("PhoneNO");
             });
 
             modelBuilder.Entity<Timesheet>(entity =>
