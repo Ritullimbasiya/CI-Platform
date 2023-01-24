@@ -1,0 +1,57 @@
+﻿@using CI_Plateform.Models
+@model PlateformVM
+
+<div class="container-fluid" style="padding-left:0px;">
+    <div class="row flex-nowrap container-fluid">
+        <form class="pt-3" method="post" action="Timegoaledit" enctype="multipart/form-data">
+            <input asp-for="timesheet.TimesheetId" hidden />
+            <input asp-for="timesheet.Time" hidden />
+            <input asp-for="timesheet.CreatedAt" hidden />
+
+            <h5 style="margin:auto;width:50%;">Volunteering Hours</h5>
+            <div class="row mt-2" style="margin:auto;width:50%;font-size:10px;">
+
+                <label for="" class="ps-0">Mission Title</label><br>
+                <select id="ddlmissions" class="sherescontainer1" asp-for="timesheet.MissionId" asp-items="@Model.MissionGoalList" aria-label="Default select example" style="height: 30px;border: 1px solid #e0d8d8;color: #757575;">
+                    <option class="sherescontainer1" selected>Select Mission</option>
+                </select>
+                <span asp-validation-for="timesheet.MissionId" class="text-danger"></span>
+            </div>
+            <div class="row mt-2" style="margin:auto;width:50%;font-size:10px;">
+                <label class="ps-0" asp-for="timesheet.Action">Action</label><br>
+                <input asp-for="timesheet.Action" type="number" id="ab" name="timesheet.Action" class="sherescontainer1" required>
+            </div>
+            <div class="row mt-2" style="margin:auto;width:50%;font-size:10px;">
+                <label class="ps-0" asp-for="timesheet.DateVolunteered">Date</label><br>
+                <input asp-for="timesheet.DateVolunteered" type="date" id="date" name="timesheet.DateVolunteered" class="sherescontainer1" required>
+            </div>
+            <div class="row mt-2" style="margin:auto;width:50%;font-size:10px;">
+                <label class="ps-0" asp-for="timesheet.Notes">Notes</label><br>
+                <input asp-for="timesheet.Notes" type="text" id="m" name="timesheet.Notes" placeholder="Enter your note" class="sherescontainer1" required>
+            </div>
+            <div class="row mt-2" style="margin:auto;width:50%;font-size:10px;">
+                <label asp-for="timesheet.Status" class="ps-0" style="display:block;">Status</label>
+                <select id="cmsStatus" asp-for="timesheet.Status" aria-label="Default select example" style="height: 30px;border: 1px solid #e0d8d8;color: #757575;">
+                    <option class="sherescontainer1" selected>Open this select menu</option>
+                    <option class="sherescontainer1" value="0">Not Active</option>
+                    <option class="sherescontainer1" value="1">Active</option>
+                </select>
+            </div>
+            <div class="row mt-2" style="float: right;margin:auto;width: 34%;">
+                <button type="button" class="form-control rounded-pill btn btn-outline-dark font  sherescontainer10">
+                    <a asp-controller="TimeSheet" asp-action="Timesheet" class="cancelbutton">
+                        cancel
+                    </a>
+                </button>
+                <button type="submit" asp-controller="TimeSheet" asp-action="Timegoaledit" class="form-control rounded-pill btn btn-outline-warning font"
+                        style="width:auto;font-size: 12px;">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+

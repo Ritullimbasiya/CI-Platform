@@ -114,7 +114,7 @@
                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                         @*<li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                         <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>*@
-                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                        <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -134,17 +134,20 @@
                     <div class="row" style="margin:18px 0px;padding-left: 0px;">
                         <label asp-for="Banner.Title" style="padding:0px;">Banner Title</label><br>
                         <textarea asp-for="Banner.Title" name="Banner.Title" placeholder="Enter banner title..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
+                        <span asp-validation-for="Banner.Title" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="row" style="margin:18px 0px;padding-left: 0px;">
                         <label asp-for="Banner.Text" style="padding:0px;">Banner Text</label><br>
                         <input type="text" asp-for="Banner.Text" id="title" name="Banner.Text" placeholder="Enter banner title...">
+                        <span asp-validation-for="Banner.Text" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="row" style="margin:0px;font-size: 10px;">
                         <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                             <label asp-for="Banner.SortOrder">Short Order</label><br>
                             <input type="number" asp-for="Banner.SortOrder" id="sorder" name="Banner.SortOrder" placeholder="Enter your short order"
                                    class="sherescontainer1" required>
-                        </div>
+                            <span asp-validation-for="Banner.SortOrder" class="text-danger" style="font-size:12px;"></span>
+                               </div>
                     </div>
                 </div>
                 <div class="row mt-2" style="margin:0px;display:block;float: right;">
@@ -160,3 +163,6 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

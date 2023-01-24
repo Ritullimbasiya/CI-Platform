@@ -1,5 +1,6 @@
 ﻿using CI_Plateform.DbModels;
 using CI_Plateform.Models;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -71,10 +72,11 @@ namespace CI_Plateform.Controllers
                 return NotFound();
         }
         [HttpGet]
-        public IActionResult timeHourEdit(int? id)
+        public IActionResult TimeHourEdit(int? id)
         {
             PlateformVM plateformVM = new PlateformVM();
             plateformVM.timesheet = _db.Timesheets.FirstOrDefault(x => x.TimesheetId == id);
+            
 
             List<SelectListItem> list = new List<SelectListItem>();
             var temp = _db.MissionApplications.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null && x.Mission.MissionType == 1).Select(x => x.MissionId).ToList();
@@ -82,12 +84,12 @@ namespace CI_Plateform.Controllers
             {
                 var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
                 list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
-            }
+            } 
             plateformVM.MissionHourList = list;
             return View(plateformVM);
         }
         [HttpPost]
-        public IActionResult timeHourEdit(PlateformVM model)
+        public IActionResult TimeHourEdit(PlateformVM model)
         {
             if (model.timesheet != null)
             {
@@ -96,8 +98,14 @@ namespace CI_Plateform.Controllers
                 model.timesheet.MissionId = model.mission.MissionId;
 
                 model.timesheet.UpdatedAt = DateTime.Now;
+                if(model.timesheet.Time != null) {
                 _db.Timesheets.Update(model.timesheet);
                 _db.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+                }
                 return RedirectToAction("Timesheet", "Timesheet");
             }
             else
@@ -147,23 +155,25 @@ namespace CI_Plateform.Controllers
                 return NotFound();
         }
 
-        /*[HttpGet]
-       public IActionResult timeGoalEdit()
+       [HttpGet]
+       public IActionResult Timegoaledit(int?id)
        {
            PlateformVM plateformVM = new PlateformVM();
-           List<SelectListItem> list = new List<SelectListItem>();
+           plateformVM.timesheet = _db.Timesheets.FirstOrDefault(x => x.TimesheetId == id);
+
+            List<SelectListItem> list = new List<SelectListItem>();
            var temp = _db.MissionApplications.Where(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null && x.Mission.MissionType == 2).Select(x => x.MissionId).ToList();
            foreach (var item in temp)
            {
                var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
                list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
            }
-           plateformVM.MissionList = list;
+           plateformVM.MissionGoalList = list;
            return View(plateformVM);
-       }*/
+       }
 
         [HttpPost]
-        public IActionResult timeGoalEdit(PlateformVM model)
+        public IActionResult Timegoaledit(PlateformVM model)
         {
             if (model.timesheet != null)
             {

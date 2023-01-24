@@ -773,6 +773,8 @@ namespace CI_Plateform.DbModels
 
                 entity.Property(e => e.Status).HasColumnName("status");
 
+                entity.Property(e => e.StoryView).HasColumnName("story_view");
+
                 entity.Property(e => e.Title)
                     .HasMaxLength(255)
                     .HasColumnName("title");

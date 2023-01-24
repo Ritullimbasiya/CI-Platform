@@ -16,6 +16,8 @@ namespace CI_Plateform.Models
         public Mission? Mission { get; set; } = null!;
         public MissionTheme? MissionTheme { get; set; } = null!;
         public Skill? Skill { get; set; } = null!;
+        public List<UserSkill>? skl { get; set; } = null!;
+        public List<Skill>? skll { get; set; } = null!;
         public Banner? Banner { get; set; } = null!;
         public MissionMedium? missionMedium { get; set; } = null!;
         public MissionDocument? missionDocument { get; set; } = null!;

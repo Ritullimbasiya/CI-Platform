@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using MimeKit.Text;
+using Org.BouncyCastle.Crypto.Generators;
 using System.Text;
 
 namespace CI_Plateform.Controllers
@@ -113,6 +114,7 @@ namespace CI_Plateform.Controllers
             }
 
         }
+        
 
         #endregion
 

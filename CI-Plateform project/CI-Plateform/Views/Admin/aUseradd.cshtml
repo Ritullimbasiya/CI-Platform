@@ -114,7 +114,7 @@
                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                         @*<li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                         <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>*@
-                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                        <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -126,11 +126,13 @@
                         <label asp-for="User.FirstName">Name*</label><br>
                         <input type="text" asp-for="User.FirstName" id="name" name="User.FirstName" placeholder="Enter your name"
                                class="sherescontainer1" required>
+                        <span asp-validation-for="User.FirstName" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="User.LastName">Surname*</label><br>
                         <input type="text" asp-for="User.LastName" id="surname" name="User.LastName" placeholder="Enter your surname"
                                class="sherescontainer1" required>
+                        <span asp-validation-for="User.LastName" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
@@ -138,11 +140,13 @@
                         <label asp-for="User.Email">Email*</label><br>
                         <input type="email" asp-for="User.Email" id="email" name="User.Email" placeholder="Enter your email"
                                class="sherescontainer1" required>
+                        <span asp-validation-for="User.Email" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="User.Password">Password*</label><br>
                         <input type="password" asp-for="User.Password" id="password" name="User.Password" placeholder="Enter your password"
                                class="sherescontainer1" required>
+                        <span asp-validation-for="User.Password" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
@@ -150,6 +154,7 @@
                         <label asp-for="User.PhoneNumber">Phone number</label><br>
                         <input type="number" asp-for="User.PhoneNumber" id="phonenumber" name="User.PhoneNumber"
                                placeholder="Enter your phonenumber" class="sherescontainer1" required>
+                        <span asp-validation-for="User.PhoneNumber" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         @*<label asp-for="User.Avatar" style="padding:0px;">Avatar</label><br>
@@ -164,16 +169,19 @@
                         <label asp-for="User.EmployeeId">Employee id</label><br>
                         <input type="number" asp-for="User.EmployeeId" id="empid" name="User.EmployeeId" placeholder="Enter your employee id"
                                class="sherescontainer1" required>
+                        <span asp-validation-for="User.EmployeeId" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="User.Department">Department</label><br>
                         <input type="text" asp-for="User.Department" id="Department" name="User.Department" placeholder="Enter your depatment"
                                class="sherescontainer1" required>
+                        <span asp-validation-for="User.Department" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
                     <label asp-for="User.WhyIVolunteer" style="padding:0px;">Why i volunteer??</label><br>
                     <textarea asp-for="User.WhyIVolunteer" name="User.WhyIVolunteer" placeholder="Enter description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
+                    <span asp-validation-for="User.WhyIVolunteer" class="text-danger" style="font-size:12px;"></span>
                 </div>
                 <div class="row" style="margin:0px;font-size: 10px;">
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
@@ -185,7 +193,7 @@
                         <select class="sherescontainer1" id="ddlCountry" asp-for="User.CountryId" asp-items="@Model.CountryList" aria-label="Default select example">
                             <option class="sherescontainer1" selected>Select Country</option>
                         </select>
-                        <span asp-validation-for="User.CountryId" class="text-danger"></span>
+                        <span asp-validation-for="User.CountryId" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         @*<label asp-for="Country.CountryId">Country</label>
@@ -195,12 +203,13 @@
                         <label for="">City</label>
                         <select class="sherescontainer1" id="ddlCity" asp-for="User.CityId" asp-items="@Model.CityList" aria-label="Default select example">
                         </select>
-                        <span asp-validation-for="User.CityId" class="text-danger"></span>
+                        <span asp-validation-for="User.CityId" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px; padding-left: 0px;font-size:10px;">
                     <label asp-for="User.ProfileText" style="padding:0px;">Profile Text</label><br>
                     <textarea asp-for="User.ProfileText" name="User.ProfileText" placeholder="Enter text..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
+                    <span asp-validation-for="User.ProfileText" class="text-danger" style="font-size:12px;"></span>
                     @*<div style="width:100%;padding:0px;">
                     <div asp-for="ProfileText" id="editor1">Enter text.</div>
                     </div>*@
@@ -215,6 +224,7 @@
                         <label asp-for="User.Title">Title</label><br>
                         <input type="text" asp-for="User.Title" id="title" name="User.Title" placeholder="Enter your title" class="sherescontainer1"
                                required>
+                        <span asp-validation-for="User.Title" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </div>
 
@@ -231,3 +241,6 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -19,7 +19,7 @@
                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                             <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                             <li><a class="dropdown-item" asp-controller="TimeSheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
-                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                         </ul>
                     </div>
                     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
@@ -59,7 +59,7 @@
                                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                                         <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                                         <li><a class="dropdown-item" asp-controller="TimeSheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
-                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -115,10 +115,14 @@
                                                 <td>@obj.Time</td>
                                                 <td>@obj.Time</td>
                                                 <td class="text-center d-flex">
-                                                    <button class="btn btn-light" data-bs-toggle="offcanvas"
-                                           @* onclick="{ return location.href=' @Url.Action("timeHourEdit", "TimeSheet" ,new {id = @obj.TimesheetId})' } "*@ data-bs-target="#timehouredit_@obj.TimesheetId" aria-controls="timegoaledit">
+                                                    @* onclick="{ return location.href=' @Url.Action("timeHourEdit", "TimeSheet" ,new {id = @obj.TimesheetId})' } "*@
+                                                    @*<button class="btn btn-light" data-bs-toggle="offcanvas"
+                                            data-bs-target="#timehouredit_@obj.TimesheetId" aria-controls="timegoaledit">
                                                         <i class="bi bi-pencil-square text-secondary"></i>
-                                                    </button>
+                                                    </button>*@
+                                                    <a class="btn btn-light" asp-controller="Timesheet" asp-action="Timehouredit" asp-route-id="@obj.TimesheetId">
+                                                        <i class="bi bi-pencil-square text-secondary"></i>
+                                                    </a>
                                                     <button class="btn btn-light" data-bs-toggle="offcanvas"
                                             data-bs-target="#timehourdelete_@obj.TimesheetId" aria-controls="deleteuser">
                                                         <i class="bi bi-trash"></i>
@@ -164,10 +168,13 @@
                                                 <td>@obj.DateVolunteered</td>
                                                 <td>@obj.Action</td>
                                                 <td class="text-center d-flex">
-                                                    <button class="btn btn-light" data-bs-toggle="offcanvas"
+                                                    @*<button class="btn btn-light" data-bs-toggle="offcanvas"
                                             data-bs-target="#timegoaledit_@obj.TimesheetId" aria-controls="timegoaledit">
                                                         <i class="bi bi-pencil-square text-secondary"></i>
-                                                    </button>
+                                                    </button>*@
+                                                    <a class="btn btn-light" asp-controller="Timesheet" asp-action="Timegoaledit" asp-route-id="@obj.TimesheetId">
+                                                        <i class="bi bi-pencil-square text-secondary"></i>
+                                                    </a>
                                                     <button class="btn btn-light" data-bs-toggle="offcanvas"
                                             data-bs-target="#timeGoalDelete_@obj.TimesheetId" aria-controls="deleteuser">
                                                         <i class="bi bi-trash"></i>

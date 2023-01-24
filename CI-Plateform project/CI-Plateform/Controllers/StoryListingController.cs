@@ -274,7 +274,14 @@ namespace CI_Plateform.Controllers
         public IActionResult StoryDetail(int id)
         {
             StoryCardModel storyCardModel = new StoryCardModel();
-            storyCardModel.story = _db.Stories.FirstOrDefault(x => x.StoryId == id);
+
+            var story = _db.Stories.FirstOrDefault(x => x.StoryId == id);
+            story.StoryView += 1;
+            _db.Stories.Update(story);
+            _db.SaveChanges();
+
+            storyCardModel.story = _db.Stories.FirstOrDefault(x => x.StoryId == id && x.DeletedAt == null);
+           /* storyCardModel.story.StoryView = storyCardModel.story.StoryView + 1;*/
             var user = _db.Users.FirstOrDefault(x => x.UserId == storyCardModel.story.UserId);
             storyCardModel.user = user;
             storyCardModel.Missions = _db.Missions.ToList();
@@ -306,7 +313,8 @@ namespace CI_Plateform.Controllers
         {
             if (model != null)
             {
-                model.Story.UserId = 14;
+                model.Story.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
+                model.Story.StoryView = 00;
                 model.Story.CreatedAt = DateTime.Now;
                 model.Story.Status = 1;
                 _db.Stories.Add(model.Story);

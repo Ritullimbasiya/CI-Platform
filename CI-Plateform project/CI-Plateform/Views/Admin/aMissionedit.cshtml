@@ -127,7 +127,7 @@
                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                         @*<li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                         <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>*@
-                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                        <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -153,36 +153,41 @@
                         <select class="sherescontainer1" id="ddlCountry" asp-for="Mission.CountryId" asp-items="@Model.CountryList" aria-label="Default select example">
                             <option class="sherescontainer1" selected>Select Country</option>
                         </select>
-                        <span asp-validation-for="Mission.CountryId" class="text-danger"></span>
+                        <span asp-validation-for="Mission.CountryId" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label for="">City</label>
                         <select class="sherescontainer1" id="ddlCity" asp-for="Mission.CityId" asp-items="@Model.CityList" aria-label="Default select example">
                         </select>
-                        <span asp-validation-for="Mission.CityId" class="text-danger"></span>
+                        <span asp-validation-for="Mission.CityId" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
                     <label asp-for="Mission.Title" style="padding:0px;">Mission Title</label><br>
                     <input asp-for="Mission.Title" type="text" id="title" name="Mission.Title" placeholder="Enter title" class="sherescontainer1"
                            required>
+                    <span asp-validation-for="Mission.Title" class="text-danger" style="font-size:12px;"></span>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
                     <label asp-for="Mission.ShortDescription" style="padding:0px;">Short Description</label><br>
                     <textarea asp-for="Mission.ShortDescription" name="Mission.ShortDescription" placeholder="Enter Short description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
+                <span asp-validation-for="Mission.ShortDescription" class="text-danger" style="font-size:12px;"></span>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
                     <label asp-for="Mission.Description" style="padding:0px;">Description</label><br>
                     <textarea asp-for="Mission.Description" name="Mission.Description" placeholder="Enter  description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
+                    <span asp-validation-for="Mission.Description" class="text-danger" style="font-size:12px;"></span>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
                     <label asp-for="Mission.OrganizationName" style="padding:0px;">Organization Name</label><br>
                     <input asp-for="Mission.OrganizationName" type="text" id="oName" name="Mission.OrganizationName" placeholder="Enter your Organization Name"
                            class="sherescontainer1" required>
-                </div>
+                    <span asp-validation-for="Mission.OrganizationName" class="text-danger" style="font-size:12px;"></span>
+                       </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
                     <label asp-for="Mission.OrganizationDetail" style="padding:0px;">Organisation Detail</label><br>
                     <textarea asp-for="Mission.OrganizationDetail" name="Mission.OrganizationDetail" placeholder="Enter organisation description..." style="color: #757575;width:100%;height:100px;resize:none;border: 1px solid #d9d9d9;"></textarea>
+                    <span asp-validation-for="Mission.OrganizationDetail" class="text-danger" style="font-size:12px;"></span>
                 </div>
                 <div class="row mt-2" style="margin:0px;padding-right: 15px;padding-left: 0px;font-size:10px;">
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
@@ -192,7 +197,7 @@
                             <option class="sherescontainer1" value="1">Time</option>
                             <option class="sherescontainer1" value="2">Goal</option>
                         </select>
-                        <span asp-validation-for="Mission.MissionType" class="text-danger"></span>
+                        <span asp-validation-for="Mission.MissionType" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </div>
 
@@ -202,16 +207,19 @@
                         <label asp-for="Mission.StartDate">Start Date</label>
                         <input type="date" name="mission.StartDate" asp-for="Mission.StartDate" class="sherescontainer1"
                                placeholder="Select start date" id="">
+                        <span asp-validation-for="Mission.StartDate" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="Mission.EndDate">End Date</label>
                         <input type="date" name="Mission.EndDate" asp-for="Mission.EndDate" class="sherescontainer1"
                                placeholder="Select end date" id="">
+                        <span asp-validation-for="Mission.EndDate" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="Mission.Deadline">Mission registration deadline</label>
                         <input type="date" name="Mission.Deadline" asp-for="Mission.Deadline" class="sherescontainer1"
                                placeholder="Enter mission registration deadline" id="">
+                        <span asp-validation-for="Mission.Deadline" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </span>
 
@@ -220,11 +228,13 @@
                         <label asp-for="GoalMission.GoalValue">Total seats</label>
                         <input type="number" name="GoalMission.GoalValue" asp-for="GoalMission.GoalValue" class="sherescontainer1"
                                placeholder="Enter total seats" id="">
+                        <span asp-validation-for="GoalMission.GoalValue" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="col-md-4 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="GoalMission.GoalObjectiveText">Goal Objective</label>
                         <input type="text" name="GoalMission.GoalObjectiveText" asp-for="GoalMission.GoalObjectiveText" class="sherescontainer1"
                                placeholder="Enter Mission Title" id="">
+                        <span asp-validation-for="GoalMission.GoalObjectiveText" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </span>
 
@@ -234,7 +244,7 @@
                         <select class="sherescontainer1" asp-for="Mission.MissionThemeId" asp-items="@Model.ThemeList" aria-label="Default select example">
                             <option class="sherescontainer1" selected>Open this select menu</option>
                         </select>
-                        <span asp-validation-for="Mission.MissionThemeId" class="text-danger"></span>
+                        <span asp-validation-for="Mission.MissionThemeId" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
 
@@ -245,7 +255,7 @@
                                     data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
                             </select>
                         </div>
-                        <span asp-validation-for="addSkill" class="text-danger"></span>
+                        <span asp-validation-for="addSkill" class="text-danger" style="font-size:12px;"></span>
 
                     </div>
                 </div>
@@ -267,6 +277,7 @@
                             <option class="sherescontainer1" value="3">week-end</option>
                             <option class="sherescontainer1" value="4">monthly</option>
                         </select>
+                        <span asp-validation-for="Mission.Availability" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </div>
 
@@ -283,4 +294,6 @@
         </div>
     </div>
 </div>
-
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

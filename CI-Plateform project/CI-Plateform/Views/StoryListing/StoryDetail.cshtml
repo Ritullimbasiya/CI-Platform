@@ -1,6 +1,44 @@
 ﻿@using CI_Plateform.Models;
 @model StoryCardModel
 
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        const slides = document.querySelectorAll(".slide")
+        const vid = document.querySelectorAll("video.slide")
+        const totalImgInSlider = 4;
+        const totalImg = @Model.imgs.Count();
+        var counter = 0;
+
+        slides.forEach(
+            (slider, index) => {
+                slider.style.left = `${index * 100 / totalImgInSlider}%`
+            }
+        )
+        slideImg = () => {
+            slides.forEach((slider) => {
+                slider.style.transform = `translateX(-${counter * 100}%)`
+            })
+        }
+        goPrev = () => {
+            if (counter != 0)
+                counter--;
+            slideImg();
+        }
+        goNext = () => {
+            if (counter < totalImg - totalImgInSlider)
+                counter++;
+            slideImg();
+        }
+        setImage = () => {
+            document.getElementById("demo").src = document.querySelector(".slide.active").src;
+        }
+    });
+</script>
+
 <div class="body-1">
     <div class="body-2">
         <div class="nevbar-1" style="height:43px;">
@@ -20,7 +58,7 @@
                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                             <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                             <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
-                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                         </ul>
                     </div>
                     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
@@ -61,7 +99,7 @@
                                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                                         <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                                         <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
-                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -172,7 +210,7 @@
                         <div class="col pad8">
                             <button class="container21" style="border: solid 1px #e8e8e8;">
                                 <img src="~/assets/eye.png" alt="Error" style="width: 12px;">
-                                <span class="container22">00 Views</span>
+                                <span class="container22">@Model.story.StoryView</span>
                             </button>
                         </div>
                     </div>

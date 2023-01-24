@@ -114,7 +114,7 @@
                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                         @*<li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                         <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>*@
-                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                        <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -128,6 +128,7 @@
                         <label asp-for="Skill.SkillName" style="padding:0px;">Mission Skill</label><br>
                         <input asp-for="Skill.SkillName" type="text" id="mSkill" name="Skill.SkillName" placeholder="Enter Mission Skill"
                                class="sherescontainer1" required>
+                        <span asp-validation-for="Skill.SkillName" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <div style="margin:18px 0px;padding-left: 0px;font-size:10px;">
                         <label asp-for="Skill.Status" class="ps-0" style="display:block;">Status</label>
@@ -136,6 +137,7 @@
                             <option class="sherescontainer1" value="0">Not Active</option>
                             <option class="sherescontainer1" value="1">Active</option>
                         </select>
+                        <span asp-validation-for="Skill.Status" class="text-danger" style="font-size:12px;"></span>
                     </div>
                 </div>
                 <div class="row mt-2" style="margin:0px;display:block;float: right;">
@@ -151,3 +153,6 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

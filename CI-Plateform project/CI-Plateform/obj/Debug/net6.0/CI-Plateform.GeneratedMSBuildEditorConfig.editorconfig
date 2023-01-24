@@ -136,6 +136,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGVmb3JtXFZpZXdEZXRhaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/Plateform/_AddSkillPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGVmb3JtXF9BZGRTa2lsbFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/Plateform/_MissionGridPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGVmb3JtXF9NaXNzaW9uR3JpZFBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -162,6 +166,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/StoryListing/_StoryGridPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcnlMaXN0aW5nXF9TdG9yeUdyaWRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/TimeSheet/Timegoaledit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoZWV0XFRpbWVnb2FsZWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/TimeSheet/Timehouredit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZVNoZWV0XFRpbWVob3VyZWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/TimeSheet/Timesheet.cshtml]

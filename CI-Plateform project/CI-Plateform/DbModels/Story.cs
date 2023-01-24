@@ -16,6 +16,7 @@ namespace CI_Plateform.DbModels
         public long MissionId { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
+        public long? StoryView { get; set; }
         public int Status { get; set; }
         public DateTime? PublishedAt { get; set; }
         public DateTime CreatedAt { get; set; }

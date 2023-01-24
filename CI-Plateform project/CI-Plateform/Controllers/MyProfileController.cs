@@ -17,11 +17,12 @@ namespace CI_Plateform.Controllers
         }*/
 
         [HttpGet]
+        [CheckSession]
         public IActionResult Myprofile(int? id)
         {
             UserVm userVM = new UserVm();
             userVM.User = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
-          
+            userVM.skl = _db.Skills.Where(x => x.DeletedAt == null).ToList();
 
             List<SelectListItem> list = new List<SelectListItem>();
             var temp = _db.Countries.ToList();
@@ -79,6 +80,68 @@ namespace CI_Plateform.Controllers
             return RedirectToAction("MyProfile", "MyProfile");
         }
         #endregion Change Password
+
+
+        #region Add Skill
+
+        public IActionResult AddUserSkill()
+        {
+            var model = new AddUserSkillModel();
+            model.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
+
+            #region Fill Skill Drop-Down
+            List<SelectListItem> list = new List<SelectListItem>();
+            var temp = _db.Skills.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
+
+            List<SelectListItem> list1 = new List<SelectListItem>();
+            var temp2 = _db.UserSkills.Where(x => x.UserId == model.UserId).AsEnumerable().ToList();
+            foreach (var item in temp2)
+            {
+                list1.Add(new SelectListItem() { Text = temp.Find(x => x.SkillId == item.SkillId).SkillName, Value = item.SkillId.ToString() });
+            }
+            model.userOldSkill = list1;
+
+            foreach (var item in temp)
+            {
+                if (temp2.Find(x => x.SkillId == item.SkillId) == null)
+                {
+                    list.Add(new SelectListItem() { Text = item.SkillName, Value = item.SkillId.ToString() });
+                }
+            }
+            model.skills = list;
+            #endregion Fill Skill Drop-Down
+
+            return PartialView("_AddSkillPartial", model);
+        }
+
+        [HttpPost]
+        public JsonResult AddUserSkill(string userSkills)
+        {
+            var userId = int.Parse(HttpContext.Session.GetString("UserId"));
+            _db.UserSkills.RemoveRange(_db.UserSkills.Where(x => x.UserId == userId));
+            _db.SaveChanges();
+
+            #region Add  Skill
+            if (userSkills != null)
+            {
+                var temp = userSkills;
+                var numbers = temp?.Split(',')?.Select(Int32.Parse)?.ToList();
+                foreach (var n in numbers)
+                {
+                    var skill = new UserSkill();
+                    skill.UserId = userId;
+                    skill.SkillId = n;
+
+                    _db.UserSkills.Add(skill);
+                    _db.SaveChanges();
+                }
+            }
+            #endregion Add Skill
+
+            return Json("True");
+        }
+
+        #endregion Add Skill
 
 
         #endregion Myprofile

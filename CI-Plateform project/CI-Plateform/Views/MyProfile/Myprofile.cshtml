@@ -26,7 +26,7 @@
                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                             <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                             <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
-                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                         </ul>
                     </div>
                     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
@@ -71,7 +71,7 @@
                                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                                         <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                                         <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
-                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -199,12 +199,23 @@
                     <h6 style="font-size:14px;">My Skills</h6>
                     <hr>
                     <div class="row" style="margin:18px 0px; font-size: 10px;">
-                        <textarea style="width:100%;height:100px;border: 1px solid #d9d9d9;resize: none;">Anthropology , Archeology , Astronomy , Computer Science , Environmental Science , History
+                        <textarea style="width:100%;height:100px;border: 1px solid #d9d9d9;resize: none;">
+                            @foreach(var obj in Model.skl)
+                            {
+                                <span>@obj.SkillName</span>
+                                <br />
+                            }
                         </textarea>
                     </div>
                     <div class="row" style="margin:18px 0px;display:block;">
-                        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addskills"
+                        @*<button type="button" data-bs-toggle="offcanvas" data-bs-target="#addskills"
                                 class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10">
+                            Add
+                            Skills
+                        </button>*@
+                        <button type="button" data-target="#addSkills"
+                                class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10"
+                                data-toggle="ajax-modal" data-url="@Url.Action("AddUserSkill")">
                             Add
                             Skills
                         </button>
@@ -249,26 +260,21 @@
     </div>
     <div class="offcanvas-body">
         <div>
-            <!-- <select class="form-select" aria-label="Default select example" multiple>
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select> -->
+           @* <label for="">Skills</label>
+            <select class="sherescontainer1" id="ddlSkill" asp-for="User.CountryId" asp-items="@Model.SkillList" aria-label="Default select example">
+                <option class="sherescontainer1" selected>Select Country</option>
+            </select>
 
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Anthropology">
-                <label class="form-check-label" for="Anthropology">Anthropology</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Archeology">
-                <label class="form-check-label" for="Archeology">Archeology</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Astronomy">
-                <label class="form-check-label" for="Astronomy">Astronomy</label>
-            </div>
-            <div class="form-check">
+            <span asp-validation-for="User.CountryId" class="text-danger"></span>*@
+            @foreach(var obj in Model.skl)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="ddlskill">
+                    <label class="form-check-label" for="addSkill">@obj.SkillName</label>
+                </div>
+            }
+            
+           @* <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="Science">
                 <label class="form-check-label" for="Science">Science</label>
             </div>
@@ -287,19 +293,7 @@
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="Research">
                 <label class="form-check-label" for="Research">Research</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Administrative">
-                <label class="form-check-label" for="Administrative">Administrative</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Support Customer">
-                <label class="form-check-label" for="Support Customer">Support Customer</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Service Data">
-                <label class="form-check-label" for="Service Data">Service Data</label>
-            </div>
+            </div>*@
         </div>
         <div class="row" style="margin:18px 0px;display:block;">
             <button type="button"

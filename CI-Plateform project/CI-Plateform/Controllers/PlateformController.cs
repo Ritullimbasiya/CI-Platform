@@ -24,6 +24,7 @@ namespace CI_Plateform.Controllers
         }
 
         #region Plateform(Home) Get
+        [CheckSession]
         public IActionResult Plateform(int pg = 1)
         {
             PlateformVM plateformVM = new PlateformVM();
@@ -79,7 +80,7 @@ namespace CI_Plateform.Controllers
             /*plateformVM.missionsCard = cardData;*/
             /*return View(plateformVM);*/
 
-            /*--------------------------*/
+            /*----------Pagenation--------------*/
             const int pageSize = 3;
 
             int recsCount = tempMission.Count();

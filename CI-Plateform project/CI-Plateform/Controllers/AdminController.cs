@@ -681,7 +681,6 @@ namespace CI_Plateform.Controllers
         {
             var obj = _db.Stories.FirstOrDefault(x => x.StoryId == id);
             obj.Status = 0;
-            obj.DeletedAt = DateTime.Now;
             _db.Stories.Update(obj);
             _db.SaveChanges();
             return RedirectToAction("aStorylisting", "Admin");

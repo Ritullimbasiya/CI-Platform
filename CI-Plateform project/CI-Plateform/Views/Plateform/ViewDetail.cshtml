@@ -8,6 +8,7 @@
 <script>
     $(document).ready(function () {
         $("#rt_1").click(function () {
+
             $(".rtcolor").removeClass("text-warning");
             $("#rt_1").addClass("text-warning");
             RateMission(1);
@@ -16,8 +17,10 @@
             $(".rtcolor").removeClass("text-warning");
             $("#rt_1, #rt_2").addClass("text-warning");
             RateMission(2);
+
         });
         $("#rt_3").click(function () {
+            console.log("Hello");
             $(".rtcolor").removeClass("text-warning");
             $("#rt_1, #rt_2, #rt_3").addClass("text-warning");
             RateMission(3);
@@ -135,7 +138,7 @@
                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                             <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                             <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
-                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                         </ul>
                     </div>
 
@@ -175,7 +178,7 @@
                                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                                         <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                                         <li><a class="dropdown-item" asp-controller="Timesheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
-                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -278,6 +281,17 @@
                     <p class="container24">
                         @Model.missionCard.mission.ShortDescription
                     </p>
+                    @*@for (int i = 1; i <= 5; i++)
+                    {
+                    if (Model.myRating >= i)
+                    {
+                    <i id="rt_@i" class="bi bi-star-fill rtcolor text-warning" style="font-size:15px;"></i>
+                    }
+                    else
+                    {
+                    <i id="rt_@i" class="bi bi-star rtcolor" style="font-size:15px;color: #757575;"></i>
+                    }
+                    }*@
                     <hr style="margin-top:0px;margin-bottom: 11px;">
                     @if (Model.missionCard.mission.StartDate == null)
                     {
@@ -354,6 +368,7 @@
                             </div>
                         </li>
                     </ul>
+
                     <hr style="margin-top:15px; margin-bottom:0px;">
                     <div class="container37" style="margin-top: 12px;margin-bottom: 12px;">
 
@@ -391,28 +406,26 @@
                             Co-Worker
                         </button>
                     </div>
-                    <hr style="margin-top: 20px;margin-bottom: 11px;">
-                    <div class="cardcontainer18" style="position:relative;bottom:13px;">
-                        <button class="cardcontainer16" style="border:none;width:96px;">
-                            @*<img src="~/assets/star-empty.png" alt="Error" style="width:15px;">
-                            <img src="~/assets/star-empty.png" alt="Error" style="width:15px;">
-                            <img src="~/assets/star-empty.png" alt="Error" style="width:15px;">
-                            <img src="~/assets/star-empty.png" alt="Error" style="width:15px;">
-                            <img src="~/assets/star-empty.png" alt="Error" style="width:15px;">*@
-                            @for (int i = 1; i <= 5; i++)
+
+                    @*<div class="cardcontainer18" style="position:relative;bottom:13px;">
+                    <div class="cardcontainer16" style="border:none;width:96px;">*@
+                    <div style="text-align:center;">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (Model.myRating >= i)
                             {
-                                if (Model.myRating >= i)
-                                {
-                                    <i id="rt_@i" class="bi bi-star-fill rtcolor text-warning" style="font-size:15px;"></i>
-                                }
-                                else
-                                {
-                                    <i id="rt_@i" class="bi bi-star rtcolor" style="font-size:15px;color: #757575;"></i>
-                                }
+                                <i id="rt_@i" class="bi bi-star-fill rtcolor text-warning" style="font-size:15px;"></i>
                             }
-                        </button>
+                            else
+                            {
+                                <i id="rt_@i" class="bi bi-star rtcolor" style="font-size:15px;color: #757575;"></i>
+                            }
+                        }
                     </div>
-                    <div class="row" style="display:flex;">
+                    @* </div>
+                    </div>*@
+                    <hr style="margin:0px">
+                    <div class="row" style="display:flex;margin-top:30px;">
                         <div class="col container28">
                             <img src="~/assets/pin1.png" alt="Error" style="width:10px;">
                             <p class="container29">Country</p>
