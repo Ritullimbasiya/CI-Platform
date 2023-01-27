@@ -174,7 +174,7 @@ namespace CI_Plateform.Controllers
             var tokenString = new String(stringChars);
 
             PasswordReset entry = new PasswordReset();
-            entry.Email = obj.Email;
+            entry.Email = obj.User.Email;
             entry.Token = tokenString;
             entry.CreatedAt = DateTime.Now;
             _db.PasswordResets.Add(entry);

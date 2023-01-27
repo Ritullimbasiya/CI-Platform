@@ -1,6 +1,39 @@
 ﻿@using CI_Plateform.Models;
 @model List<MissionCardModel>
 
+<script>
+        $(function () {
+        var PlaceHolderElement = $('#PlaceHolderHere');
+        $('button[data-toggle="ajax-modal"]').click(function (event) {
+            var url = $(this).data('url');
+            var decodeUrl = decodeURIComponent(url);
+            console.log(url);
+            $.get(decodeUrl).done(function (data) {
+                PlaceHolderElement.html(data);
+                PlaceHolderElement.find('.modal').modal('show');
+            })
+        })
+        PlaceHolderElement.on('click', '[data-bs-save="modal"]', function (event) {
+            var formData = new FormData($('#modalForm').get(0));
+            var form = $(this).parents('.modal').find('form');
+            var actionUrl = form.attr('action');
+            $.ajax({
+                url: "/Plateform/" + actionUrl,
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (data) {
+                    PlaceHolderElement.find('.modal').modal('hide');
+                }
+            })
+            PlaceHolderElement.find('.modal').modal('hide');
+        })
+    })
+
+</script>
+
 <div class="row">
     @foreach (var card in @Model)
     {
@@ -48,19 +81,18 @@
                 </button>
                 }*@
 
-
-
-                        @*<button class="cardcontainer13">
-                <img src="~/assets/heart.png" alt="Error" style="width:11px; padding-bottom: 6px;">
-                </button>*@
-                        <button class="cardcontainer14">
+                        
+                        <button type="button" data-toggle="ajax-modal" data-target="#SuggestWorker" 
+                        class="cardcontainer14" data-url="@Url.Action("SuggestCoWorker", "Plateform" , new{id = card.mission.MissionId})">
                             <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
-                        </button>
+                    </button>
+                        
+
                         <button class="cardcontainer15">
                             @card.theme
                         </button>
                     </div>
-                    <div id="PlaceHolderHere"></div>
+                   
                     <div class="card-body" style="margin-bottom:-15px;position: relative;">
                         <p class="card-title">@card.mission.Title</p>
                         <p class="card-text">
@@ -69,11 +101,6 @@
                         <div class="cardcontainer1" style="display:flex;align-items:baseline;">
                             <p class="cardcontainer2">@card.mission.OrganizationName</p>
                             <div style="margin-left: auto;">
-                                @*<img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
-                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">*@
                                 <div class="Stars" style="--rating: @card.avgRating;"></div>
                             </div>
                         </div>
@@ -106,14 +133,17 @@
                                             <div class="cardcontainer7" style="width:60%;">
                                                 <div class="progress cardcontainer8"
                                              style="width:auto;height: 8px;">
-                                                    <div class="progress-bar bg-warning" role="progressbar"
-                                                 aria-label="Warning example" style="width:25%"
-                                                 aria-valuenow="@card.goalMission.GoalValue" aria-valuemin="0" aria-valuemax="10000">
-                                                    </div>
+                                                    @if (card.mission.MissionId == card.timesheet.MissionId)
+                                                    {
+                                                        <div class="progress-bar bg-warning" role="progressbar"
+                                                 aria-label="Warning example" style="width:@((@card.timesheet.Action * 100)/card.goalMission.GoalValue)%"
+                                                 aria-valuenow="@card.timesheet.Action%" aria-valuemin="0" aria-valuemax="100">
+                                                        </div>
+                                                    }
                                                 </div>
                                                 @if (@card.mission.MissionId == @card.goalMission.MissionId)
                                                 {
-                                                    <p class="cardcontainer9">@card.goalMission.GoalValue achieved</p>
+                                                    <p class="cardcontainer9">@card.timesheet.Action achieved</p>
                                                 }
                                             </div>
                                         </div>
@@ -137,11 +167,6 @@
                         style="width:auto;font-size: 12px;">
                                 View Detail <i class="bi bi-arrow-right"></i>
                             </button>
-                            @*<button type="submit" class="form-control rounded-pill btn btn-outline-warning font adminaddbutton" style="width:auto;font-size: 12px;">
-                <a asp-controller="Plateform" asp-action="ViewDetail" asp-route-id="@card.mission.MissionId" class="adminaddbutton">
-                View Detail <i class="bi bi-arrow-right"></i>
-                </a>
-                </button>*@
                         }
                     </div>
                 </div>
@@ -155,7 +180,6 @@
                     <div class="cardcontainer11">
                         <img src="@Url.Content(@card.CardImg)" class="card-img-top" alt="Error" style="height: 161px;">
 
-                        @*<img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top" alt="Error">*@
                         @if (card.missionApplication != null)
                         {
                             <button class="cardcontainer122">
@@ -197,7 +221,11 @@
                 </button>
                 }*@
 
-                        <button class="cardcontainer14">
+                       @* <button class="cardcontainer14">
+                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
+                        </button>*@
+                        <button type="button" data-toggle="ajax-modal" data-target="#SuggestWorker"
+                        class="cardcontainer14" data-url="@Url.Action("SuggestCoWorker", "Plateform" , new{id = card.mission.MissionId})">
                             <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
                         </button>
                         <button class="cardcontainer15">

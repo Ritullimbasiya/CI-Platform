@@ -200,22 +200,12 @@
                     <hr>
                     <div class="row" style="margin:18px 0px; font-size: 10px;">
                         <span style="width:100%;height:100px;border: 1px solid #d9d9d9;resize: none;">
-                            @*@foreach(var obj in Model.skll)
+
+                            @foreach (var item in Model.skll)
                             {
-                            <span>@obj.SkillName</span>
-                            }*@
-                            @foreach (var sub in Model.skll)
-                            {
-                                @foreach (var obj in Model.skl)
-                                {
-                                    @if (sub.SkillId == obj.SkillId)
-                                    {
-                                        @if (14 == obj.UserId)
-                                        {
-                                            <div> @sub.SkillName </div>
-                                        }
-                                    }
-                                }
+                                <span> @item </span>
+
+                                <br>
                             }
                         </span>
                     </div>
@@ -285,7 +275,7 @@
             {
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="ddlskill">
-                    <label class="form-check-label" for="addSkill">@obj.SkillName</label>
+                    <label class="form-check-label" for="addSkill"></label>
                 </div>
             }
 
@@ -336,9 +326,11 @@
             <div>
                 <div class="row" style="margin:18px 0px;font-size: 12px;">
                     <input type="password" asp-for="Password" placeholder="Enter old password" required />
+                    <span asp-validation-for="Password" class="text-danger" name="Password"></span>
                 </div>
                 <div class="row" style="margin:18px 0px;font-size: 12px;">
                     <input type="password" id="txtPassword" asp-for="newPassword" placeholder="Enter new password" required />
+                    <span asp-validation-for="newPassword" class="text-danger" name="newPassword"></span>
                 </div>
                 <div class="row" style="margin:18px 0px;font-size: 12px;">
                     <input type="password" id="txtConfirmPassword" placeholder="Enter confrim password" required />
@@ -358,18 +350,21 @@
     </div>
 </div>
 
-@section Scripts {
-    <script type="text/javascript">
-        function Validate() {
-            var password = document.getElementById("txtPassword").value;
-            var confirmPassword = document.getElementById("txtConfirmPassword").value;
-            if (password != confirmPassword) {
-                alert("Passwords do not match.");
-                return false;
-            }
-            return true;
+
+<script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("txtPassword").value;
+        var confirmPassword = document.getElementById("txtConfirmPassword").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
         }
-    </script>
+        return true;
+</script>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
 }
 
 

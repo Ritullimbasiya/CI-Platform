@@ -17,7 +17,7 @@ namespace CI_Plateform.Models
         public MissionTheme? MissionTheme { get; set; } = null!;
         public Skill? Skill { get; set; } = null!;
         public List<UserSkill>? skl { get; set; } = null!;
-        public List<Skill>? skll { get; set; } = null!;
+        public List<string>? skll { get; set; } = null!;
         public Banner? Banner { get; set; } = null!;
         public MissionMedium? missionMedium { get; set; } = null!;
         public MissionDocument? missionDocument { get; set; } = null!;
@@ -26,6 +26,12 @@ namespace CI_Plateform.Models
 
         public int UserId { get; set; }
         public string Password { get; set; }
+
+        [Required]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
+        [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])).+$", ErrorMessage = "Password Must Contain 1-Symbol ,1-lowercase,1-Uppercase,1-digit")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string newPassword { get; set; }
 
         public List<SelectListItem> skills { get; set; }

@@ -220,8 +220,7 @@
     height: 17px;
     width: 49px;
     top: 19%;
-    margin-left: -261px;
-    transform: translate(-50%, -50%);
+    left: 0px;
     background-color: #09ab2c;
     opacity: 0.9;
     color: white;
@@ -236,8 +235,7 @@
     height: 17px;
     width: 49px;
     top: 7%;
-    margin-left: -261px;
-    transform: translate(-50%, -50%);
+    left:0px;
     background-color: rgb(249, 96, 40);
     opacity: 0.9;
     color: white;

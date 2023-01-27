@@ -4,12 +4,16 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
+using MailKit.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Hosting;
+using MimeKit.Text;
+using MimeKit;
 using System.Reflection;
 using System.Runtime.Intrinsics.Arm;
 using System.Text;
+using MailKit.Net.Smtp;
 
 namespace CI_Plateform.Controllers
 {
@@ -29,6 +33,7 @@ namespace CI_Plateform.Controllers
         {
             PlateformVM plateformVM = new PlateformVM();
             plateformVM.Missions = _db.Missions.ToList();
+            plateformVM.Timesheets = _db.Timesheets.ToList();
 
             plateformVM.user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
            
@@ -310,6 +315,45 @@ namespace CI_Plateform.Controllers
                 }
                 #endregion Favorite Mission version 2*/
 
+        #region Suggest CoWorker
+        [HttpGet]
+        public IActionResult SuggestCoWorker(long id)
+        {
+            var mission = new Mission();
+            mission.MissionId = id;
+            return PartialView("_CoWorkerPartial", mission);
+        }
+
+        [HttpPost]
+        public IActionResult SuggestCoWorker(string WorkerEmail, Mission model)
+        {
+            if (WorkerEmail != null)
+            {
+                var mission = _db.Missions.FirstOrDefault(x => x.MissionId == model.MissionId);
+
+                #region Send Mail
+                var mailBody = "<h1>" + HttpContext.Session.GetString("UserName") + " Suggest Mission : " + mission.Title + " to You</h1><br><h2><a href='https://localhost:44366/Plateform/ViewDetail?id= " + model.MissionId + "'>Go Website</a></h2>";
+                                                                                                                                                                                                       
+                // create email message                                                                                                                         
+                var email = new MimeMessage();
+                email.From.Add(MailboxAddress.Parse("ritullimbasiya2002@gmail.com"));
+                email.To.Add(MailboxAddress.Parse(WorkerEmail));
+                email.Subject = "Co-Worker Suggestion";
+                email.Body = new TextPart(TextFormat.Html) { Text = mailBody };
+
+                // send email
+                using var smtp = new SmtpClient();
+                smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                smtp.Authenticate("ritullimbasiya2002@gmail.com", "wcpemmqowzjgydev");
+                smtp.Send(email);
+                smtp.Disconnect(true);
+                #endregion Send Mail
+            }
+
+            return RedirectToAction("Plateform", "Plateform");
+        }
+        #endregion Suggest CoWorker
+
         #region Related Mission
         public List<MissionCardModel> relatedMissions(int cityId, int countryId, int themeId)
         {
@@ -382,6 +426,7 @@ namespace CI_Plateform.Controllers
         {
             var card = new MissionCardModel();
             card.mission = item;
+            card.timesheet = _db.Timesheets.FirstOrDefault(x => x.MissionId == item.MissionId);
             var img = _db.MissionMedia.FirstOrDefault(x => x.MissionId == item.MissionId);
             card.CardImg = img.MediaPath;
             if (item.TotalSheet != 0)
@@ -486,6 +531,7 @@ namespace CI_Plateform.Controllers
         #endregion*/
 
         #region ViewDetail Page
+        [CheckSession]
         public IActionResult ViewDetail(int id)
         {
             var viewDetail = new ViewDetailModel();
@@ -494,7 +540,7 @@ namespace CI_Plateform.Controllers
             /*var miss = _db.Missions.ToList();
             viewDetail.Missions = miss;*/
 
-            viewDetail.user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
+           viewDetail.user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
             var item = _db.Missions.FirstOrDefault(x => x.MissionId == id);
             viewDetail.missionCard = CreateCard(item);
             viewDetail.imgs = _db.MissionMedia.Where(x => x.MissionId == id).AsEnumerable().ToList();

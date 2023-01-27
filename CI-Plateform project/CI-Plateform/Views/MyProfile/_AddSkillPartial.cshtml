@@ -39,26 +39,16 @@
             resizeBox();
         });
     });
-    //function newSkill(){
-
-    //        var values = $.map(options ,function(option) {
-    //                return option.value;
-    //        });
-    //        return values;
-    //    }
-    //});
-
 
     function addSkill(event) {
-        /* var PlaceHolderElement = $('#PlaceHolderHere'); */
-        alert('csdd');
+         var PlaceHolderElement = $('#PlaceHolderHere'); 
         var options = $('#lstBox2 option');
         var values = $.map(options, function (option) {
             return option.value;
         });
         var formData = values;
         $.ajax({
-            url: 'AddUserSkill',
+            url: '/MyProfile/AddUserSkill',
             type: "POST",
             dataType: 'json',
             data: { userSkills: formData.toString() },
@@ -69,9 +59,6 @@
         });
     }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
-        crossorigin="anonymous"></script>
 @*
 <div class="modal fade" id="addSkills" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -117,7 +104,7 @@
     </div>
 </div>*@
 <h5 class="modal-title" id="exampleModalLabel" style="margin: 12px;text-align: center; text-decoration: underline;margin-bottom: 30px;">Add your Skills</h5>
-<form id="modalForm" method="post" action="AddUserSkill" enctype="multipart/form-data">
+<form id="modalForm" method="post" enctype="multipart/form-data">
     <input asp-for="UserId" hidden />
     <div class="row" style="width: 462px;align-items: center;left: 53%; margin-left: 372px;">
         <div class="col-5 ">

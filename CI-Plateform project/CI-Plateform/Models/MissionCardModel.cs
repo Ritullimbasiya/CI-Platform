@@ -5,6 +5,7 @@ namespace CI_Plateform.Models
     public class MissionCardModel
     {
         public Mission? mission { get; set; }
+        public Timesheet? timesheet { get; set; }
         public string? CardImg { get; set; }
         public int? seatsLeft { get; set; }
         public int? favouriteMission { get; set; }

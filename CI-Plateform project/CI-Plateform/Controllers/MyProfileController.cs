@@ -22,8 +22,8 @@ namespace CI_Plateform.Controllers
         {
             UserVm userVM = new UserVm();
             userVM.User = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
-            userVM.skll = _db.Skills.Where(x => x.DeletedAt == null).ToList();
-            userVM.skl = _db.UserSkills.Where(x => x.DeletedAt == null).ToList();
+            userVM.skll = _db.UserSkills.Where(x => x.UserId == userVM.User.UserId && x.DeletedAt == null).Select(x => x.Skill.SkillName).ToList();
+            
 
             List<SelectListItem> list = new List<SelectListItem>();
             var temp = _db.Countries.ToList();
@@ -61,6 +61,8 @@ namespace CI_Plateform.Controllers
                 return RedirectToAction("Plateform", "Plateform");
             }
         }
+
+        #endregion Myprofile
 
         #region Change Password
 
@@ -114,43 +116,46 @@ namespace CI_Plateform.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddUserSkill(string userSkills)
+        public IActionResult AddUserSkill(string userSkills)
         {
             var userId = int.Parse(HttpContext.Session.GetString("UserId"));
-            /*if(userId != null)
-            {
-                foreach(var obj in _db.UserSkills.Where(x => x.UserId == userId).ToList())
-                {
-                    _db.UserSkills.Remove(obj);
-                    _db.SaveChanges();
-                }
-            }*/
-            var temp5 = _db.UserSkills.Where(x=>x.UserId == userId).AsEnumerable().ToList();
-            _db.UserSkills.RemoveRange(temp5);
+            /* if (userId != null)
+             {
+                 foreach (var obj in _db.UserSkills.Where(x => x.UserId == userId).ToList())
+                 {
+                     _db.UserSkills.Remove(obj);
+                     _db.SaveChanges();
+                 }
+             }*/
+
+            _db.UserSkills.RemoveRange(_db.UserSkills.Where(x => x.UserId == userId));
             _db.SaveChanges();
 
             if (userSkills != null)
             {
                 var temp = userSkills;
                 var numbers = temp?.Split(',')?.Select(Int32.Parse)?.ToList();
-                foreach (var n in numbers)
+                if (numbers.Count > 0)
                 {
-                    var skill = new UserSkill();
-                    skill.UserId = userId;
-                    skill.SkillId = n;
+                    foreach (var n in numbers)
+                    {
+                        var skill = new UserSkill();
+                        skill.UserId = userId;
+                        skill.SkillId = n;
 
-                    _db.UserSkills.Add(skill);
+                        _db.UserSkills.Add(skill);
+
+                    }
                     _db.SaveChanges();
                 }
-               
             }
-            return Json("True");
+            return RedirectToAction("MyProfile", "MyProfile");
 
         }
 
         #endregion Add Skill
 
 
-        #endregion Myprofile
+       
     }
 }
