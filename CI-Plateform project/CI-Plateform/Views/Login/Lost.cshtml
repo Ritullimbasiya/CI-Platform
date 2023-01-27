@@ -1,0 +1,77 @@
+﻿@using CI_Plateform.DbModels
+@model LoginViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CL-Lost</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link href="~/css/Forgot.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="body-1">
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script data-main="dist/js/" src="js/require.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+        @if (TempData["Error"] != null)
+        {
+            <script>
+                toastr.error('@TempData["Error"]');
+            </script>
+        }
+        @if (TempData["Done"] != null)
+        {
+            <script>
+                toastr.success('@TempData["Done"]');
+            </script>
+        }
+
+        @Html.Partial("_SliderPartial" ,Model.banner)
+
+        <div class="Right-Container">
+            <div class="form-block">
+                <div class="text" style="font-size: 22px;margin-bottom: 10px;">Forget Password</div>
+                <div class="text" style="margin-bottom: 36px;">
+                    Enter your email address you've using for your account below
+                    and we will send you a password reset link
+                </div>
+                <form class="form-container" method="post">
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email Address</label>
+                        <input asp-for="Email" type="email" class="form-control" style="display:inline;box-shadow: none;" id="Email"
+                               placeholder="Enter your email address...">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn form-control btn-outline-mystyle mb-4 mt-3 rounded-pill"
+                            style="font-size: 17px;">
+                        Reset my Password
+                    </button>
+                </form>
+                <div class="text"><a class="text" asp-controller="Login" asp-action="Login">Login</a></div>
+            </div>
+
+            <div class="Privacy-Policy">
+                <a class="text" asp-controller="Home" asp-action="Privacy"> Privacy Policy </a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous">
+    </script>
+    @section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+
+</html>

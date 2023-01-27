@@ -199,25 +199,40 @@
                     <h6 style="font-size:14px;">My Skills</h6>
                     <hr>
                     <div class="row" style="margin:18px 0px; font-size: 10px;">
-                        <textarea style="width:100%;height:100px;border: 1px solid #d9d9d9;resize: none;">
-                            @foreach(var obj in Model.skl)
+                        <span style="width:100%;height:100px;border: 1px solid #d9d9d9;resize: none;">
+                            @*@foreach(var obj in Model.skll)
                             {
-                                <span>@obj.SkillName</span>
-                                <br />
+                            <span>@obj.SkillName</span>
+                            }*@
+                            @foreach (var sub in Model.skll)
+                            {
+                                @foreach (var obj in Model.skl)
+                                {
+                                    @if (sub.SkillId == obj.SkillId)
+                                    {
+                                        @if (14 == obj.UserId)
+                                        {
+                                            <div> @sub.SkillName </div>
+                                        }
+                                    }
+                                }
                             }
-                        </textarea>
+                        </span>
                     </div>
                     <div class="row" style="margin:18px 0px;display:block;">
                         @*<button type="button" data-bs-toggle="offcanvas" data-bs-target="#addskills"
-                                class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10">
-                            Add
-                            Skills
+                        class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10">
+                        Add
+                        Skills
                         </button>*@
-                        <button type="button" data-target="#addSkills"
-                                class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10"
-                                data-toggle="ajax-modal" data-url="@Url.Action("AddUserSkill")">
-                            Add
-                            Skills
+                        @*<button type="button" data-target="#addSkills"
+                        class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10"
+                        data-toggle="ajax-modal" data-url="@Url.Action("AddUserSkill")">
+                        Add
+                        Skills
+                        </button>*@
+                        <button class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10" type="button" onclick="return location.href=' @Url.Action("AddUserSkill","MyProfile") '">
+                            Add Skills
                         </button>
                         <button type="button" data-bs-toggle="offcanvas" data-bs-target="#changepassword"
                                 aria-controls="changepassword"
@@ -260,39 +275,39 @@
     </div>
     <div class="offcanvas-body">
         <div>
-           @* <label for="">Skills</label>
+            @* <label for="">Skills</label>
             <select class="sherescontainer1" id="ddlSkill" asp-for="User.CountryId" asp-items="@Model.SkillList" aria-label="Default select example">
-                <option class="sherescontainer1" selected>Select Country</option>
+            <option class="sherescontainer1" selected>Select Country</option>
             </select>
 
             <span asp-validation-for="User.CountryId" class="text-danger"></span>*@
-            @foreach(var obj in Model.skl)
+            @foreach (var obj in Model.skll)
             {
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="ddlskill">
                     <label class="form-check-label" for="addSkill">@obj.SkillName</label>
                 </div>
             }
-            
-           @* <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Science">
-                <label class="form-check-label" for="Science">Science</label>
+
+            @* <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="Science">
+            <label class="form-check-label" for="Science">Science</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="History">
-                <label class="form-check-label" for="History">History</label>
+            <input class="form-check-input" type="checkbox" value="" id="History">
+            <label class="form-check-label" for="History">History</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Mathematics">
-                <label class="form-check-label" for="Mathematics">Mathematics</label>
+            <input class="form-check-input" type="checkbox" value="" id="Mathematics">
+            <label class="form-check-label" for="Mathematics">Mathematics</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Music">
-                <label class="form-check-label" for="Music">Music</label>
+            <input class="form-check-input" type="checkbox" value="" id="Music">
+            <label class="form-check-label" for="Music">Music</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Research">
-                <label class="form-check-label" for="Research">Research</label>
+            <input class="form-check-input" type="checkbox" value="" id="Research">
+            <label class="form-check-label" for="Research">Research</label>
             </div>*@
         </div>
         <div class="row" style="margin:18px 0px;display:block;">
@@ -344,17 +359,17 @@
 </div>
 
 @section Scripts {
-<script type="text/javascript">
-    function Validate() {
-        var password = document.getElementById("txtPassword").value;
-        var confirmPassword = document.getElementById("txtConfirmPassword").value;
-        if (password != confirmPassword) {
-            alert("Passwords do not match.");
-            return false;
+    <script type="text/javascript">
+        function Validate() {
+            var password = document.getElementById("txtPassword").value;
+            var confirmPassword = document.getElementById("txtConfirmPassword").value;
+            if (password != confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-</script>
+    </script>
 }
 
 

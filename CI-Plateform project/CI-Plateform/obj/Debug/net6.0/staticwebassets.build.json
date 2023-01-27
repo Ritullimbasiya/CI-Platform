@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wReSnCcCQlfWJfpn8pfTTzuQf2uy8xQrytVB3KI2F3c=",
+  "Hash": "BZKZDz99i8YyG8ooDqiRvgaxSM3FNJDfauhSHFCTl+c=",
   "Source": "CI-Plateform",
   "BasePath": "_content/CI-Plateform",
   "Mode": "Default",
@@ -34474,6 +34474,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\bootstrap-icons\\icons\\zoom-out.svg"
+    },
+    {
+      "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\css\\Forgot.css",
+      "SourceId": "CI-Plateform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\",
+      "BasePath": "_content/CI-Plateform",
+      "RelativePath": "css/Forgot.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Forgot.css"
     },
     {
       "Identity": "C:\\Users\\Ritul Limbasiya\\Desktop\\Tatvasoft code\\zeplin Backend new\\Dummy 2\\CI-Plateform project\\CI-Plateform\\wwwroot\\css\\site.css",

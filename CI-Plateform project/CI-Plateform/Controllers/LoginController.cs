@@ -1,13 +1,10 @@
 ﻿using CI_Plateform.DbModels;
 using CI_Plateform.Models;
-using DocumentFormat.OpenXml.Vml;
 using MailKit.Net.Smtp;
 using MailKit.Security;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using MimeKit.Text;
-using Org.BouncyCastle.Crypto.Generators;
 using System.Text;
 
 namespace CI_Plateform.Controllers
@@ -71,23 +68,30 @@ namespace CI_Plateform.Controllers
         #region Register
         public IActionResult Register()
         {
-            LoginViewModel loginViewModel = new LoginViewModel();
+            Registration loginViewModel = new Registration();
             loginViewModel.banner = _db.Banners.ToList();
             return View(loginViewModel);
         }
 
         [HttpPost]
-        public IActionResult Register(LoginViewModel model)
-        {
-            model.User.Status = 1;
-            var user = _db.Users.Add(model.User);
-            _db.SaveChanges();
+        public IActionResult Register(Registration model)
+        {   
+            if(model != null)
+            {
+                var user1 = new User();
+                user1.FirstName = model.FirstName;
+                user1.LastName = model.LastName;
+                user1.Email = model.Email;
+                user1.Password = model.Password;
+                _db.Users.Add(user1);
+                _db.SaveChanges();
+            }
 
             return RedirectToAction("Login", "Login");
         }
         #endregion
 
-        #region Lostpassword
+        /*#region Lostpassword
         [HttpGet]
         [AllowAnonymous]
         public IActionResult LostPassword()
@@ -115,7 +119,6 @@ namespace CI_Plateform.Controllers
 
         }
         
-
         #endregion
 
         #region ResetPassword
@@ -139,6 +142,117 @@ namespace CI_Plateform.Controllers
         }
 
 
+        #endregion*/
+
+        #region Lost 
+        public IActionResult LostPassword()
+        {
+            LoginViewModel model = new LoginViewModel();
+            model.banner = _db.Banners.Where(u => u.DaletedAt == null).AsQueryable().ToList();
+            return View(model);
+        }
+         
+        [HttpPost]
+        public IActionResult LostPassword(LoginViewModel obj)
+        {
+
+            var user = _db.Users.FirstOrDefault(u => u.Email.Equals(obj.User.Email.ToLower()) && u.DeletedAt == null);
+
+            if (user == null)
+            {
+                TempData["Error"] = "User Not Exist!";
+                return RedirectToAction("LostPassword", "Login");
+            }
+
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[16];
+            var random = new Random();
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+            var tokenString = new String(stringChars);
+
+            PasswordReset entry = new PasswordReset();
+            entry.Email = obj.Email;
+            entry.Token = tokenString;
+            entry.CreatedAt = DateTime.Now;
+            _db.PasswordResets.Add(entry);
+            _db.SaveChanges();
+
+            var mailBody = "<h1>Click Below link to reset your password</h1><br><h2><a href='" + "https://localhost:44366/Login/ResetPassword?Token=" + tokenString + "&Email=" + obj.User.Email + "'>Reset Password</a></h2><br><p>Ignore if It is not done you.</p>";
+
+            // Create Email
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("pdparmar91@gmail.com"));
+            email.To.Add(MailboxAddress.Parse(user.Email));
+            email.Subject = "Reset Your Password";
+            email.Body = new TextPart(TextFormat.Html) { Text = mailBody };
+
+            //  Send Email  
+            using var smtp = new SmtpClient();
+            smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+            smtp.Authenticate("pdparmar91@gmail.com", "unmrlfscedyndpvl");
+            smtp.Send(email)
+;
+            smtp.Disconnect(true);
+
+            TempData["Done"] = "Check your Mail for Password Link.";
+            return RedirectToAction("Login", "Login");
+        }
+        #endregion
+
+
+
+        #region Reset
+        [HttpGet]
+        public IActionResult ResetPassword(String Token, String Email)
+        {
+            if (Token == null || Email == null)
+            {
+                TempData["Error"] = "Invalid Userid or Token !";
+                return RedirectToAction("LostPassword", "Login");
+            }
+            LoginViewModel model = new LoginViewModel();
+            model.banner = _db.Banners.Where(u => u.DaletedAt == null).AsQueryable().ToList();
+            model.Token = Token;
+            model.Email = Email;
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(LoginViewModel model)
+        {
+            var resetPassUser = _db.PasswordResets.OrderByDescending(x => x.CreatedAt).FirstOrDefault(x => x.Token == model.Token && x.Email == model.Email);
+            if (resetPassUser != null)
+            {
+                DateTime currentTime = DateTime.Now;
+                TimeSpan diffrenceTime = (TimeSpan)(currentTime - resetPassUser.CreatedAt);
+                if (diffrenceTime.TotalHours <= 1.0)
+                {
+                    var user = _db.Users.FirstOrDefault(x => x.Email.Equals(resetPassUser.Email) && x.DeletedAt == null);
+                    if (user != null)
+                    {
+                        user.Password = model.Password;
+                        _db.Users.Update(user);
+                        _db.SaveChanges();
+                    }
+                    TempData["Done"] = "Password Changed SuccessFully !";
+                    return RedirectToAction("Login", "Login");
+
+                }
+                else
+                {
+                    TempData["Error"] = "Token Expired! Please Generate New !";
+                    return RedirectToAction("LostPassword", "Login");
+                }
+            }
+            else
+            {
+                TempData["Error"] = "Something Went Wrong!";
+                return RedirectToAction("LostPassword", "Login");
+            }
+        }
         #endregion
 
         #region Policy

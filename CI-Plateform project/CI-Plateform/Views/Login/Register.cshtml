@@ -1,5 +1,5 @@
 ﻿@using CI_Plateform.Models;
-@model LoginViewModel
+@model Registration
 
 <div class="container container-fluid m-0 p-0">
     <div class="row">
@@ -66,45 +66,45 @@
             <div class="box">
                 <form method="post">
                     <div class="form-group mb-1 gap">
-                        <label class="label font" asp-for="User.FirstName">First Name</label>
-                        <input type="text" class="form-control font" asp-for="User.FirstName"
+                        <label class="label font" asp-for="FirstName">First Name</label>
+                        <input type="text" class="form-control font" asp-for="FirstName"
                                style="display: inline;box-shadow: none;" placeholder="Ritul">
-                        <span asp-validation-for="User.FirstName" class="text-danger" style="font-size:12px;"></span>
+                        <span asp-validation-for="FirstName" class="text-danger" style="font-size:12px;"></span>
                     </div>
 
                     <div class="form-group mb-1 gap">
-                        <label class="label font" asp-for="User.LastName">Last Name</label>
-                        <input type="text" class="form-control font" asp-for="User.LastName"
+                        <label class="label font" asp-for="LastName">Last Name</label>
+                        <input type="text" class="form-control font" asp-for="LastName"
                                style="display: inline;box-shadow: none;" placeholder="Limbasiya">
-                        <span asp-validation-for="User.LastName" class="text-danger"></span>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-1 gap">
-                        <label class="label font" asp-for="User.Email">Email Address</label>
-                        <input type="email" class="form-control font" asp-for="User.Email"
+                        <label class="label font" asp-for="Email">Email Address</label>
+                        <input type="email" class="form-control font" asp-for="Email"
                                style="display: inline;box-shadow: none;" placeholder="ritul@gmail.com">
-                        <span asp-validation-for="User.Email" class="text-danger" style="font-size:12px;"></span>
+                        <span asp-validation-for="Email" class="text-danger" style="font-size:12px;"></span>
                     </div>
 
                     <div class="form-group mb-1 gap">
-                        <label class="label font" asp-for="User.PhoneNumber">Phone Number</label>
-                        <input type="number" class="form-control font" asp-for="User.PhoneNumber"
-                               style="display: inline;box-shadow: none;" placeholder="8923454615">
-                        <span  asp-validation-for="User.PhoneNumber" class="text-danger" style="font-size:12px;"></span>
+                        <label class="label font" asp-for="PhoneNumber">Phone Number</label>
+                        <input type="number" class="form-control font" asp-for="PhoneNumber"
+                               style="display: inline;box-shadow: none;" placeholder="8923454615" >
+                        <span  asp-validation-for="PhoneNumber" class="text-danger" style="font-size:12px;"></span>
                     </div>
 
                     <div class="form-group mb-1 gap">
-                        <label class="label font" asp-for="User.Password">Password</label>
+                        <label class="label font" asp-for="Password">Password</label>
                         <input type="password" class="form-control font" style="display: inline;box-shadow: none; "
-                               asp-for="User.Password" placeholder="********" required="">
-                        <span asp-validation-for ="User.Password" class="text-danger" style="font-size:12px;"></span>
+                               asp-for="Password" placeholder="********" required="">
+                        <span asp-validation-for ="Password" class="text-danger" style="font-size:12px;"></span>
                     </div>
 
                     <div class="form-group mb-3 gap">
-                        <label class="label font" asp-for="User.Password">Confrim Password</label>
+                        <label class="label font" asp-for="Password">Confrim Password</label>
                         <input type="password" class="form-control font" style="display: inline;box-shadow: none; "
-                               asp-for="User.Password" placeholder="********" required="">
-                        <span asp-validation-for="User.Password" class="text-danger" style="font-size:12px;"></span>
+                               asp-for="Password" placeholder="********" required="">
+                        <span asp-validation-for="Password" class="text-danger" style="font-size:12px;"></span>
                     </div>
                     <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
                             style="box-shadow:none;">

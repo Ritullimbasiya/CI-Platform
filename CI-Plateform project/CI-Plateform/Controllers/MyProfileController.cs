@@ -22,7 +22,8 @@ namespace CI_Plateform.Controllers
         {
             UserVm userVM = new UserVm();
             userVM.User = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
-            userVM.skl = _db.Skills.Where(x => x.DeletedAt == null).ToList();
+            userVM.skll = _db.Skills.Where(x => x.DeletedAt == null).ToList();
+            userVM.skl = _db.UserSkills.Where(x => x.DeletedAt == null).ToList();
 
             List<SelectListItem> list = new List<SelectListItem>();
             var temp = _db.Countries.ToList();
@@ -62,7 +63,7 @@ namespace CI_Plateform.Controllers
         }
 
         #region Change Password
-      
+
         [HttpPost]
         public IActionResult ChangePassword(UserVm model)
         {
@@ -89,7 +90,6 @@ namespace CI_Plateform.Controllers
             var model = new AddUserSkillModel();
             model.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
 
-            #region Fill Skill Drop-Down
             List<SelectListItem> list = new List<SelectListItem>();
             var temp = _db.Skills.Where(x => x.DeletedAt == null).AsEnumerable().ToList();
 
@@ -109,7 +109,6 @@ namespace CI_Plateform.Controllers
                 }
             }
             model.skills = list;
-            #endregion Fill Skill Drop-Down
 
             return PartialView("_AddSkillPartial", model);
         }
@@ -118,10 +117,18 @@ namespace CI_Plateform.Controllers
         public JsonResult AddUserSkill(string userSkills)
         {
             var userId = int.Parse(HttpContext.Session.GetString("UserId"));
-            _db.UserSkills.RemoveRange(_db.UserSkills.Where(x => x.UserId == userId));
+            /*if(userId != null)
+            {
+                foreach(var obj in _db.UserSkills.Where(x => x.UserId == userId).ToList())
+                {
+                    _db.UserSkills.Remove(obj);
+                    _db.SaveChanges();
+                }
+            }*/
+            var temp5 = _db.UserSkills.Where(x=>x.UserId == userId).AsEnumerable().ToList();
+            _db.UserSkills.RemoveRange(temp5);
             _db.SaveChanges();
 
-            #region Add  Skill
             if (userSkills != null)
             {
                 var temp = userSkills;
@@ -135,10 +142,10 @@ namespace CI_Plateform.Controllers
                     _db.UserSkills.Add(skill);
                     _db.SaveChanges();
                 }
+               
             }
-            #endregion Add Skill
-
             return Json("True");
+
         }
 
         #endregion Add Skill
