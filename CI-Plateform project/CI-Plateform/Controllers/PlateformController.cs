@@ -467,17 +467,6 @@ namespace CI_Plateform.Controllers
             card.country = _db.Countries.FirstOrDefault(x => x.CountryId == item.CountryId).Name;
             card.missionApplication = _db.MissionApplications.FirstOrDefault(x => x.MissionId == item.MissionId && x.UserId == user1);
 
-            /*float totalRate = 0;
-            float RateCount = 0;
-            var rateRecord = _db.MissionRatings.Where(x => x.MisssionId == item.MissionId).ToList();
-            foreach (var i in rateRecord)
-            {
-                RateCount = RateCount + 1;
-                totalRate = totalRate + i.Rating;
-            }
-            card.avgRating = totalRate > 0 ? totalRate / RateCount : 0;
-            card.reatin = (int)RateCount;*/
-
             float totalRate = 0;
             float user = 0;
             var rate = _db.MissionRatings.Where(x => x.MisssionId == item.MissionId).ToList();
@@ -586,7 +575,6 @@ namespace CI_Plateform.Controllers
                 var user = _db.Users.FirstOrDefault(x => x.UserId == comment.UserId);
                 temp1.commentText = comment.CommentText;
                 temp1.img = user.Avatar != null ? user.Avatar : "~/assets/volunteer4.png";
-                temp1.img = user.Avatar != null ? user.Avatar : "~/assets/volunteer4.png";
                 temp1.name = user.FirstName + " " + user.LastName;
                 temp1.createdAt = comment.CreatedAt;
                 coms.Add(temp1);
@@ -657,16 +645,6 @@ namespace CI_Plateform.Controllers
             return Json("True");
         }
         #endregion Rate Mission
-
-        #region LogOut
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Remove("UserId");
-            HttpContext.Session.Remove("UserName");
-
-            return RedirectToAction("Login", "Login");
-        }
-        #endregion LogOut
 
         #region saveImg
         public string saveImg(IFormFile img, string folder)

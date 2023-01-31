@@ -57,6 +57,8 @@ namespace CI_Plateform.Controllers
         }
         #endregion
 
+        #region LogOut
+
         [CheckSession]
         public IActionResult LogOut()
         {
@@ -65,6 +67,7 @@ namespace CI_Plateform.Controllers
             TempData["Done"] = "Logout Successfully";
             return RedirectToAction("Login", "Login");
         }
+        #endregion LogOut
 
         #region Register
         public IActionResult Register()

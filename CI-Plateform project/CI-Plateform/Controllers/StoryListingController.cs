@@ -412,5 +412,6 @@ namespace CI_Plateform.Controllers
 
         }
         #endregion saveImg
+
     }
 }

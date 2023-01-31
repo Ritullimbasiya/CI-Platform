@@ -39,7 +39,7 @@ namespace CI_Plateform.Controllers
 
             return View(plateformVM);
         }
-        
+
         /*[HttpGet]
         public IActionResult timeHouradd()
         {
@@ -52,11 +52,11 @@ namespace CI_Plateform.Controllers
                 var mission = _db.Missions.FirstOrDefault(x => x.MissionId == item);
                 list.Add(new SelectListItem() { Text = mission.Title, Value = mission.MissionId.ToString() });
             }
-            plateformVM.MissionList = list;
+            plateformVM.MissionHourList = list;
             return View(plateformVM);
         }*/
 
-        [HttpPost]
+        [HttpPost] 
         public IActionResult timeHouradd(PlateformVM model)
         {
             if (model.timesheet != null)
@@ -200,5 +200,6 @@ namespace CI_Plateform.Controllers
             return RedirectToAction("Timesheet", "Timesheet");
         }
         #endregion
+
     }
 }

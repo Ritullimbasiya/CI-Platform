@@ -159,6 +159,6 @@ namespace CI_Plateform.Controllers
 
         #endregion Add Skill
 
-
+       
     }
 }

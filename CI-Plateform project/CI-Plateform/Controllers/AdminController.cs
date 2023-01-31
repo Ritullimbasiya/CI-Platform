@@ -16,6 +16,20 @@ namespace CI_Plateform.Controllers
             _hostEnvironment = _environment;
         }
 
+        [HttpPost]
+        public JsonResult GetCity(int id)
+        {
+            UserVm userVM = new UserVm();
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            var temp = _db.Cities.Where(x => x.CountryId == id).AsEnumerable().ToList();
+            foreach (var item in temp)
+            {
+                list.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });
+            }
+            userVM.CityList = list;
+            return Json(userVM.CityList);
+        }
 
         #region User
         public IActionResult aUser()
@@ -315,20 +329,7 @@ namespace CI_Plateform.Controllers
             userVM.SkillList = list2;
             return View(userVM);
         }
-        [HttpPost]
-        public JsonResult GetCity(int id)
-        {
-            UserVm userVM = new UserVm();
-            List<SelectListItem> list = new List<SelectListItem>();
-
-            var temp = _db.Cities.Where(x => x.CountryId == id).AsEnumerable().ToList();
-            foreach (var item in temp)
-            {
-                list.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });
-            }
-            userVM.CityList = list;
-            return Json(userVM.CityList);
-        }
+        
         [HttpPost]
         public IActionResult aMissionadd(UserVm userVm, List<IFormFile> misssionImages, List<IFormFile> missionDoc)
         {
@@ -902,5 +903,8 @@ namespace CI_Plateform.Controllers
 
         }
         #endregion saveImg
+
+
     }
+
 }
