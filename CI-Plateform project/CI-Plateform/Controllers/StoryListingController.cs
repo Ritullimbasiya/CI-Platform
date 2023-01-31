@@ -1,8 +1,12 @@
 ﻿using CI_Plateform.DbModels;
 using CI_Plateform.Models;
+using MailKit.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Hosting;
+using MimeKit.Text;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace CI_Plateform.Controllers
 {
@@ -66,7 +70,7 @@ namespace CI_Plateform.Controllers
             /*storyListingVM.storyCardModels = cardData;
             return View(storyListingVM);*/
             /*--------------------------*/
-            const int pageSize = 3;
+            const int pageSize = 9;
             int recsCount = tempMission.Count();
             var pager = new Pager(recsCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
@@ -264,11 +268,59 @@ namespace CI_Plateform.Controllers
 
             card.mission = _db.Missions.FirstOrDefault(x => x.MissionId == item.MissionId);
             card.user = _db.Users.FirstOrDefault(x => x.UserId == item.UserId);
-            card.theme = _db.Missions.FirstOrDefault(x => x.MissionId == item.MissionId).Title;
+            card.theme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == item.Mission.MissionThemeId).Title;
             return card;
         }
         #endregion StoryCard
 
+
+        #region Suggest CoWorker
+        [HttpGet]
+        public IActionResult SuggestCoWorker(long id)
+        {
+            var story = new Story();
+            story.StoryId = id;
+            return PartialView("_CoWorkerPartial", story);
+        }
+
+        [HttpPost]
+        public IActionResult SuggestCoWorker(string WorkerEmail, Story model)
+        {
+            if (WorkerEmail != null)
+            {
+                var story = _db.Stories.FirstOrDefault(x => x.StoryId == model.StoryId);
+                var touser = _db.Users.FirstOrDefault(x => x.Email == WorkerEmail);
+
+                #region Send Mail
+                var mailBody = "<h1>" + HttpContext.Session.GetString("UserName") + " Suggest Mission : " + story.Title + " to You</h1><br><h2><a href='https://localhost:44366/StoryListing/StoryDetail?id= " + model.StoryId + "'>Go Website</a></h2>";
+
+                // create email message                                                                                                                         
+                var email = new MimeMessage();
+                email.From.Add(MailboxAddress.Parse("ritullimbasiya51@gmail.com"));
+                email.To.Add(MailboxAddress.Parse(WorkerEmail));
+                email.Subject = "Co-Worker Suggestion";
+                email.Body = new TextPart(TextFormat.Html) { Text = mailBody };
+
+                // send email
+                using var smtp = new SmtpClient();
+                smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                smtp.Authenticate("ritullimbasiya51@gmail.com", "lhrqalaivabbhicg");
+                smtp.Send(email);
+                smtp.Disconnect(true);
+                #endregion Send Mail
+
+                var storyinvite = new StoryInvite();
+                storyinvite.StoryId = model.StoryId;
+                storyinvite.FromUserId = int.Parse(HttpContext.Session.GetString("UserId"));
+                storyinvite.ToUserId = touser.UserId;
+                storyinvite.CreatedAt = DateTime.Now;
+                _db.StoryInvites.Add(storyinvite);
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("StoryListing", "StoryListing");
+        }
+        #endregion Suggest CoWorker
 
         #region StoryDetail
         public IActionResult StoryDetail(int id)

@@ -1,6 +1,8 @@
 ﻿@using CI_Plateform.Models;
 @model PlateformVM
 
+
+
 @{
     ViewData["Title"] = "Plateform";
     Pager pager = new Pager();
@@ -14,11 +16,28 @@
 }
 
 <link href="https://cdn.jsdelivr.net/npm/virtual-select-plugin@1.0.33/dist/virtual-select.min.js" />
-<script src="https://cdn.jsdelivr.net/npm/virtual-select-plugin@1.0.33/dist/virtual-select.min.js"></script>
+@*<script src="https://cdn.jsdelivr.net/npm/virtual-select-plugin@1.0.33/dist/virtual-select.min.js"></script>*@
+<script src="~/js/dropdowncheckbox.js"></script>
 <link rel="stylesheet" href="~/css/Virtual-Select-for-Plateform.css" />
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
         crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+@if (TempData["Error"] != null)
+{
+    <script>
+        toastr.error('@TempData["Error"]');
+    </script>
+}
+@if (TempData["Done"] != null)
+{
+    <script>
+        toastr.success('@TempData["Done"]');
+    </script>
+}
 
 <script>
     setTimeout(alertFunc, 1000);
@@ -37,24 +56,24 @@
             ele: '#ddlcountry'
         });
     }
-    $(document).ready(function() {
-        $("#countryDiv").change(function() {
+    $(document).ready(function () {
+        $("#countryDiv").change(function () {
             FilterTag("#ddlcountry");
             Filter();
         });
-        $("#cityDiv").change(function() {
+        $("#cityDiv").change(function () {
             FilterTag("#ddlcity");
             Filter();
         });
-        $("#themeDiv").change(function() {
+        $("#themeDiv").change(function () {
             FilterTag("#ddltheme");
             Filter();
         });
-        $("#skillDiv").change(function() {
+        $("#skillDiv").change(function () {
             FilterTag("#ddlskill");
             Filter();
         });
-        $("#ddlShort").change(function() {
+        $("#ddlShort").change(function () {
             Filter();
         });
     });
@@ -69,10 +88,10 @@
             type: 'POST',
             dataType: 'json',
             data: { id: Missionid, fav: Missionfav },
-            success:function(d) {
+            success: function (d) {
                 Filter();
             },
-            error: function(d) {
+            error: function (d) {
                 Filter();
             }
         });
@@ -99,37 +118,37 @@
             type: 'POST',
             dataType: 'json',
             data: { id: MissionId },
-            success: function(d) {
+            success: function (d) {
                 Filter();
                 alert(d);
             },
-            error: function() {
+            error: function () {
                 alert('Error');
             }
         });
     }
 
 
-   /* function ViewDetail(MissionId) {
-        $.ajax({
-            url: 'Plateform/ViewDetail',
-            type: 'POST',
-            dataType: 'json',
-            data: {id:MissionId},
-            success: function(d) {
-                Filter();
-            },
-            error: function() {
-                alert('Error');
-            }
-        });
-    }*/
+    /* function ViewDetail(MissionId) {
+         $.ajax({
+             url: 'Plateform/ViewDetail',
+             type: 'POST',
+             dataType: 'json',
+             data: {id:MissionId},
+             success: function(d) {
+                 Filter();
+             },
+             error: function() {
+                 alert('Error');
+             }
+         });
+     }*/
 
 
     function FilterTag(str) {
         var a = document.querySelector(str).getSelectedOptions();
         $(str + "Div").empty();
-        $.each(a, function(i, text) {
+        $.each(a, function (i, text) {
             $(str + "Div").append('<button type="button" class="form-control rounded-pill btn btn-outline-secondary font" style="width:auto;font-size: 12px; padding: 3px 7px;margin-right: 5px;"><span class="text-wrap">' + text.label + '</span><i class="bi bi-x"></i></button>');
         });
     }
@@ -147,11 +166,11 @@
             type: 'POST',
             dataType: 'html',
             data: { CountryId: country, CityId: city, ThemeId: theme, SkillId: skill, searchText: search, searchText2: search2, sort: Sort },
-            success: function(d) {
+            success: function (d) {
                 $("#missionGrid").empty();
                 $("#missionGrid").html(d);
             },
-            error: function() {
+            error: function () {
                 alert('Error');
             }
         });
@@ -179,10 +198,8 @@
                     <div class="dropdown navbar-toggler border-0" style="margin-right: 10px;">
                         <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            @*<img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
-                                 class="rounded-circle">*@
                             <img src="@Url.Content(Model.user.Avatar)" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                        </a>                                                                       
+                        </a>
                         <ul class="dropdown-menu dropdown-menu-white text-small shadow">
                             <li><a class="dropdown-item" asp-controller="MyProfile" asp-action="Myprofile">My Profile</a></li>
                             <li><a class="dropdown-item" asp-controller="TimeSheet" asp-action="Timesheet">Volunteering Timesheet</a></li>
@@ -221,11 +238,9 @@
                                 <div class="dropdown">
                                     <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        @*<img src="~/assets/user-img.png" alt="hugenerd" width="30" height="30"
-                                             class="rounded-circle">*@
                                         <img src="@Url.Content(Model.user.Avatar)" alt="hugenerd" width="30" height="30" class="rounded-circle">
                                         <span class="d-none d-sm-inline mx-1">
-                                            Ritul<i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
+                                            @Model.user.FirstName<i class="bi bi-chevron-down ps-1" style="font-size:12px;"></i>
                                         </span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-white text-small shadow">
@@ -262,22 +277,6 @@
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
                                     style="float: right;">
                                     <li class="nav-item dropdown me-md-4">
-                                        @*<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        Skills <i class="bi bi-chevron-down" style="font-size:12px;"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                        @foreach (var item in @Model.Skills)
-                                        {
-                                        <li>
-                                        <a class="dropdown-item" href="#">
-                                        <label>
-                                        <input type="checkbox"> @item.SkillName
-                                        </label>
-                                        </a>
-                                        </li>
-                                        }
-                                        </ul>*@
 
                                         <div id="skillDiv">
                                             <select asp-for="addSkill" multiple asp-items="@Model.SkillList" id="ddlskill"
@@ -288,51 +287,18 @@
                                     </li>
                                 </ul>
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
-                                    style="float: right;">
-                                    <li class="nav-item dropdown me-md-4">
-                                        @*<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        Theme <i class="bi bi-chevron-down" style="font-size:12px;"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                        @foreach (var item in @Model.MissionThemes)
-                                        {
-                                        <li>
-                                        <a class="dropdown-item" href="#">
-                                        <label>
-                                        <input type="checkbox"> @item.Title
-                                        </label>
-                                        </a>
-                                        </li>
-                                        }
-                                        </ul>*@
-                                        <div id="themeDiv">
-                                            <select asp-for="addTheme" multiple asp-items="@Model.ThemeList" id="ddltheme"
-                                                    placeholder="Theme"
-                                                    data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
-                                            </select>
-                                        </div>
+                                    style="float: right;width:140px;">
+                                    <div id="themeDiv">
+                                        <select asp-for="addTheme" multiple asp-items="@Model.ThemeList" id="ddltheme"
+                                                placeholder="Theme"
+                                                data-search="true" data-silent-initial-value-set="true" aria-label="Default select example">
+                                        </select>
+                                    </div>
                                     </li>
                                 </ul>
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
-                                    style="float: right;">
+                                    style="float: right;width:114px;">
                                     <li class="nav-item dropdown me-md-4">
-                                        @*<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        City <i class="bi bi-chevron-down" style="font-size:12px;"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                        @foreach (var item in @Model.Cityes)
-                                        {
-                                        <li>
-                                        <a class="dropdown-item" href="#">
-                                        <label>
-                                        <input type="checkbox"> @item.Name
-                                        </label>
-                                        </a>
-                                        </li>
-                                        }
-                                        </ul>*@
                                         <div id="cityDiv">
                                             <select asp-for="addCity" multiple asp-items="@Model.CityList" id="ddlcity"
                                                     placeholder="City"
@@ -343,24 +309,8 @@
                                 </ul>
 
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 cardcontainer19"
-                                    style="float: right;">
+                                    style="float: right;width:147px;">
                                     <li class="nav-item dropdown me-md-4">
-                                        @*<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        Country <i class="bi bi-chevron-down" style="font-size:12px;"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                        @foreach (var item in @Model.Countryes)
-                                        {
-                                        <li>
-                                        <a class="dropdown-item" href="#">
-                                        <label>
-                                        <input type="checkbox"> @item.Name
-                                        </label>
-                                        </a>
-                                        </li>
-                                        }
-                                        </ul>*@
                                         <div id="countryDiv">
                                             <select asp-for="addCountry" multiple asp-items="@Model.CountryList" id="ddlcountry"
                                                     placeholder="Country"
@@ -453,11 +403,11 @@
     <div id="PlaceHolderHere"></div>
     <div class="body-2" style="margin-top:35px;">
         <div class="container">
-            @if(pager.TotalPages > 0)
+            @if (pager.TotalPages > 0)
             {
                 <ul class="pagination justify-content-center">
 
-                    @if(pager.CurrentPage > 1)
+                    @if (pager.CurrentPage > 1)
                     {
                         <li class="page-item">
                             <a class="page-link" asp-controller="Plateform" asp-action="Plateform" asp-route-pg="1">First</a>
@@ -467,14 +417,14 @@
                         </li>
                     }
 
-                    @for(var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                    @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
                     {
                         <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
                             <a class="page-link" asp-controller="Plateform" asp-action="Plateform" asp-route-pg="@pge">@pge</a>
                         </li>
                     }
 
-                    @if(pager.CurrentPage < pager.TotalPages)
+                    @if (pager.CurrentPage < pager.TotalPages)
                     {
                         <li class="page-item">
                             <a class="page-link" asp-controller="Plateform" asp-action="Plateform" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
@@ -487,25 +437,7 @@
             }
 
         </div>
-        @*<nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item ">
-                    <a class="page-link cardcontainer17" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item "><a class="page-link cardcontainer17" href="#">1</a></li>
-                <li class="page-item "><a class="page-link cardcontainer17" href="#">2</a></li>
-                <li class="page-item "><a class="page-link cardcontainer17" href="#">3</a></li>
-                <li class="page-item "><a class="page-link cardcontainer17" href="#">4</a></li>
-                <li class="page-item "><a class="page-link cardcontainer17" href="#">5</a></li>
-                <li class="page-item ">
-                    <a class="page-link cardcontainer17" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>*@
+
     </div>
     <hr style="margin-top:35px;">
     <div class="body-2">

@@ -36,11 +36,6 @@ namespace CI_Plateform.Controllers
             plateformVM.Timesheets = _db.Timesheets.ToList();
 
             plateformVM.user = _db.Users.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("UserId")));
-           
-            /*var user = _db.Users.FirstOrDefault(u => u.UserId == id);
-            plateformVM.User = user;*/
-
-
 
             List <SelectListItem> list1 = new List<SelectListItem>();
             var temp1 = _db.Skills.ToList();
@@ -86,7 +81,7 @@ namespace CI_Plateform.Controllers
             /*return View(plateformVM);*/
 
             /*----------Pagenation--------------*/
-            const int pageSize = 3;
+            const int pageSize = 9;
 
             int recsCount = tempMission.Count();
             var pager = new Pager(recsCount, pg, pageSize);
@@ -249,7 +244,7 @@ namespace CI_Plateform.Controllers
 
 
             PlateformVM plateformVM = new PlateformVM();
-            const int pageSize = 3;
+            const int pageSize = 9;
 
             int recsCount = tempMission.Count();
             var pager = new Pager(recsCount, pg, pageSize);
@@ -330,13 +325,14 @@ namespace CI_Plateform.Controllers
             if (WorkerEmail != null)
             {
                 var mission = _db.Missions.FirstOrDefault(x => x.MissionId == model.MissionId);
+                var touser = _db.Users.FirstOrDefault(x => x.Email== WorkerEmail);
 
                 #region Send Mail
                 var mailBody = "<h1>" + HttpContext.Session.GetString("UserName") + " Suggest Mission : " + mission.Title + " to You</h1><br><h2><a href='https://localhost:44366/Plateform/ViewDetail?id= " + model.MissionId + "'>Go Website</a></h2>";
                                                                                                                                                                                                        
                 // create email message                                                                                                                         
                 var email = new MimeMessage();
-                email.From.Add(MailboxAddress.Parse("ritullimbasiya2002@gmail.com"));
+                email.From.Add(MailboxAddress.Parse("ritullimbasiya51@gmail.com"));
                 email.To.Add(MailboxAddress.Parse(WorkerEmail));
                 email.Subject = "Co-Worker Suggestion";
                 email.Body = new TextPart(TextFormat.Html) { Text = mailBody };
@@ -344,10 +340,19 @@ namespace CI_Plateform.Controllers
                 // send email
                 using var smtp = new SmtpClient();
                 smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-                smtp.Authenticate("ritullimbasiya2002@gmail.com", "wcpemmqowzjgydev");
+                smtp.Authenticate("ritullimbasiya51@gmail.com", "lhrqalaivabbhicg");
                 smtp.Send(email);
                 smtp.Disconnect(true);
                 #endregion Send Mail
+
+                var missioninvite = new MissionInvite();
+                missioninvite.MissionId = model.MissionId;
+                missioninvite.FromUserId = int.Parse(HttpContext.Session.GetString("UserId"));
+                missioninvite.ToUserId = touser.UserId;
+                missioninvite.CreatedAt = DateTime.Now;
+                _db.MissionInvites.Add(missioninvite);
+                _db.SaveChanges();
+
             }
 
             return RedirectToAction("Plateform", "Plateform");
@@ -424,12 +429,15 @@ namespace CI_Plateform.Controllers
         #region create new mission Card
         public MissionCardModel CreateCard(Mission item)
         {
+            var user1 = int.Parse(HttpContext.Session.GetString("UserId"));
             var card = new MissionCardModel();
             card.mission = item;
             card.timesheet = _db.Timesheets.FirstOrDefault(x => x.MissionId == item.MissionId);
             var img = _db.MissionMedia.FirstOrDefault(x => x.MissionId == item.MissionId);
             card.CardImg = img.MediaPath;
-            if (item.TotalSheet != 0)
+            card.seatsLeft = (int)(item.TotalSheet - (_db.MissionApplications.Where(x => x.MissionId == item.MissionId).Count()));
+
+            /*if (item.TotalSheet != 0)
             {
                 var vacancy = (int)(item.TotalSheet - (_db.MissionApplications.Where(x => x.MissionId == item.MissionId).Count()));
 
@@ -445,12 +453,19 @@ namespace CI_Plateform.Controllers
             else
             {
                 card.seatsLeft = 0;
-            }
+            }*/
             card.goalMission = _db.GoalMissions.FirstOrDefault(x => x.MissionId == item.MissionId);
+            if (card.goalMission != null)
+            {
+                float action = (float)_db.Timesheets.Where(x => x.MissionId == item.MissionId && x.DeletedAt == null).Select(x => x.Action).Sum();
+                float totalGoal = card.goalMission.GoalValue;
+                card.progressBar = (action * 100) / totalGoal;
+            }
+
             card.favouriteMission = _db.FavouriteMissions.FirstOrDefault(x => x.MissionId == item.MissionId && x.UserId == Int64.Parse(HttpContext.Session.GetString("UserId")) && x.DeletedAt == null) != null ? 1 : 0;
             card.theme = _db.MissionThemes.FirstOrDefault(x => x.MissionThemeId == item.MissionThemeId).Title;
             card.country = _db.Countries.FirstOrDefault(x => x.CountryId == item.CountryId).Name;
-            card.missionApplication = _db.MissionApplications.FirstOrDefault(x => x.MissionId == item.MissionId);
+            card.missionApplication = _db.MissionApplications.FirstOrDefault(x => x.MissionId == item.MissionId && x.UserId == user1);
 
             /*float totalRate = 0;
             float RateCount = 0;
@@ -563,7 +578,20 @@ namespace CI_Plateform.Controllers
 
             viewDetail.docs = _db.MissionDocuments.Where(x => x.MissionId == id && x.DeletedAt == null).AsEnumerable().ToList();
             viewDetail.relatedMission = relatedMissions((int)item.CityId, (int)item.CountryId, (int)item.MissionThemeId);
-
+            var com = _db.Comments.Where(x => x.MissionId == id).AsEnumerable().ToList();
+            var coms = new List<MissionCommentModel>();
+            foreach (var comment in com)
+            {
+                var temp1 = new MissionCommentModel();
+                var user = _db.Users.FirstOrDefault(x => x.UserId == comment.UserId);
+                temp1.commentText = comment.CommentText;
+                temp1.img = user.Avatar != null ? user.Avatar : "~/assets/volunteer4.png";
+                temp1.img = user.Avatar != null ? user.Avatar : "~/assets/volunteer4.png";
+                temp1.name = user.FirstName + " " + user.LastName;
+                temp1.createdAt = comment.CreatedAt;
+                coms.Add(temp1);
+            }
+            viewDetail.comments = coms;
 
             viewDetail.missionId = id;
             var rate = _db.MissionRatings.FirstOrDefault(x => x.UserId == viewDetail.user.UserId && x.MisssionId == id);
@@ -580,9 +608,26 @@ namespace CI_Plateform.Controllers
             viewDetail.avgRating = totalRate > 0 ? totalRate / RateCount : 0;
             viewDetail.ratingUserCount = (int)RateCount;
 
+            viewDetail.timesheet = _db.Timesheets.FirstOrDefault(x => x.MissionId == id);
+
             return View(viewDetail);
         }
         #endregion ViewDetail Page
+
+        #region Post Comment
+        [HttpPost]
+        public JsonResult PostComment(int id, string comment)
+        {
+            var com = new DbModels.Comment();
+            com.MissionId = id;
+            com.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
+            com.CommentText = comment;
+            com.ApprovalStatus = 1;
+            _db.Comments.Add(com);
+            _db.SaveChanges();
+            return Json("done");
+        }
+        #endregion Post Comment
 
         #region Rate Mission
         [HttpPost]

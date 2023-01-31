@@ -23,7 +23,7 @@ namespace CI_Plateform.Models
         public MissionDocument? missionDocument { get; set; } = null!;
         public List<string>? addSkill { get; set; }
         public Admin? admin { get; set; }
-
+        public ContactUs? contactUs { get; set; }
         public int UserId { get; set; }
         public string Password { get; set; }
 

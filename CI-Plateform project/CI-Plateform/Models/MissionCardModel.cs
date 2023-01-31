@@ -13,7 +13,8 @@ namespace CI_Plateform.Models
         public string theme { get; set; }
         public string country { get; set; }
         public User? user { get; set; }
-       // public FavouriteMission? FavoMission { get; set; } = null;
+        public float? progressBar { get; set; }
+        // public FavouriteMission? FavoMission { get; set; } = null;
         public MissionApplication? missionApplication { get; set; } = null;
         public float? avgRating { get; set; }
 

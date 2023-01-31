@@ -1,7 +1,11 @@
 ﻿using CI_Plateform.DbModels;
 using CI_Plateform.Models;
+using MailKit.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MimeKit.Text;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace CI_Plateform.Controllers
 {
@@ -156,6 +160,5 @@ namespace CI_Plateform.Controllers
         #endregion Add Skill
 
 
-       
     }
 }

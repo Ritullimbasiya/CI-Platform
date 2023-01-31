@@ -206,6 +206,10 @@ namespace CI_Plateform.DbModels
 
                 entity.Property(e => e.ApprovalStatus).HasColumnName("approval_status");
 
+                entity.Property(e => e.CommentText)
+                    .HasColumnType("text")
+                    .HasColumnName("comment_text");
+
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("created_at")

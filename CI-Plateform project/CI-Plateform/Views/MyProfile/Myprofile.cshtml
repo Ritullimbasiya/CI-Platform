@@ -11,13 +11,6 @@
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    @*<button type="button" data-bs-toggle="offcanvas" data-bs-target="#addmission"
-                    aria-controls="addmission"
-                    class="form-control rounded-pill btn btn-outline-warning font navbar-toggler"
-                    style="width:auto;font-size: 12px;margin-right: 16px;">
-                    Submit New Mission
-                    <i class="bi bi-arrow-right ps-1"></i>
-                    </button>*@
                     <div class="dropdown navbar-toggler" style="border:none;">
                         <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" style="float:right;">
@@ -53,13 +46,7 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                @*<button type="button" data-bs-toggle="offcanvas" data-bs-target="#addmission"
-                                aria-controls="addmission"
-                                class="form-control rounded-pill btn btn-outline-warning font"
-                                style="width:auto;font-size: 12px;margin-right: 16px;">
-                                Submit New Mission
-                                <i class="bi bi-arrow-right ps-1"></i>
-                                </button>*@
+
                                 <div class="dropdown">
                                     <a href="#" class="d-flex align-items-center text-black text-decoration-none"
                                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -87,10 +74,8 @@
 
 
             <div class="col-md-3 col-sm-12 ueditcontainer1">
-                @* <img src="~/assets/user-img.png" alt="Error"
-                style="width: 70px;height: 70px;border-radius: 100%;margin-top: 18px;">*@
                 <img src="@Url.Content(Model.User.Avatar)" alt="Error" style="width: 70px;height: 70px;border-radius: 100%;margin-top: 18px;">
-                <p style="font-size:10px;">@Model.User.FirstName   @Model.User.LastName </p>
+                <p style="font-size:10px;padding-top:10px;">@Model.User.FirstName   @Model.User.LastName </p>
             </div>
             <div class="col-md-9 col-sm-12">
                 <form class="pt-3" method="post" action="Myprofile">
@@ -126,11 +111,6 @@
                             <input type="email" asp-for="User.Email" id="email" name="User.Email" placeholder="Enter your email"
                                    class="sherescontainer1" required>
                         </div>
-                        @*<div class="col-md-6 col-sm-12" style="padding:0px 15px 0px 0px;">
-                        <label for="Manager">Manager</label><br>
-                        <input type="text" id="Manager" name="Manager" placeholder="Enter your manager details"
-                        class="sherescontainer1">
-                        </div>*@
                     </div>
                     <div class="row" style="margin:18px 0px;font-size: 10px;">
                         <div class="col-md-6 col-sm-12" style="padding:0px 15px 0px 0px;">
@@ -176,16 +156,6 @@
                     <hr>
                     <div class="row" style="margin:18px 0px;font-size: 10px;">
                         <div class="col-md-6 col-sm-12" style="padding:0px 15px 0px 0px;">
-                            @*<label for="Availablity">Availablity</label><br>
-                            <select name="Availablity" id="Availablity" aria-placeholder="Select your availablity"
-                            class="sherescontainer1">
-                            <option value="">Select your availablity</option>
-                            <option value="India">India</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Switzerland">Switzerland</option>
-                            <option value="Canada">Canada</option>
-                            <option value="Ireland">Ireland</option>
-                            </select>*@
                             <label asp-for="User.PhoneNumber">Phone number</label><br>
                             <input type="number" asp-for="User.PhoneNumber" id="phonenumber" name="User.PhoneNumber"
                                    placeholder="Enter your phonenumber" class="sherescontainer1" required>
@@ -212,12 +182,6 @@
                     <div class="row" style="margin:18px 0px;display:block;">
                         @*<button type="button" data-bs-toggle="offcanvas" data-bs-target="#addskills"
                         class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10">
-                        Add
-                        Skills
-                        </button>*@
-                        @*<button type="button" data-target="#addSkills"
-                        class="form-control rounded-pill btn btn-outline-secondary font  sherescontainer10"
-                        data-toggle="ajax-modal" data-url="@Url.Action("AddUserSkill")">
                         Add
                         Skills
                         </button>*@
@@ -250,68 +214,13 @@
             Contact
             Us
         </a>
+       @* <button class="link-dark border-0" data-target="#contactUs"
+                data-toggle="ajax-modal" data-url="@Url.Action("ContactUs")">
+            Contact Us
+        </button>*@
     </div>
 </div>
 
-<!-- *********************************************************** -->
-<!-- Add Skills -->
-
-
-<div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="addskills"
-     aria-labelledby="staticBackdropLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="staticBackdropLabel">Add your Skills</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <div>
-            @* <label for="">Skills</label>
-            <select class="sherescontainer1" id="ddlSkill" asp-for="User.CountryId" asp-items="@Model.SkillList" aria-label="Default select example">
-            <option class="sherescontainer1" selected>Select Country</option>
-            </select>
-
-            <span asp-validation-for="User.CountryId" class="text-danger"></span>*@
-            @foreach (var obj in Model.skll)
-            {
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="ddlskill">
-                    <label class="form-check-label" for="addSkill"></label>
-                </div>
-            }
-
-            @* <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Science">
-            <label class="form-check-label" for="Science">Science</label>
-            </div>
-            <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="History">
-            <label class="form-check-label" for="History">History</label>
-            </div>
-            <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Mathematics">
-            <label class="form-check-label" for="Mathematics">Mathematics</label>
-            </div>
-            <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Music">
-            <label class="form-check-label" for="Music">Music</label>
-            </div>
-            <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="Research">
-            <label class="form-check-label" for="Research">Research</label>
-            </div>*@
-        </div>
-        <div class="row" style="margin:18px 0px;display:block;">
-            <button type="button"
-                    class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
-                cancel
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                    style="width:auto;font-size: 12px;">
-                Save
-            </button>
-        </div>
-    </div>
-</div>
 
 <!-- *********************************************************** -->
 <!-- Change password -->
@@ -350,7 +259,6 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
     function Validate() {
         var password = document.getElementById("txtPassword").value;
@@ -367,7 +275,6 @@
 }
 }
 
-
 <!-- ******************************************************************** -->
 <!-- Contect Us -->
 <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="contactus"
@@ -377,39 +284,41 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <div>
-            <div class="row" style="margin:18px 0px;font-size: 12px;">
-                <label for="name">Name*</label><br>
-                <input type="text" id="name" name="name" placeholder="Ritul limbasiya" class="sherescontainer1"
-                       required>
+        <form method="post" action="ContactUs">
+            <div>
+                <div class="row" style="margin:18px 0px;font-size: 12px;">
+                    <label asp-for="contactUs.UserName">Name*</label><br>
+                    <input type="text" style="background-color: #e5d7d7;" asp-for="contactUs.UserName" name="name" placeholder="@Model.User.FirstName  @Model.User.LastName" class="sherescontainer1"
+                           readonly>
+                </div>
+                <div class="row" style="margin:18px 0px;font-size: 12px;">
+                    <label asp-for="contactUs.UserEmail">Email*</label><br>
+                    <input type="email" style="background-color: #e5d7d7;" asp-for="contactUs.UserEmail" name="email" placeholder="@Model.User.Email" class="sherescontainer1"
+                           readonly>
+                </div>
+                <div class="row" style="margin:18px 0px;font-size: 12px;">
+                    <label asp-for="contactUs.Subject">Subject*</label><br>
+                    <input type="text" asp-for="contactUs.Subject" name="subject" placeholder="Enter your Subject"
+                           class="sherescontainer1" required>
+                </div>
+                <div class="row" style="margin:18px 0px;font-size: 12px;">
+                    <label asp-for="contactUs.Message" style="padding:0px;">Message*</label><br>
+                    <textarea asp-for="contactUs.Message" name="Message*" placeholder="Enter your Message..."
+                              style="width:100%;height:100px;border: 1px solid #d9d9d9;box-shadow: none;resize: none;"
+                              required></textarea>
+                </div>
             </div>
-            <div class="row" style="margin:18px 0px;font-size: 12px;">
-                <label for="email">Email*</label><br>
-                <input type="email" id="email" name="email" placeholder="ritul@gmail.com" class="sherescontainer1"
-                       required>
+            <div class="row" style="margin:18px 0px;display:block;text-align: end;">
+                <button type="submit"
+                        class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
+                    cancel
+                </button>
+                <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                        style="width:auto;font-size: 12px;">
+                    Save
+                </button>
             </div>
-            <div class="row" style="margin:18px 0px;font-size: 12px;">
-                <label for="subject">Subject*</label><br>
-                <input type="text" id="subject" name="subject" placeholder="Enter your Subject"
-                       class="sherescontainer1" required>
-            </div>
-            <div class="row" style="margin:18px 0px;font-size: 12px;">
-                <label for="Message*" style="padding:0px;">Message*</label><br>
-                <textarea id="Message*" name="Message*" placeholder="Enter your Message..."
-                          style="width:100%;height:100px;border: 1px solid #d9d9d9;box-shadow: none;resize: none;"
-                          required></textarea>
-            </div>
-        </div>
-        <div class="row" style="margin:18px 0px;display:block;text-align: end;">
-            <button type="submit"
-                    class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
-                cancel
-            </button>
-            <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
-                    style="width:auto;font-size: 12px;">
-                Save
-            </button>
-        </div>
+        </form>
     </div>
 </div>
 <!-- ******************************** -->
@@ -560,3 +469,62 @@
 </div>
 
 <!-- ********************************* -->
+<!-- Add Skills -->
+
+<div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="addskills"
+     aria-labelledby="staticBackdropLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="staticBackdropLabel">Add your Skills</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div>
+            @* <label for="">Skills</label>
+            <select class="sherescontainer1" id="ddlSkill" asp-for="User.CountryId" asp-items="@Model.SkillList" aria-label="Default select example">
+            <option class="sherescontainer1" selected>Select Country</option>
+            </select>
+
+            <span asp-validation-for="User.CountryId" class="text-danger"></span>*@
+            @foreach (var obj in Model.skll)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="ddlskill">
+                    <label class="form-check-label" for="addSkill"></label>
+                </div>
+            }
+
+            @* <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="Science">
+            <label class="form-check-label" for="Science">Science</label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="History">
+            <label class="form-check-label" for="History">History</label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="Mathematics">
+            <label class="form-check-label" for="Mathematics">Mathematics</label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="Music">
+            <label class="form-check-label" for="Music">Music</label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="Research">
+            <label class="form-check-label" for="Research">Research</label>
+            </div>*@
+        </div>
+        <div class="row" style="margin:18px 0px;display:block;">
+            <button type="button"
+                    class="form-control rounded-pill btn btn-outline-black font  sherescontainer10">
+                cancel
+            </button>
+            <button type="submit" class="form-control rounded-pill btn btn-outline-warning font"
+                    style="width:auto;font-size: 12px;">
+                Save
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- *********************************************************** -->

@@ -14,6 +14,7 @@ namespace CI_Plateform.Models
         public List<MissionCommentModel>? comments { get; set; }
         public List<Mission>? Missions { get; set; } = null!;
         public User? user { get; set; }
+        public Timesheet? timesheet { get; set; }
         public int? missionId { get; set; }
         public int? myRating { get; set; }
         public float? avgRating { get; set; }

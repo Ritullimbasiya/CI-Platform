@@ -39,6 +39,40 @@
     });
 </script>
 
+<script>
+    $(function () {
+        var PlaceHolderElement = $('#PlaceHolderHere');
+        $('button[data-toggle="ajax-modal"]').click(function (event) {
+            var url = $(this).data('url');
+            var decodeUrl = decodeURIComponent(url);
+            console.log(url);
+            $.get(decodeUrl).done(function (data) {
+                PlaceHolderElement.html(data);
+                PlaceHolderElement.find('.modal').modal('show');
+            })
+        })
+        PlaceHolderElement.on('click', '[data-bs-save="modal"]', function (event) {
+            var formData = new FormData($('#modalForm').get(0));
+            var form = $(this).parents('.modal').find('form');
+            var actionUrl = form.attr('action');
+            $.ajax({
+                url: "/StoryListing/" + actionUrl,
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (data) {
+                    PlaceHolderElement.find('.modal').modal('hide');
+                }
+            })
+            PlaceHolderElement.find('.modal').modal('hide');
+        })
+    })
+
+</script>
+
+
 <div class="body-1">
     <div class="body-2">
         <div class="nevbar-1" style="height:43px;">
@@ -113,31 +147,28 @@
     <div class="body-2">
         <div class="row  container25" style="margin:0px;">
             <div class="col-6 container26" style="padding:0px;">
-                @* <img src="~/assets/image2.png" alt="Error" style="width:100%;">
-                *@
                 <display>
                     <img style="width: 100%;object-fit: cover;" id="demo" src="@Url.Content(Model.imgs[0].Path)" alt="Error">
                    @* <img style="width: 100%;object-fit: cover;" id="demo" src="@Url.Content(Model.imgs[0].MediaPath)" alt="error">*@
                 </display>
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="row sliderNav" style="margin:0px;">
-
-                            @foreach (var item in Model.imgs)
-                            {
-                                <div class="col-2 container20">
-                                    <img class="slide d-block w-100" src="@Url.Content(item.Path)" alt="error">
-                                </div>
-                            }
+                
+                <link rel="stylesheet" href="~/css/slider.css" />
+                <div class="sliderNav p-0">
+                    @foreach (var item in Model.imgs)
+                    {
+                        <div>
+                            <img class="slide" src="@Url.Content(item.Path)" alt="can't rendor">
                         </div>
-                    </div>
-                    <button onclick="goPrev()" class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"
-                            style="background-color: black; width: 10px;">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    }
+                    <button onclick="goPrev()" style="width: 6px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="left:-3px;position: absolute;" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                        </svg>
                     </button>
-                    <button onclick="goNext()" class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
-                            style="background-color: black; width: 10px;">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <button onclick="goNext()" style="right:0px">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="right: -3px;position: absolute;" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
                     </button>
                     <script>
                         $("img.slide").on('click', function (event) {
@@ -147,56 +178,6 @@
                         });
                     </script>
                 </div>
-
-
-                @*<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                <div class="carousel-item active">
-                <div class="row" style="margin:0px;">
-                <div class="col container20">
-                <img class="d-block w-100"
-                src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (2).png"
-                alt="First slide">
-                </div>
-                <div class="col container20">
-                <img class="d-block w-100"
-                src="~/assets/slide img/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
-                alt="First slide">
-                </div>
-                <div class="col container20">
-                <img class="d-block w-100"
-                src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (4).png"
-                alt="First slide">
-                </div>
-                <div class="col container20">
-                <img class="d-block w-100"
-                src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy (5).png"
-                alt="First slide">
-                </div>
-                <div class="col container20">
-                <img class="d-block w-100"
-                src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6 - Copy.png"
-                alt="First slide">
-                </div>
-                <div class="col container20">
-                <img class="d-block w-100"
-                src="~/assets/slide img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png"
-                alt="First slide">
-                </div>
-                </div>
-                </div>
-
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"
-                style="background-color: black; width: 15px;">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
-                style="background-color: black; width: 15px;">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </a>
-                </div>
-                *@
             </div>
             <div class="col-6 container26" style="padding:0px;">
                 <div class="body-5">
@@ -220,11 +201,16 @@
 
                     <div class="row pad5">
                         <div class="col mb-3">
-                            <button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
+                            @*<button type="submit" class="form-control rounded-pill btn btn-outline-secondary font"
                                     style="width: auto;font-size: 10px;">
                                 <i class="bi bi-people pe-1"></i>Recommend to a
                                 Co-Worker
+                            </button>*@
+                            <button type="button" data-toggle="ajax-modal" data-target="#SuggestWorker" style="width: auto;font-size: 10px;"
+                                    class="form-control rounded-pill btn btn-outline-secondary font mt-2" data-url="@Url.Action("SuggestCoWorker", "StoryListing" , new{id = Model.story.StoryId})">
+                                <i class="bi bi-person-plus"></i>Recommend to a Co-Worker
                             </button>
+                            <div id="PlaceHolderHere"></div>
                         </div>
                         <form method="post" action="ViewDetail">
                             @foreach (var obj in @Model.Missions)

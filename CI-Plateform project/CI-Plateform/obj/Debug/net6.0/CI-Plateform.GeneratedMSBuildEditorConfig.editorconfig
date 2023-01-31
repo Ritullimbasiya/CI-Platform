@@ -108,10 +108,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/Login/Lost.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9zdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/Login/LostPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9zdFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -122,10 +118,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/Login/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cUmVnaXN0ZXIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/Login/Reset.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cUmVzZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/Login/ResetPassword.cshtml]
@@ -178,6 +170,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/StoryListing/StoryListing.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcnlMaXN0aW5nXFN0b3J5TGlzdGluZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/StoryListing/_CoWorkerPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcnlMaXN0aW5nXF9Db1dvcmtlclBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Ritul Limbasiya/Desktop/Tatvasoft code/zeplin Backend new/Dummy 2/CI-Plateform project/CI-Plateform/Views/StoryListing/_StoryGridPartial.cshtml]

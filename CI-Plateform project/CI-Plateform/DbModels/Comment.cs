@@ -8,6 +8,7 @@ namespace CI_Plateform.DbModels
         public long CommentId { get; set; }
         public long UserId { get; set; }
         public long MissionId { get; set; }
+        public string CommentText { get; set; } = null!;
         public int ApprovalStatus { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

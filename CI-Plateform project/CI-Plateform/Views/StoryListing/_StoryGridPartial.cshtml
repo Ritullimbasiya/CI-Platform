@@ -1,6 +1,13 @@
 ﻿@using CI_Plateform.Models;
 @model List<StoryCardModel>
 
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+
+
+
+
 <div class="row">
     @foreach (var card in @Model)
     {
@@ -30,7 +37,6 @@
                 </div>
                 
                 <div class="card-body" style="display: flex;">
-                    @*<img class="listcontainer4" src="~/assets/volunteer1.png" alt="Error">*@
                     <img class="listcontainer4" src="@Url.Content(card.Userimg)" alt="Error">
                     <p style="font-size: 11px;padding-top: 12px;margin-left:6px;">@card.user.FirstName</p>
                 </div>
@@ -38,37 +44,5 @@
             </div>
         </div>
     }
-    @*<div class="row" style="margin-top:24px;">
-        <div class="col-md-4 col-sm-12 imghover" style="padding: 0px 20px 12px 4px;">
-            <div class="card h-100 shadow">
-                <div class="cardcontainer11">
-                    <img src="~/assets/Grow-Trees-On-the-path-to-environment-sustainability.png"
-                         class="card-img-top" alt="Error">
-                    <div class="listcontaier5">
-                        <div class="card-body" style="text-align:center;padding:18%;">
-                            <button class="listcontainer3" type="submit">
-                                View details
-                                <i class="bi bi-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <button class="cardcontainer15">
-                        Environment
-                    </button>
-                </div>
-                <div class="card-body" style="margin-bottom:-15px;position: relative;">
-                    <h4 style="font-size:15px;">Grow Trees – On the path to environment sustainability</h4>
-                    <p style="font-size:12px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                        doeiusmod tempor incididunt ut labore...
-                    </p>
-                </div>
-                <div class="card-body" style="display: flex;">
-                    <img class="listcontainer4" src="~/assets/volunteer1.png" alt="Error">
-                    <p style="font-size: 11px;padding-top: 12px;margin-left:6px;">Andrew Johnson</p>
-                </div>
-            </div>
-        </div>
-        
-    </div>*@
+    
 </div>

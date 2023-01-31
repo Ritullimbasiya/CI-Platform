@@ -26,7 +26,7 @@ namespace CI_Plateform.Controllers
             return View(user);
         }
         [HttpGet]
-        public IActionResult aUseradd(int id = 0)
+        public IActionResult aUseradd()
         {
             UserVm userVM = new UserVm();
             List<SelectListItem> list = new List<SelectListItem>();
@@ -129,13 +129,75 @@ namespace CI_Plateform.Controllers
         }
         public IActionResult aUserdelete(int? id)
         {
+            _db.FavouriteMissions.RemoveRange(_db.FavouriteMissions.Where(x => x.UserId == id));
+            _db.MissionInvites.RemoveRange(_db.MissionInvites.Where(x => x.ToUserId == id));
+            _db.UserSkills.RemoveRange(_db.UserSkills.Where(x => x.UserId == id));
+            _db.MissionRatings.RemoveRange(_db.MissionRatings.Where(x => x.UserId == id));
+            _db.Comments.RemoveRange(_db.Comments.Where(x => x.UserId == id));
+
+            /*var fevouser = _db.FavouriteMissions.Where(x => x.UserId == id).ToList();
+            foreach(var obj in fevouser)
+            {
+                if (obj != null)
+                {
+                    _db.FavouriteMissions.Remove(obj);
+                    _db.SaveChanges();
+                }
+            }
+            var invite = _db.MissionInvites.Where(x => x.ToUserId == id).ToList();
+            foreach (var obj in invite)
+            {
+                if (obj != null)
+                {
+                    _db.MissionInvites.Remove(obj);
+                    _db.SaveChanges();
+                }
+            }
+            var userSkill = _db.UserSkills.Where(x => x.UserId == id).ToList();
+            foreach (var obj in userSkill)
+            {
+                if (obj != null)
+                {
+                    _db.UserSkills.Remove(obj);
+                    _db.SaveChanges();
+                }
+            }
+            var rating = _db.MissionRatings.Where(x => x.UserId == id).ToList();
+            foreach(var obj in rating)
+            {
+                if(obj != null)
+                {
+                    _db.MissionRatings.Remove(obj);
+                    _db.SaveChanges();
+                }
+            }
+            var timesheet = _db.Timesheets.Where(x => x.UserId == id).ToList();
+            foreach (var obj in timesheet)
+            {
+                if (obj != null)
+                {
+                    _db.Timesheets.Remove(obj);
+                    _db.SaveChanges();
+                }
+            }
+           
+            var comment = _db.Comments.Where(x => x.UserId == id).ToList();
+            foreach (var obj in comment)
+            {
+                if (obj != null)
+                {
+                    _db.Comments.Remove(obj);
+                    _db.SaveChanges();
+                }
+            }*/
+
             var user = _db.Users.FirstOrDefault(x => x.UserId == id);
             if (user == null)
             {
                 return NotFound();
             }
-            user.DeletedAt = DateTime.Now;
             _db.Users.Remove(user);
+            
             _db.SaveChanges();
             return RedirectToAction("aUser", "Admin");
         }
@@ -320,7 +382,7 @@ namespace CI_Plateform.Controllers
                         document.DocumentName = doc.FileName;
                         document.DocumentType = Path.GetExtension(doc.FileName);
                         document.DocumentName = saveImg(doc, "MissionDocument");
-                        /*document.DocumentPath = @"Images\MissionDoc\" + document.DocumentName + "." + document.DocumentType;*/
+                        document.DocumentPath = @"Images\MissionDoc\" + document.DocumentName + "." + document.DocumentType;
                         document.CreatedAt = DateTime.Now;
                         _db.MissionDocuments.Add(document);
                         _db.SaveChanges();
@@ -487,6 +549,21 @@ namespace CI_Plateform.Controllers
                     _db.MissionDocuments.RemoveRange(_db.MissionDocuments.Where(x => x.MissionId == id));
                     _db.MissionMedia.RemoveRange(_db.MissionMedia.Where(x => x.MissionId == id));
                     _db.Timesheets.RemoveRange(_db.Timesheets.Where(x => x.MissionId == id));
+                    _db.MissionRatings.RemoveRange(_db.MissionRatings.Where(x => x.MisssionId == id));
+                    _db.MissionApplications.RemoveRange(_db.MissionApplications.Where(x => x.MissionId == id));
+                    _db.FavouriteMissions.RemoveRange(_db.FavouriteMissions.Where(x => x.MissionId == id));
+                    _db.Comments.RemoveRange(_db.Comments.Where(x => x.MissionId == id));
+
+                    var storiess = _db.Stories.Where(x => x.MissionId == id).ToList();
+                    foreach (var obj in storiess)
+                    {
+                        if (obj != null)
+                        {
+                            _db.StoryMedia.RemoveRange(_db.StoryMedia.Where(x => x.StoryId == obj.StoryId));
+                        }
+                        _db.Stories.Remove(obj);
+                        _db.SaveChanges();
+                    }
 
                     var temp = _db.GoalMissions.FirstOrDefault(x => x.MissionId == id);
                     _db.GoalMissions.Remove(temp);
@@ -496,6 +573,21 @@ namespace CI_Plateform.Controllers
                 _db.MissionDocuments.RemoveRange(_db.MissionDocuments.Where(x => x.MissionId == id));
                 _db.MissionMedia.RemoveRange(_db.MissionMedia.Where(x => x.MissionId == id));
                 _db.Timesheets.RemoveRange(_db.Timesheets.Where(x => x.MissionId == id));
+                _db.MissionRatings.RemoveRange(_db.MissionRatings.Where(x => x.MisssionId == id));
+                _db.MissionApplications.RemoveRange(_db.MissionApplications.Where(x => x.MissionId == id));
+                _db.FavouriteMissions.RemoveRange(_db.FavouriteMissions.Where(x => x.MissionId == id));
+                _db.Comments.RemoveRange(_db.Comments.Where(x => x.MissionId == id));
+
+                var stories = _db.Stories.Where(x => x.MissionId == id).ToList();
+                foreach(var obj in stories)
+                {
+                    if(obj != null)
+                    {
+                        _db.StoryMedia.RemoveRange(_db.StoryMedia.Where(x => x.StoryId == obj.StoryId));
+                    }
+                    _db.Stories.Remove(obj);
+                    _db.SaveChanges();
+                }
 
                 mission.DeletedAt = DateTime.Now;
                 _db.Missions.Remove(mission);
@@ -710,6 +802,9 @@ namespace CI_Plateform.Controllers
         public IActionResult aStorydetaildelete(int? id)
         {
             var obj = _db.Stories.FirstOrDefault(x => x.StoryId == id);
+            _db.StoryMedia.RemoveRange(_db.StoryMedia.Where(x => x.StoryId == id));
+            _db.StoryInvites.RemoveRange(_db.StoryInvites.Where(x => x.StoryId == id));
+
             _db.Stories.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("aStorydetail", "Admin");

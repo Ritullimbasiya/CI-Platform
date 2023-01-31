@@ -2,7 +2,7 @@
 @model List<MissionCardModel>
 
 <script>
-        $(function () {
+    $(function () {
         var PlaceHolderElement = $('#PlaceHolderHere');
         $('button[data-toggle="ajax-modal"]').click(function (event) {
             var url = $(this).data('url');
@@ -43,12 +43,17 @@
                 <div class="card h-100 shadow">
                     <div class="cardcontainer11">
                         <img src="@Url.Content(@card.CardImg)" class="card-img-top" alt="Error" style="height: 161px;">
-                        @*<img src="~/assets/Animal-welfare-&-save-birds-campaign.png" class="card-img-top" alt="Error">
-*@
+                       
                         @if (card.missionApplication != null)
                         {
                             <button class="cardcontainer122">
                                 <span>Applyed</span>
+                            </button>
+                        }
+                        @if (card.mission.Deadline <= DateTime.Now)
+                        {
+                            <button class="cardcontainer1222">
+                                <span>Closed</span>
                             </button>
                         }
                         <button class="cardcontainer12">
@@ -81,18 +86,18 @@
                 </button>
                 }*@
 
-                        
-                        <button type="button" data-toggle="ajax-modal" data-target="#SuggestWorker" 
+
+                        <button type="button" data-toggle="ajax-modal" data-target="#SuggestWorker"
                         class="cardcontainer14" data-url="@Url.Action("SuggestCoWorker", "Plateform" , new{id = card.mission.MissionId})">
                             <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
-                    </button>
-                        
+                        </button>
+
 
                         <button class="cardcontainer15">
                             @card.theme
                         </button>
                     </div>
-                   
+
                     <div class="card-body" style="margin-bottom:-15px;position: relative;">
                         <p class="card-title">@card.mission.Title</p>
                         <p class="card-text">
@@ -131,20 +136,47 @@
                                         <div class="cardcontainer6">
                                             <img class="cardcontainer3" src="~/assets/achieved.png" alt="Error">
                                             <div class="cardcontainer7" style="width:60%;">
-                                                <div class="progress cardcontainer8"
+
+                                                @if (card.timesheet == null)
+                                                {
+                                                    <div class="progress cardcontainer8"
                                              style="width:auto;height: 8px;">
-                                                    @if (card.mission.MissionId == card.timesheet.MissionId)
+                                                        <div class="progress-bar bg-warning" role="progressbar"
+                                                 aria-label="Warning example" style="width:0"
+                                                 aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                                        </div>
+                                                    </div>
+                                                    @if (@card.mission.MissionId == @card.goalMission.MissionId)
                                                     {
+                                                        <p class="cardcontainer9">0 achieved</p>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    @*<div class="progress cardcontainer8"
+                                             style="width:auto;height: 8px;">
                                                         <div class="progress-bar bg-warning" role="progressbar"
                                                  aria-label="Warning example" style="width:@((@card.timesheet.Action * 100)/card.goalMission.GoalValue)%"
                                                  aria-valuenow="@card.timesheet.Action%" aria-valuemin="0" aria-valuemax="100">
                                                         </div>
+                                                    </div>
+                                                    @if (@card.mission.MissionId == @card.goalMission.MissionId)
+                                                    {
+                                                        <p class="cardcontainer9">@card.timesheet.Action achieved</p>
+                                                    }*@
+                                                    <div class="progress cardcontainer8"
+                                             style="width:auto;height: 8px;">
+                                                        <div class="progress-bar bg-warning" role="progressbar"
+                                                 aria-label="Warning example" style="width:@card.progressBar%"
+                                                 aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                                        </div>
+                                                    </div>
+                                                    @if (@card.mission.MissionId == @card.goalMission.MissionId)
+                                                    {
+                                                        <p class="cardcontainer9"> @((card.progressBar * card.goalMission.GoalValue) / 100) achieved</p>
                                                     }
-                                                </div>
-                                                @if (@card.mission.MissionId == @card.goalMission.MissionId)
-                                                {
-                                                    <p class="cardcontainer9">@card.timesheet.Action achieved</p>
                                                 }
+                                                @*</div>*@
                                             </div>
                                         </div>
                                     </div>
@@ -154,7 +186,7 @@
                     </ul>
                     <hr style="margin-top:0px; margin-bottom:0px;">
                     <div class="card-body" style="text-align:center;">
-                        @if (card.missionApplication == null)
+                        @if (card.missionApplication == null && card.mission.MissionType == 2 && card.seatsLeft > 0 && card.progressBar < 100)
                         {
                             <button type="button" onclick="ApplyMission(@card.mission.MissionId)" class="form-control rounded-pill btn btn-outline-warning font"
                         style="width:auto;font-size: 12px;">
@@ -221,9 +253,6 @@
                 </button>
                 }*@
 
-                       @* <button class="cardcontainer14">
-                            <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
-                        </button>*@
                         <button type="button" data-toggle="ajax-modal" data-target="#SuggestWorker"
                         class="cardcontainer14" data-url="@Url.Action("SuggestCoWorker", "Plateform" , new{id = card.mission.MissionId})">
                             <img src="~/assets/user.png" alt="Error" style="width:11px; padding-bottom: 6px;">
@@ -240,11 +269,6 @@
                         <div class="cardcontainer1" style="display:flex;align-items:baseline;">
                             <p class="cardcontainer2">@card.mission.OrganizationName</p>
                             <div style="margin-left: auto;">
-                                @*<img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                <img class="cardcontainer3" src="~/assets/selected-star.png" alt="Error">
-                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">
-                                <img class="cardcontainer3" src="~/assets/star.png" alt="Error">*@
                                 <div class="Stars" style="--rating: @card.avgRating;"></div>
                             </div>
                         </div>
@@ -283,20 +307,18 @@
                     </ul>
                     <hr style="margin-top:0px; margin-bottom:0px;">
                     <div class="card-body" style="text-align:center;">
-                        
-                        @if (card.missionApplication != null && card.mission.Deadline >= DateTime.Now || card.mission.Deadline <= DateTime.Now || card.mission.TotalSheet == 0)
-                        {
-                            <button type="button" onclick="return location.href=' @Url.Action("ViewDetail","Plateform",new {id=@card.mission.MissionId}) '" class="form-control rounded-pill btn btn-outline-warning font"
-                        style="width:auto;font-size: 12px;">
-                                View Detail <i class="bi bi-arrow-right"></i>
-                            </button>
-                        }
-                        @*@if (card.missionApplication == null)*@
-                        else
+                        @if (card.missionApplication == null && card.seatsLeft > 0 && card.mission.Deadline >= DateTime.Now)
                         {
                             <button type="button" onclick="ApplyMission(@card.mission.MissionId)" class="form-control rounded-pill btn btn-outline-warning font"
                         style="width:auto;font-size: 12px;">
                                 Apply <i class="bi bi-arrow-right"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" onclick="return location.href=' @Url.Action("ViewDetail","Plateform",new {id=@card.mission.MissionId}) '" class="form-control rounded-pill btn btn-outline-warning font"
+                        style="width:auto;font-size: 12px;">
+                                View Detail <i class="bi bi-arrow-right"></i>
                             </button>
                         }
                     </div>

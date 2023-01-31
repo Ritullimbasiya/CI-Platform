@@ -1,5 +1,6 @@
 ﻿using CI_Plateform.DbModels;
 using CI_Plateform.Models;
+using DocumentFormat.OpenXml.Bibliography;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.AspNetCore.Mvc;
@@ -44,13 +45,12 @@ namespace CI_Plateform.Controllers
                  }*/
                 HttpContext.Session.SetString("UserId", user.UserId.ToString());
                 HttpContext.Session.SetString("UserName", user.FirstName);
-
-                /*var id = user.UserId;*/
-
+                TempData["Done"] = "Login Successfully";
                 return RedirectToAction("Plateform", "Plateform");
             }
             else
             {
+                TempData["Error"] = "Invalid User";
                 return RedirectToAction("Login", "Login");
             }
 
@@ -62,6 +62,7 @@ namespace CI_Plateform.Controllers
         {
             HttpContext.Session.SetString("UserId", "");
             HttpContext.Session.SetString("UserName", "");
+            TempData["Done"] = "Logout Successfully";
             return RedirectToAction("Login", "Login");
         }
 
@@ -86,6 +87,7 @@ namespace CI_Plateform.Controllers
                 _db.Users.Add(user1);
                 _db.SaveChanges();
             }
+            TempData["Done"] = "Register Successfully";
 
             return RedirectToAction("Login", "Login");
         }
@@ -100,7 +102,6 @@ namespace CI_Plateform.Controllers
             loginViewModel.banner = _db.Banners.ToList();
             return View(loginViewModel);
         }
-
         [HttpPost]
         public IActionResult LostPassword(LoginViewModel model)
         {
@@ -116,9 +117,7 @@ namespace CI_Plateform.Controllers
                 var encryptedId = Convert.ToBase64String(Encoding.ASCII.GetBytes(user.UserId.ToString()));
                 return RedirectToAction("ResetPassword", "Login", new { id = encryptedId });
             }
-
         }
-        
         #endregion
 
         #region ResetPassword
@@ -128,7 +127,6 @@ namespace CI_Plateform.Controllers
             loginViewModel.banner = _db.Banners.ToList();
             return View(loginViewModel);
         }
-
         [HttpPost]
         public IActionResult ResetPassword(LoginViewModel model, string id)
         {
@@ -140,8 +138,6 @@ namespace CI_Plateform.Controllers
 
             return RedirectToAction("Login", "Login");
         }
-
-
         #endregion*/
 
         #region Lost 
@@ -184,7 +180,7 @@ namespace CI_Plateform.Controllers
 
             // Create Email
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("pdparmar91@gmail.com"));
+            email.From.Add(MailboxAddress.Parse("ritullimbasiya51@gmail.com"));
             email.To.Add(MailboxAddress.Parse(user.Email));
             email.Subject = "Reset Your Password";
             email.Body = new TextPart(TextFormat.Html) { Text = mailBody };
@@ -192,17 +188,14 @@ namespace CI_Plateform.Controllers
             //  Send Email  
             using var smtp = new SmtpClient();
             smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-            smtp.Authenticate("pdparmar91@gmail.com", "unmrlfscedyndpvl");
-            smtp.Send(email)
-;
+            smtp.Authenticate("ritullimbasiya51@gmail.com", "lhrqalaivabbhicg");
+            smtp.Send(email);
             smtp.Disconnect(true);
 
             TempData["Done"] = "Check your Mail for Password Link.";
             return RedirectToAction("Login", "Login");
         }
         #endregion
-
-
 
         #region Reset
         [HttpGet]

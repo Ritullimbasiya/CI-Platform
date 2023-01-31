@@ -1,6 +1,25 @@
 ﻿@using CI_Plateform.Models
 @model LoginViewModel
 
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+@if (TempData["Error"] != null)
+{
+    <script>
+        toastr.error('@TempData["Error"]');
+    </script>
+}
+@if (TempData["Done"] != null)
+{
+    <script>
+        toastr.success('@TempData["Done"]');
+    </script>
+}
+
 <div class="container container-fluid m-0 p-0">
     <div class="row">
         <div class="col-md-8 col-sm-12">

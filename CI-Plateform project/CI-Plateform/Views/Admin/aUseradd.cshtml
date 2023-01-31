@@ -218,7 +218,9 @@
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="User.LinkedInUrl">Linked in URL</label><br>
                         <input type="url" asp-for="User.LinkedInUrl" id="liu" name="User.LinkedInUrl" placeholder="Enter your linked in URL"
-                               class="sherescontainer1" required>
+                               class="sherescontainer1" >
+                        <span asp-validation-for="User.LinkedInUrl" class="text-danger" style="font-size:12px;"></span>
+
                     </div>
                     <div class="col-md-6 col-sm-12 mt-2" style="padding:0px 15px 0px 0px;">
                         <label asp-for="User.Title">Title</label><br>
